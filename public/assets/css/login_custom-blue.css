@@ -1,0 +1,19 @@
+.nav-tabs {
+    border-bottom: 1px solid #17a2b8;
+}
+.card-title {
+    float: left;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: -13px;
+}
+
+a.nav-link {
+    color: #fff !important;
+    text-decoration: none;
+}
+
+a.nav-link.active {
+    color: #000 !important;
+    text-decoration: none;
+}

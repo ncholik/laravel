@@ -1,0 +1,90 @@
+.wrapper .content-wrapper {
+    background: linear-gradient(
+        to bottom,        
+        #b2ddf7 0px,
+        #b2ddf7 200px,
+        #eff7fc 0%,
+        #eff7fc 100%
+    );
+}
+.navbar-blue {
+    background-color: #b2ddf7!important;
+    color: #212529;
+}
+.brand-link {
+	background-color: #ffffff!important;
+}
+[class*=sidebar-light] .brand-link {
+    border-bottom: 1px solid #ffffff;
+}
+
+.bg-primary {
+    background-color: #b2ddf7!important;
+    color:#212529!important;
+}
+
+.bg-primary, .bg-primary>a {
+    color:#212529!important;
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: #f6f9fc!important;
+    color: #28a3eb;
+}
+
+.card-danger:not(.card-outline)>.card-header {
+    background-color: #b2ddf7;
+}
+
+[class*=sidebar-light] .brand-link, [class*=sidebar-light] .brand-link .pushmenu {
+    color: #212529;
+}
+
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: #eff7fc;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #212529;
+}
+
+.brand-link {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 0.8125rem 0.5rem;
+    transition: width .3s ease-in-out;
+    white-space: nowrap;
+}
+
+.nav-sidebar>.nav-item .nav-icon.fa, .nav-sidebar>.nav-item .nav-icon.fab, .nav-sidebar>.nav-item .nav-icon.fad, .nav-sidebar>.nav-item .nav-icon.fal, .nav-sidebar>.nav-item .nav-icon.far, .nav-sidebar>.nav-item .nav-icon.fas, .nav-sidebar>.nav-item .nav-icon.ion, .nav-sidebar>.nav-item .nav-icon.svg-inline--fa {
+    font-size: 0.9rem;
+}
+
+[class*=sidebar-light] .user-panel {
+    border-bottom: 1px solid #ffffff;
+}
+
+.sidebar-collapse .brand-link {
+    display: inline-block; 
+    position: relative; 
+    width: 50px; 
+    height: 50px; 
+    overflow: hidden; 
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius:50%
+}
+
+.sidebar-collapse .brand-link .brand-image {
+    width: auto; height: 100%; margin-left: 14px;
+}
+
+.main-header {
+    border-bottom: 0px solid #dee2e6;
+    z-index: 1034;
+}
+.main-footer {
+    font-size: 11px;
+}

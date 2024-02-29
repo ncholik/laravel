@@ -1,0 +1,49 @@
+.nav-tabs {
+    border-bottom: 1px solid #17a2b8;
+}
+.card-title {
+    float: left;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: -13px;
+}
+
+a.nav-link {
+    color: #fff !important;
+    text-decoration: none;
+}
+
+a.nav-link.active {
+    color: #000 !important;
+    text-decoration: none;
+}
+
+.bg-gradient-info {
+    background: #f23a3a linear-gradient(180deg,#f23a3a,#fa6969) repeat-x!important;
+    color: #fff;
+}
+.nav-tabs {
+    border-bottom: 1px solid #fa6969;
+}
+
+.login-card-body, .register-card-body {
+    background-color: #fff;
+    border-top: 0;
+    color: #666;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+.bg-default {
+    background-color: #172b4d !important;
+    min-height: 100vh !important;
+}
+
+.main-content {
+    position: relative;
+}
+
+.halaman_awal .bg-gradient-primary {
+    background: linear-gradient(90.18deg, #b2def8 -4.39%, #6f7bf7 132.48%) !important;
+}

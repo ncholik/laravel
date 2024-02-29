@@ -1,0 +1,1 @@
+rename admin_custom-{warna}.css menjadi admin_custom.css
