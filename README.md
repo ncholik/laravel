@@ -38,6 +38,48 @@ Gunakan perintah ini setelah menambahkan route baru
 ```bash
 php artisan permission:create-permission-routes-sync
 ```
+
+##  Module
+
+Mebuat Modul
+```bash
+php artisan module:make Blog
+```
+
+api modul.
+```bash
+php artisan module:make Blog --api
+```
+
+Enable Modul
+```bash
+php artisan module:enable ModuleName
+```
+
+Membuat file Migrasi di modul
+```bash
+php artisan module:make-migration create_pegawais_table Kepegawaian
+```
+
+Membuat file seeder modul 
+```bash
+php artisan module:make-seed menu_modul_kepegawaian Kepegawaian
+```
+
+Run seeder dari modul
+```bash
+php artisan module:seed Kepegawaian
+```
+
+run seeder dari modul dengan sepesifik class
+```bash
+php artisan module:seed --class=MenuModulKepegawaianTableSeeder Kepegawaian
+```
+
+[Document_Lenkap_modul](https://laravelmodules.com/docs/v8)
+
+
+
 ## Kontribusi
 
 Kami menyambut kontribusi dari komunitas. Jika Anda ingin berkontribusi, ikuti langkah-langkah berikut:

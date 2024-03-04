@@ -17,6 +17,7 @@ class MenusTableSeeder extends Seeder
         Menu::truncate();
         Menu::create([
             'id' => 1,
+            'modul' => 'Core',
             'label' => 'Master',
             'url' => '',
             'can' => serialize(['admin']),
@@ -27,6 +28,7 @@ class MenusTableSeeder extends Seeder
         ]);
         Menu::create([
             'id' => 2,
+            'modul' => 'Core',
             'label' => 'User',
             'url' => 'users',
             'can' => serialize(['admin']),
@@ -37,6 +39,7 @@ class MenusTableSeeder extends Seeder
         ]);
         Menu::create([
             'id' => 3,
+            'modul' => 'Core',
             'label' => 'Menu',
             'url' => 'menus',
             'can' => serialize(['admin']),
@@ -47,6 +50,7 @@ class MenusTableSeeder extends Seeder
         ]);
         Menu::create([
             'id' => 4,
+            'modul' => 'Core',
             'label' => 'Roles & Permisions',
             'url' => '',
             'can' => serialize(['admin']),
@@ -57,6 +61,7 @@ class MenusTableSeeder extends Seeder
         ]);
         Menu::create([
             'id' => 5,
+            'modul' => 'Core',
             'label' => 'Roles',
             'url' => 'roles',
             'can' => serialize(['admin']),
@@ -67,6 +72,7 @@ class MenusTableSeeder extends Seeder
         ]);
         Menu::create([
             'id' => 6,
+            'modul' => 'Core',
             'label' => 'Permissions',
             'url' => 'permissions',
             'can' => serialize(['admin']),

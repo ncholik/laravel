@@ -13,5 +13,8 @@
 Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::prefix('kepegawaian')->group(function() {
         Route::get('/', 'KepegawaianController@index');
+
+        Route::resource('pegawai', 'PegawaisController');
+
     });
 });
