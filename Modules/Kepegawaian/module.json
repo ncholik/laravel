@@ -1,0 +1,13 @@
+{
+    "name": "Kepegawaian",
+    "alias": "kepegawaian",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Kepegawaian\\Providers\\KepegawaianServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
