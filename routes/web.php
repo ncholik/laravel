@@ -40,6 +40,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Core'], function()
             Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
             Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
 			Route::get('/{user}/tukaruser', 'UsersController@tukaruser')->name('users.tukaruser');
+            Route::get('/profile', 'UsersController@editProfile')->name('users.editprofile');
+            Route::patch('/{user}/updateprofile', 'UsersController@updateProfile')->name('users.updateprofile');
         });
 		
 		Route::group(['prefix' => 'menus'], function() {

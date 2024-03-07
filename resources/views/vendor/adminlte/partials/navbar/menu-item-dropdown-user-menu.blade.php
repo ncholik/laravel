@@ -12,7 +12,6 @@
     @php( $profile_url = $profile_url ? url($profile_url) : '' )
     @php( $logout_url = $logout_url ? url($logout_url) : '' )
 @endif
-
 <li class="nav-item dropdown user-menu">
 
     {{-- User menu toggler --}}
@@ -87,9 +86,8 @@
                     {{ __('adminlte::menu.profile') }}
                 </a>
             @endif
-			
 			<a href="{{ route('logout.perform') }}" class="btn btn-default btn-flat float-right @if(!$profile_url) btn-block @endif">Keluar</a>
-            <!--<a class="btn btn-default btn-flat float-right @if(!$profile_url) btn-block @endif"
+			<!--<a class="btn btn-default btn-flat float-right @if(!$profile_url) btn-block @endif"
                href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fa fa-fw fa-power-off text-red"></i>
                 {{ __('adminlte::adminlte.log_out') }}

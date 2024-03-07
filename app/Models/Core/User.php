@@ -56,7 +56,7 @@ class User extends Authenticatable
 	
 	public function adminlte_image()
 	{
-		return asset('assets/img/'.Auth::user()->avatar());
+		return asset('storage/assets/img/avatar/'.$this->avatar);
 	}
 
 	public function adminlte_desc()
@@ -66,7 +66,7 @@ class User extends Authenticatable
 
 	public function adminlte_profile_url()
 	{
-		return '#';
+		return 'users/profile';
 	}
 	
 	public function avatar(){

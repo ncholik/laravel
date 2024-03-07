@@ -8,9 +8,12 @@ use App\Models\Core\User;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateProfileRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 
 use Hash;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -89,6 +92,58 @@ class UsersController extends Controller
             'userRole' => $user->roles->pluck('name')->toArray(),
             'roles' => Role::latest()->get()
         ]);
+    }
+
+    /**
+     * Edit user profile data
+     * 
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function editProfile() 
+    {
+        $user=Auth::user();
+        return view('users.editprofile', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * Update profile user data
+     * 
+     * @param User $user
+     * @param UpdateProfileRequest $request
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProfile(User $user, UpdateProfileRequest $request) 
+    {
+        $validator=$request->validated();
+        if($validator){
+            $user->nip=$request->nip;
+            $user->asal_instansi=$request->asal_instansi;
+            $user->jabatan_fungsional=$request->jabatan_fungsional;
+            $user->pangkat_gol=$request->pangkat_gol;
+            $user->bidang_ilmu=$request->bidang_ilmu;
+            if($request->avatar){
+                $newname=$user->id.".".$request->file('avatar')->getClientOriginalExtension();
+                $user->avatar=$newname;
+                if(!Storage::disk('public_avatar')->putFileAs('/', $request->file('avatar'), $newname)) {
+                    return redirect()->route('users.editprofile')
+                        ->withSuccess(__('User updated successfully.'));
+                }
+            }
+            if($request->password){
+                $user->password= Hash::make($request->password);
+            }
+            $user->update();
+
+            return redirect()->route('users.editprofile')
+                ->withSuccess(__('User updated successfully.'));
+        }else{
+            return redirect()->route('users.editprofile')
+                ->withErrors($validator);
+        }
     }
 
     /**

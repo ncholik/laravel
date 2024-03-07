@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Simlitabmas Poliwangi',
+    'title' => 'Aplikasi Modular Poliwangi',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -69,7 +69,7 @@ return [
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => true,
     'usermenu_desc' => false,
-    'usermenu_profile_url' => true,
+    'usermenu_profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -191,10 +191,10 @@ return [
     'dashboard_url' => 'home',
     'logout_url' => 'logout',
     'login_url' => 'login',
-    'register_url' => 'register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'register_url' => '',
+    'password_reset_url' => '',
+    'password_email_url' => '',
+    'profile_url' => 'users/profile',
 
     /*
     |--------------------------------------------------------------------------
