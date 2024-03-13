@@ -9,6 +9,7 @@ class OauthToken extends Model
 {
     use HasFactory;
 	protected $guarded = [];
+    protected $connection = 'mysql';
 
     public function hasExpired()
     {

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Pegawai extends Model
 {
     use HasFactory;
-
+    protected $connection = 'mysql';
     protected $guarded = ['id'];
     
     protected static function newFactory()
