@@ -41,7 +41,7 @@ class CreateAdminUserSeeder extends Seeder
      
         $user->assignRole([$role->id]);
 		
-		$permissions = Permission::where('name','adminlte.darkmode.toggle')->orWhere('name','home.index')->orWhere('name','login.show')->pluck('id','id')->all();
+		$permissions = Permission::where('name','adminlte.darkmode.toggle')->orWhere('name','logout.perform')->orWhere('name','home.index')->orWhere('name','login.show')->pluck('id','id')->all();
 		
 		$role = Role::create(['name' => 'terdaftar']);
 		$role->syncPermissions($permissions);

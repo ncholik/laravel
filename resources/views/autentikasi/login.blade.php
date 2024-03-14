@@ -83,7 +83,7 @@
 								
 								<form method="post">
 									<div class="text-center">
-										<a href="{{ url('/oauth/redirect')}}" type="submit" class="btn-login btn btn-primary w-100 my-4-5 rounded-sm">Login</a>
+										<a href="{{ url('/oauth/login')}}" type="submit" class="btn-login btn btn-primary w-100 my-4-5 rounded-sm">Login</a>
 										{{-- <a href="{{ url('/login-maba') }}" type="submit" hidden class="btn-login-maba btn btn-primary w-100 my-4-5 rounded-sm">Login</a>--}}
 									</div>
 								</form>
