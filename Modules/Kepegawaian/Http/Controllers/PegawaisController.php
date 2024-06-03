@@ -18,6 +18,8 @@ class PegawaisController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
+        //$user = \Auth::user();
+        //dd($user);
         $perPage = 25;
 
         if (!empty($keyword)) {

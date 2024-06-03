@@ -64,6 +64,7 @@ return [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
+            'tap'    => [App\Loggers\LocalLogger::class],
             'days' => 14,
         ],
 
@@ -98,11 +99,13 @@ return [
         'syslog' => [
             'driver' => 'syslog',
             'level' => env('LOG_LEVEL', 'debug'),
+            'tap'    => [App\Loggers\LocalLogger::class],
         ],
 
         'errorlog' => [
             'driver' => 'errorlog',
             'level' => env('LOG_LEVEL', 'debug'),
+            'tap'    => [App\Loggers\LocalLogger::class],
         ],
 
         'null' => [

@@ -67,7 +67,7 @@ if(!function_exists('BCL_menuSidebar')){
                 $active=BCL_ArrToString(unserialize($row->active));                
                 if($active!="")$active='"active" => '.$active.',';
                 $bisa=BCL_ArrToString(unserialize($row->can));
-                if($bisa!="")$bisa='"can" => '.$bisa.',';
+                if($bisa!="")$bisa='"can" => '.$bisa;
                 $addMenu.='$event->menu->addBefore( "'.$key_parent.'", [
                     "key" => "'.$key.'",
                     "text" => "'.$row->label.'",
@@ -75,7 +75,8 @@ if(!function_exists('BCL_menuSidebar')){
                     "icon" => "nav-icon '.$row->icon.'",
                     '.$active.'
                     '.$bisa.'
-                ]);';
+                ]);'."\n";
+                //if($row->id==7)dd($addMenu);
                 $squery=Menu::where('parent_id',$row->id);
                 if($squery->count()>0){
                     $sresult=$squery->orderBy('urut','ASC')
@@ -84,7 +85,7 @@ if(!function_exists('BCL_menuSidebar')){
                         $active=BCL_ArrToString(unserialize($srow->active));
                         if($active!="")$active='"active" => '.$active.',';
                         $bisa=BCL_ArrToString(unserialize($srow->can));
-                        if($bisa!="")$bisa='"can" => '.$bisa.',';
+                        if($bisa!="")$bisa='"can" => '.$bisa;
                         $skey=str_replace(' ','_',strtolower($srow->label));
                         $addMenu.='$event->menu->addIn( "'.$key.'", [
                             "key" => "'.$skey.'",
@@ -93,13 +94,15 @@ if(!function_exists('BCL_menuSidebar')){
                             "icon" => "nav-icon '.$srow->icon.'",
                             '.$active.'
                             '.$bisa.'
-                        ]);';
+                        ]);'."\n";
                         
                     }
                 }
-                $key_parent=$key;
+                //$key_parent=$key;
             }            
+            //dd($addMenu);
             eval($addMenu);
+            
         }
     }
 }
@@ -116,6 +119,7 @@ if(!function_exists('BCL_ArrToString')){
             }
         }
         if($d<=1)return "";
+        $str=rtrim($str,",");
         return "[".$str."]";
     }
 }

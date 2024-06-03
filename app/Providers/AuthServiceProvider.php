@@ -26,37 +26,45 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 		
-		if (Schema::hasTable('roles')) {
+		if (Schema::hasTable('roles')) {			
 			$roles = \Spatie\Permission\Models\Role::where('guard_name','web')->get();
-			//dd($role);
 			foreach($roles as $r){
-				Gate::define($r->name, function ($user) use ($r) {
-					$roles = $user->roles->pluck('name')->toArray();
-					$role = $user->role_aktif;
-					if(count($roles)<1)return false;
-					if ($roles[$role] == $r->name){
-					return true;
-					}
-					return false;
-			});
+				$nama=$r->name;				
+				Gate::define($nama, function ($user) use ($nama) {
+					return $user->role_aktif==$nama;
+				});
+				
 			}
 		}
-		/*Gate::define('admin', function ($user) {
-			$roles = $user->roles->pluck('name')->toArray();
+		
+		/*Gate::before(function ($user) {
+			$roles = \Spatie\Permission\Models\Role::where('guard_name','web')->get();
+			$ur=$user->role_aktif;
+			$urada=false;
+            foreach($roles as $r){
+				if($r->name==$ur){
+					$urada=true;	
+					break;
+				}
+            }
+			Gate::define($ur, function ($user) use ($urada) {
+				echo $user->role_aktif." ".($urada?"ada":"tidak")."---";
+				return $urada;
+			});
+        });*/
+		/*Gate::define('operator', function ($user) {
+			//$roles = $user->roles->pluck('name')->toArray();
 			$role = $user->role_aktif;
-			if(count($roles)<1)return false;
-			if ($roles[$role] == 'admin'){
+			if ($role == 'operator'){
                return true;
 			}
 			return false;
        });
 	   
-	   Gate::define('terdaftar', function ($user) {
-           $roles = $user->roles->pluck('name')->toArray();
+	   Gate::define('admin', function ($user) {
 			$role = $user->role_aktif;
-			if(count($roles)<1)return false;
-			if ($roles[$role] == 'terdaftar'){
-               return true;
+			if ($role == 'admin'){
+			return true;
 			}
 			return false;
        });

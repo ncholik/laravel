@@ -22,7 +22,7 @@ class SwitchController extends Controller
     {
 		//dd($request);
         $request->validate([
-            'role' => 'required|numeric',
+            'role' => 'required',
         ]);
 		
 		auth()->user()->role_aktif = $request->role;

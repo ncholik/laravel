@@ -35,9 +35,7 @@ class EventServiceProvider extends ServiceProvider
     {
        
         Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
-            BCL_menuSidebar($event);
-              
-            
+            BCL_menuSidebar($event);  
         });
     }
 }

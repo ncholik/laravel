@@ -60,7 +60,7 @@
                 @php($count=0)
                 @if((Auth::user()))
                 @foreach(Auth::user()->roles as $role)
-                        <option value="{{ $count }}" @if(Auth::user()->role_aktif == $count) selected @endif>{{ $role->name }}</option>							
+                        <option value="{{ $role->name }}" @if(Auth::user()->role_aktif == $role->name) selected @endif>{{ $role->name }}</option>							
                         @php($count++)
                 @endforeach
                 @endif
