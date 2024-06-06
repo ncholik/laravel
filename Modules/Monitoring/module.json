@@ -1,0 +1,13 @@
+{
+    "name": "Monitoring",
+    "alias": "monitoring",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Monitoring\\Providers\\MonitoringServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
