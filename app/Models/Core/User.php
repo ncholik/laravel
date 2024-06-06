@@ -57,7 +57,12 @@ class User extends Authenticatable
 	
 	public function adminlte_image()
 	{
-		return asset('storage/assets/img/avatar/'.$this->avatar);
+		if(!\Storage::exists('/path/to/your/directory')) {
+			return asset('/assets/img/avatar.png');
+		}else{
+			return asset('storage/assets/img/avatar/'.$this->avatar);
+		}
+		
 	}
 
 	public function adminlte_desc()
