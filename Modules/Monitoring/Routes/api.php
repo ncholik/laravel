@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Monitoring\Http\Controllers\LaporanController;
+use Modules\Monitoring\Http\Controllers\MonitoringController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/monitoring', function (Request $request) {
     return $request->user();
 });
+
+// Route::get('/serapan-anggaran', [MonitoringController::class, 'getDataSerapan']);
+
+Route::get('/data', [LaporanController::class, 'getData']);
+Route::get('/program', [LaporanController::class, 'getProgram']);
+Route::get('/kegiatan', [LaporanController::class, 'getKegiatan']);
+
