@@ -13,29 +13,31 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('keuangan')->group(function () {
-    Route::get('/', 'KeuanganController@index');
-    // perencanaan
-    Route::get('/perencanaan', 'PerencanaanController@index')->name('perencanaan.index');
-    Route::get('/perencanaan/create', 'PerencanaanController@create')->name('perencanaan.create');
-    Route::post('/perencanaan/store', 'PerencanaanController@store')->name('perencanaan.store');
-    Route::get('/perencanaan/{perencanaan}/edit', 'PerencanaanController@edit')->name('perencanaan.edit');
-    Route::patch('/perencanaan/{perencanaan}/update', 'PerencanaanController@update')->name('perencanaan.update');
-    Route::delete('/perencanaan/destroy/{perencanaan}', 'PerencanaanController@destroy')->name('perencanaan.destroy');
+Route::group(['middleware' => ['auth', 'permission']], function () {
+    Route::prefix('keuangan')->group(function () {
+        Route::get('/', 'KeuanganController@index');
+        // perencanaan
+        Route::get('/perencanaan', 'PerencanaanController@index')->name('perencanaan.index');
+        Route::get('/perencanaan/create', 'PerencanaanController@create')->name('perencanaan.create');
+        Route::post('/perencanaan/store', 'PerencanaanController@store')->name('perencanaan.store');
+        Route::get('/perencanaan/{perencanaan}/edit', 'PerencanaanController@edit')->name('perencanaan.edit');
+        Route::patch('/perencanaan/{perencanaan}/update', 'PerencanaanController@update')->name('perencanaan.update');
+        Route::delete('/perencanaan/destroy/{perencanaan}', 'PerencanaanController@destroy')->name('perencanaan.destroy');
 
-    // subPerencanaan
-    Route::get('/perencanaan/{perencanaan}/sub_perencanaan', 'SubPerencanaanController@index')->name('perencanaan.sub_index');
-    Route::get('/perencanaan/{perencanaan}/sub_perencanaan/show', 'SubPerencanaanController@show')->name('perencanaan.show');
-    Route::post('/perencanaan/{perencanaan}/subPerencanaan/store', 'SubPerencanaanController@store')->name('subPerencanaan.store');
+        // subPerencanaan
+        Route::get('/perencanaan/{perencanaan}/sub_perencanaan', 'SubPerencanaanController@index')->name('perencanaan.sub_index');
+        Route::get('/perencanaan/{perencanaan}/sub_perencanaan/show', 'SubPerencanaanController@show')->name('perencanaan.show');
+        Route::post('/perencanaan/{perencanaan}/subPerencanaan/store', 'SubPerencanaanController@store')->name('subPerencanaan.store');
 
-    // realisasi
-    Route::get('/realisasi', 'RealisasiController@index')->name('realisasi.index');
-    Route::get('realisasi/create', 'RealisasiController@create')->name('realisasi.create');
-    Route::get('/realisasi/{perencanaan}', 'RealisasiController@sub_index')->name('realisasi.sub_index');
-    Route::get('/realisasi/{perencanaan}/show', 'RealisasiController@show')->name('realisasi.show');
-    Route::post('/realisasi/store', 'RealisasiController@store')->name('realisasi.store');
-    Route::delete('/realisasi/destroy/{realisasi}', 'RealisasiController@destroy')->name('realisasi.destroy');
+        // realisasi
+        Route::get('/realisasi', 'RealisasiController@index')->name('realisasi.index');
+        Route::get('realisasi/create', 'RealisasiController@create')->name('realisasi.create');
+        Route::get('/realisasi/{perencanaan}', 'RealisasiController@sub_index')->name('realisasi.sub_index');
+        Route::get('/realisasi/{perencanaan}/show', 'RealisasiController@show')->name('realisasi.show');
+        Route::post('/realisasi/store', 'RealisasiController@store')->name('realisasi.store');
+        Route::delete('/realisasi/destroy/{realisasi}', 'RealisasiController@destroy')->name('realisasi.destroy');
 
-    // laporan bulanan
-    Route::get('/laporan', 'LaporanController@index')->name('laporan.index');
+        // laporan bulanan
+        Route::get('/laporan', 'LaporanController@index')->name('laporan.index');
+    });
 });

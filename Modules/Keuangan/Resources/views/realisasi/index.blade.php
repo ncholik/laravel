@@ -108,7 +108,7 @@
                             <thead>
                                 <tr>
                                     <th>kode</th>
-                                    <th>Nama Kegiatan</th>
+                                    <th>Nama Program</th>
                                     <th>Jumlah Anggaran</th>
                                     <th>Realisasi Keuangan</th>
                                     <th>Aksi</th>
@@ -118,8 +118,11 @@
                                 @foreach ($perencanaans as $perencanaan)
                                     <tr>
                                         <td>{{ $perencanaan->kode }}</td>
+                                        <td>{{ $perencanaan->nama }}</td>
                                         @foreach ($perencanaan->subPerencanaan as $sub)
-                                            <td>{{ $sub->kegiatan }}</td>
+                                            {{-- <td>{{ $sub->kegiatan }}</td> --}}
+                                            <td>Rp.{{ str_replace(',', '.', number_format($sub->volume * $sub->harga_satuan)) }}</td>
+                                            <td>Rp.{{ str_replace(',', '.', number_format($sub->realisasi->sum('realisasi'))) }}</td>
                                         @endforeach
                                         <td>
                                             <a href="{{ route('realisasi.sub_index', $perencanaan->id) }}"
