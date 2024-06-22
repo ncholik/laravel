@@ -45,35 +45,20 @@
                                     <tr>
                                         <td>{{ $perencanaan->kode }}</td>
                                         <td>{{ $perencanaan->nama }}</td>
-                                        @foreach ($perencanaan->subPerencanaan as $sub)
-                                            {{-- <td>{{ $sub->kegiatan }}</td> --}}
-                                            <td>Rp.{{ str_replace(',', '.', number_format($sub->volume * $sub->harga_satuan)) }}</td>
-                                            <td>Rp.{{ str_replace(',', '.', number_format($sub->realisasi->sum('realisasi'))) }}</td>
-                                        @endforeach
+                                        <td>
+                                            Rp.{{ str_replace(',', '.', number_format($perencanaan->jumlah_anggaran)) }}
+                                        </td>
+                                        <td>
+                                            Rp.{{ str_replace(',', '.', number_format($perencanaan->realisasi_keuangan)) }}
+                                        </td>
                                         <td>
                                             <a href="{{ route('realisasi.show', $perencanaan->id) }}"
                                                 title="View Realisasi">
                                                 <button class="btn btn-info btn-sm">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    lihat
                                                 </button>
                                             </a>
-                                            <a href="{{ url('/realisasi/' . $perencanaan->id . '/edit') }}"
-                                                title="Edit Realisasi">
-                                                <button class="btn btn-primary btn-sm">
-                                                    <i class="fas fa-edit" arria-hidden="true"></i>
-                                                </button>
-                                            </a>
-
-                                            <form method="POST" action="{{ url('/realisasi/' . $perencanaan->id) }}"
-                                                accept-charset="UTF-8" style="display:inline">
-                                                {{ method_field('DELETE') }}
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    title="Delete Realisasi"
-                                                    onclick="return confirm(&quot;Confirm delete?&quot;)">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
