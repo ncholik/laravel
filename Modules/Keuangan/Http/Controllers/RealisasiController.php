@@ -2,38 +2,36 @@
 
 namespace Modules\Keuangan\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Keuangan\Entities\Perencanaan;
 use Modules\Keuangan\Entities\Realisasi;
-use Modules\Keuangan\Entities\SubPerencanaan;
 
 class RealisasiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jumlahProgramKerja = SubPerencanaan::count();
-        // $realisasi = Realisasi::whereHas('subPerencanaan.realisasi')->get();
-        $perencanaans = Perencanaan::with('subPerencanaan')->paginate(10);
-        $totalDPA = 0;
+        $query = $request->input('search');
 
-        foreach ($perencanaans as $item) {
-            $subPerencanaan = $item->subPerencanaan;
-            foreach ($subPerencanaan as $sub) {
-                $totalDPA += ($sub->volume * $sub->harga_satuan);
-            }
+        if ($query) {
+            // Perform the search based on the query
+            $perencanaans = Perencanaan::with('subPerencanaan')
+                ->where('nama', 'LIKE', "%{$query}%")
+                ->orWhere('kode', 'LIKE', "%{$query}%")
+                ->paginate(10);
+        } else {
+            $perencanaans = Perencanaan::with('subPerencanaan')->paginate(10);
         }
 
-        return view('keuangan::realisasi.index', compact('perencanaans', 'jumlahProgramKerja', 'totalDPA'));
+        return view('keuangan::realisasi.index', compact('perencanaans'));
     }
 
-    public function sub_index($id)
-    {
-        $perencanaan = Perencanaan::findOrFail($id);
-        $subPerencanaan = $perencanaan->subPerencanaan;
-        return view('keuangan::realisasi.sub_index', compact('subPerencanaan', 'perencanaan'));
-    }
+    // public function sub_index($id)
+    // {
+    //     $perencanaan = Perencanaan::findOrFail($id);
+    //     $subPerencanaan = $perencanaan->subPerencanaan;
+    //     return view('keuangan::realisasi.sub_index', compact('subPerencanaan', 'perencanaan'));
+    // }
 
     public function create()
     {
@@ -60,7 +58,23 @@ class RealisasiController extends Controller
 
     public function show($id)
     {
-        return view('keuangan::realisasi.show');
+        $perencanaans = Perencanaan::with('subPerencanaan')->findOrFail($id);
+
+        $filterBulan = $perencanaans->subPerencanaan->map(function ($sub) {
+            return \Carbon\Carbon::parse($sub->rencana_bayar)->format('F');
+        })->unique()->values();
+
+        $jumlah_anggaran = $perencanaans->subPerencanaan->sum(function ($sub) {
+            return $sub->volume * $sub->harga_satuan;
+        });
+
+        $realisasi_keuangan = $perencanaans->subPerencanaan->sum(function ($sub) {
+            return $sub->realisasi->sum('realisasi');
+        });
+
+        $efisiensi = $jumlah_anggaran - $realisasi_keuangan;
+
+        return view('keuangan::realisasi.show', compact('perencanaans', 'filterBulan', 'jumlah_anggaran', 'realisasi_keuangan', 'efisiensi'));
     }
 
     public function edit($id)
