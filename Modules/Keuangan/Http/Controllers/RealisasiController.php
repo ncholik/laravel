@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Keuangan\Entities\Perencanaan;
 use Modules\Keuangan\Entities\Realisasi;
+use Modules\Keuangan\Entities\SubPerencanaan;
 
 class RealisasiController extends Controller
 {
@@ -42,7 +43,7 @@ class RealisasiController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'progres' => 'required|numeric',
             'realisasi' => 'required|numeric',
             'laporan_keuangan' => 'required|string',
@@ -53,15 +54,14 @@ class RealisasiController extends Controller
             'sub_perencanaan_id' => 'required|exists:sub_perencanaans,id',
         ]);
 
-        Realisasi::create($validated);
+        Realisasi::create($request->all());
 
-        return redirect()->route('keuangan::realisasi.index')->with('success', 'Realisasi berhasil ditambahkan.');
+        return redirect()->back()->with('success', 'Realisasi berhasil ditambahkan.');
     }
 
     public function show($id)
     {
-        $realisasi = Realisasi::all();
-        $perencanaans = Perencanaan::with('subPerencanaan')->findOrFail($id);
+        $perencanaans = Perencanaan::with('subPerencanaan.realisasi')->findOrFail($id);
 
         $filterBulan = $perencanaans->subPerencanaan->map(function ($sub) {
             return \Carbon\Carbon::parse($sub->rencana_bayar)->format('F');
@@ -75,40 +75,33 @@ class RealisasiController extends Controller
             return $sub->realisasi->sum('realisasi');
         });
 
-        $efisiensi = $jumlah_anggaran - $realisasi_keuangan;
-
-        return view('keuangan::realisasi.show', compact('realisasi', 'perencanaans', 'filterBulan', 'jumlah_anggaran', 'realisasi_keuangan', 'efisiensi'));
+        return view('keuangan::realisasi.show', compact('perencanaans', 'filterBulan', 'jumlah_anggaran', 'realisasi_keuangan'));
     }
 
-    public function getKegiatan($id)
+    public function getKegiatan($subPerencanaanId)
     {
-        $subPerencanaan = Perencanaan::with(['subPerencanaan' => function ($query) use ($id) {
-            $query->where('id', $id);
-        }])->firstOrFail()->subPerencanaan->first();
+        $subPerencanaan = SubPerencanaan::findOrFail($subPerencanaanId);
+        $realisasi = $subPerencanaan->realisasi;
 
-        $jumlah_anggaran = $subPerencanaan->volume * $subPerencanaan->harga_satuan;
-        $realisasi_keuangan = $subPerencanaan->realisasi->sum('realisasi');
-        $efisiensi = $jumlah_anggaran - $realisasi_keuangan;
+        if (!$realisasi) {
+            return response()->json(['error' => 'Data not found'], 404);
+        }
 
-        $data = [
-            'jumlah_anggaran' => number_format($jumlah_anggaran, 2, ',', '.'),
-            'realisasi_keuangan' => number_format($realisasi_keuangan, 2, ',', '.'),
-            'efisiensi' => number_format($efisiensi, 2, ',', '.'),
-            'anggaran_keuangan' => number_format($subPerencanaan->anggaran_keuangan, 2, ',', '.'),
-            'progres' => $subPerencanaan->progres,
-            'tanggal_pembayaran' => $subPerencanaan->tanggal_pembayaran->format('d-m-Y'),
-            'laporan_keuangan' => $subPerencanaan->laporan_keuangan,
-            'laporan_kegiatan' => $subPerencanaan->laporan_kegiatan,
-            'ketercapaian_output' => $subPerencanaan->ketercapaian_output,
-        ];
+        $anggaranKeuangan = 0;
+        foreach ($realisasi as $item) {
+            $anggaranKeuangan += $item->volume * $item->harga_satuan;
+        }
 
-        return response()->json($data);
+        return response()->json([
+            'realisasi' => $realisasi,
+            'anggaranKeuangan' => $anggaranKeuangan,
+        ]);
     }
 
     public function edit($id)
     {
-        $perencanaan = Perencanaan::findOrFail($id);
-        return view('keuangan::realisasi.edit', compact('perencanaan'));
+        $realisasi = Realisasi::findOrFail($id);
+        return view('keuangan::realisasi.edit', compact('realisasi'));
     }
 
     public function update(Request $request, $id)
@@ -123,10 +116,10 @@ class RealisasiController extends Controller
             'tanggal_pembayaran' => 'required|date',
         ]);
 
-        $perencanaan = Perencanaan::findOrFail($id);
-        $perencanaan->update($validated);
+        $realisasi = Realisasi::findOrFail($id);
+        $realisasi->update($validated);
 
-        return redirect()->route('realisasi.index')->with('success', 'Realisasi berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Realisasi berhasil diperbarui.');
     }
 
 

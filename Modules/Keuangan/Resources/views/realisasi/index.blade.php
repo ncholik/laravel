@@ -10,10 +10,6 @@
             <div class="card">
                 <div class="card-header">Data Realisasi</div>
                 <div class="card-body">
-                    <a href="{{ route('realisasi.create') }}" class="btn btn-success btn-sm" title="Tambah Realisasi">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Tambah
-                    </a>
-
                     <form method="GET" action="{{ route('realisasi.index') }}" accept-charset="UTF-8"
                         class="form-inline my-2 my-lg-0 float-right" role="search">
                         <div class="input-group">

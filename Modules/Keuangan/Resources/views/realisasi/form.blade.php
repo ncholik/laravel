@@ -1,5 +1,7 @@
 <input type="hidden" name="backurl" value="<?php echo Request::server('HTTP_REFERER') == null ? '/monitoring/realisasi' : Request::server('HTTP_REFERER'); ?>">
 
+<input type="hidden" name="sub_perencanaan_id" id="sub_perencanaan_id" value="">
+
 <div class="form-group {{ $errors->has('progres') ? 'has-error' : '' }}">
     <label for="progres" class="control-label">{{ 'Progres' }}</label>
     <input class="form-control" name="progres" type="text" id="progres"
@@ -30,38 +32,36 @@
     {!! $errors->first('laporan_kegiatan', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group {{ $errors->has('ketercapian_output') ? 'has-error' : '' }}">
-    <label for="ketercapian_output" class="control-label">{{ 'Ketercapian Output' }}</label>
-    <input class="form-control" name="ketercapian_output" type="text" id="ketercapian_output"
-        value="{{ isset($realisasi->ketercapian_output) ? $realisasi->ketercapian_output : old('ketercapian_output') }}"
+<div class="form-group {{ $errors->has('ketercapaian_output') ? 'has-error' : '' }}">
+    <label for="ketercapaian_output" class="control-label">{{ 'Ketercapaian Output' }}</label>
+    <input class="form-control" name="ketercapaian_output" type="text" id="ketercapaian_output"
+        value="{{ isset($realisasi->ketercapaian_output) ? $realisasi->ketercapaian_output : old('ketercapaian_output') }}"
         required>
-    {!! $errors->first('ketercapian_output', '<p class="help-block">:message</p>') !!}
+    {!! $errors->first('ketercapaian_output', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group {{ $errors->has('tanggal_kontrak') ? 'has-error' : '' }}">
-    <label for="tanggal_kontrak" class="control-label">{{ 'Tanggal Kontrak' }}</label>
-    <input class="form-control" name="tanggal_kontrak" type="date" id="tanggal_kontrak"
-        value="{{ isset($realisasi->tanggal_kontrak) ? $realisasi->tanggal_kontrak : old('tanggal_kontrak') }}"
-        required>
-    {!! $errors->first('tanggal_kontrak', '<p class="help-block">:message</p>') !!}
-</div>
+<div class="row">
+    <div class="col-6">
+        <div class="form-group {{ $errors->has('tanggal_kontrak') ? 'has-error' : '' }}">
+            <label for="tanggal_kontrak" class="control-label">{{ 'Tanggal Kontrak' }}</label>
+            <input class="form-control" name="tanggal_kontrak" type="date" id="tanggal_kontrak"
+                value="{{ isset($realisasi->tanggal_kontrak) ? $realisasi->tanggal_kontrak : old('tanggal_kontrak') }}"
+                required>
+            {!! $errors->first('tanggal_kontrak', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
 
-<div class="form-group {{ $errors->has('tanggal_pembayaran') ? 'has-error' : '' }}">
-    <label for="tanggal_pembayaran" class="control-label">{{ 'Tanggal Pembayaran' }}</label>
-    <input class="form-control" name="tanggal_pembayaran" type="date" id="tanggal_pembayaran"
-        value="{{ isset($realisasi->tanggal_pembayaran) ? $realisasi->tanggal_pembayaran : old('tanggal_pembayaran') }}"
-        required>
-    {!! $errors->first('tanggal_pembayaran', '<p class="help-block">:message</p>') !!}
-</div>
-
-<div class="form-group {{ $errors->has('sub_perencanaan_id') ? 'has-error' : '' }}">
-    <label for="sub_perencanaan_id" class="control-label">{{ 'Sub Perencanaan ID' }}</label>
-    <input class="form-control" name="sub_perencanaan_id" type="number" id="sub_perencanaan_id"
-        value="{{ isset($realisasi->sub_perencanaan_id) ? $realisasi->sub_perencanaan_id : old('sub_perencanaan_id') }}"
-        required>
-    {!! $errors->first('sub_perencanaan_id', '<p class="help-block">:message</p>') !!}
+    <div class="col-6">
+        <div class="form-group {{ $errors->has('tanggal_pembayaran') ? 'has-error' : '' }}">
+            <label for="tanggal_pembayaran" class="control-label">{{ 'Tanggal Pembayaran' }}</label>
+            <input class="form-control" name="tanggal_pembayaran" type="date" id="tanggal_pembayaran"
+                value="{{ isset($realisasi->tanggal_pembayaran) ? $realisasi->tanggal_pembayaran : old('tanggal_pembayaran') }}"
+                required>
+            {!! $errors->first('tanggal_pembayaran', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
 </div>
 
 <div class="form-group">
-    <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Memperbarui' : 'Tambah' }}">
+    <input class="btn btn-primary" type="submit" value="{{ $formMode === 'create' ? 'Tambah' : 'Memperbarui' }}">
 </div>
