@@ -110,7 +110,7 @@ class RealisasiController extends Controller
     {
         $realisasi = Realisasi::findOrFail($id);
         $realisasi->delete();
-
-        return redirect()->route('keuangan::realisasi.index')->with('success', 'Realisasi berhasil dihapus.');
+    
+        return response()->json(['success' => 'Realisasi berhasil dihapus.']);
     }
 }

@@ -220,11 +220,19 @@
                     $('#laporanKegiatan').val(data[0].laporan_kegiatan);
                     $('#ketercapaianOutput').val(data[0].ketercapaian_output);
 
+                    // tombol tambah
                     var baseUrl = '{{ route('realisasi.update', ':id') }}';
                     baseUrl = baseUrl.replace(':id', subId);
                     $('#realisasiForm').attr('action', baseUrl);
                     $('#tambahButton').addClass('disabled');
+                    // tombol ubah
                     $('#ubahButton').removeClass('disabled');
+
+                    // tombol hapus
+                    var deleteUrl = '{{ route('realisasi.destroy', ':id') }}';
+                    deleteUrl = deleteUrl.replace(':id', data[0].id);
+                    $('#hapusButton').data('url', deleteUrl);
+                    $('#hapusButton').removeClass('disabled');
                 } else {
                     // Kosongkan field form dan anggaran jika tidak ada data realisasi yang sesuai
                     $('#anggaran').val('');
@@ -238,9 +246,35 @@
                     $('#realisasiForm').attr('action', '');
                     $('#tambahButton').removeClass('disabled');
                     $('#ubahButton').addClass('disabled');
+                    $('#hapusButton').addClass('disabled');
                 }
             });
             $('#kegiatanSelect').trigger('change');
+
+            // Add click event for the delete button
+            $('#hapusButton').on('click', function() {
+                var deleteUrl = $(this).data('url');
+                if (deleteUrl) {
+                    if (confirm('Apakah Anda yakin ingin menghapus realisasi ini?')) {
+                        $.ajax({
+                            url: deleteUrl,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(result) {
+                                // Handle success response
+                                alert('Realisasi berhasil dihapus.');
+                                location.reload(); // Reload the page
+                            },
+                            error: function(xhr) {
+                                // Handle error response
+                                alert('Gagal menghapus realisasi.');
+                            }
+                        });
+                    }
+                }
+            });
         });
     </script>
 
