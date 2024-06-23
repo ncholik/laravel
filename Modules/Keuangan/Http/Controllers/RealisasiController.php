@@ -63,6 +63,10 @@ class RealisasiController extends Controller
     {
         $perencanaans = Perencanaan::with('subPerencanaan.realisasi')->findOrFail($id);
 
+        $realisasi = $perencanaans->subPerencanaan->mapWithKeys(function ($sub) {
+            return [$sub->id => $sub->realisasi];
+        });
+
         $filterBulan = $perencanaans->subPerencanaan->map(function ($sub) {
             return \Carbon\Carbon::parse($sub->rencana_bayar)->format('F');
         })->unique()->values();
@@ -75,27 +79,7 @@ class RealisasiController extends Controller
             return $sub->realisasi->sum('realisasi');
         });
 
-        return view('keuangan::realisasi.show', compact('perencanaans', 'filterBulan', 'jumlah_anggaran', 'realisasi_keuangan'));
-    }
-
-    public function getKegiatan($subPerencanaanId)
-    {
-        $subPerencanaan = SubPerencanaan::findOrFail($subPerencanaanId);
-        $realisasi = $subPerencanaan->realisasi;
-
-        if (!$realisasi) {
-            return response()->json(['error' => 'Data not found'], 404);
-        }
-
-        $anggaranKeuangan = 0;
-        foreach ($realisasi as $item) {
-            $anggaranKeuangan += $item->volume * $item->harga_satuan;
-        }
-
-        return response()->json([
-            'realisasi' => $realisasi,
-            'anggaranKeuangan' => $anggaranKeuangan,
-        ]);
+        return view('keuangan::realisasi.show', compact('realisasi', 'perencanaans', 'filterBulan', 'jumlah_anggaran', 'realisasi_keuangan'));
     }
 
     public function edit($id)
@@ -121,7 +105,6 @@ class RealisasiController extends Controller
 
         return redirect()->back()->with('success', 'Realisasi berhasil diperbarui.');
     }
-
 
     public function destroy($id)
     {

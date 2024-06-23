@@ -193,7 +193,7 @@
         $(document).ready(function() {
             $('#kegiatanSelect').on('change', function() {
                 var subId = $(this).val();
-                var realisasiData = $(this).find('option').data('realisasi');
+                var realisasiData = @json($realisasi);
                 var volume = $('option:selected', this).data('volume');
                 var hargaSatuan = $('option:selected', this).data('harga');
 
@@ -201,32 +201,30 @@
                 console.log('Realisasi Data:', realisasiData);
                 console.log('Anggaran Keuangan:', volume * hargaSatuan);
 
-                var data = realisasiData.find(function(item) {
-                    return item.sub_perencanaan_id == subId;
-                });
+                var data = realisasiData[subId];
+                var anggaranKeuangan = volume * hargaSatuan;
+                
+                console.log(data);
 
-
-                if (data) {
-                    var anggaranKeuangan = volume * hargaSatuan;
-
+                if (data && data.length > 0) {
                     $('#anggaran').val(anggaranKeuangan);
-                    $('#progresKeuangan').val(data.progres);
-                    $('#realisasiKeuangan').val(data.realisasi);
-                    $('#tanggalPembayaran').val(data.tanggal_pembayaran);
-                    $('#laporanKeuangan').val(data.laporan_keuangan);
-                    $('#laporanKegiatan').val(data.laporan_kegiatan);
-                    $('#ketercapaianOutput').val(data.ketercapaian_output);
+                    $('#progresKeuangan').val(data[0].progres);
+                    $('#realisasiKeuangan').val(data[0].realisasi);
+                    $('#tanggalPembayaran').val(data[0].tanggal_pembayaran);
+                    $('#laporanKeuangan').val(data[0].laporan_keuangan);
+                    $('#laporanKegiatan').val(data[0].laporan_kegiatan);
+                    $('#ketercapaianOutput').val(data[0].ketercapaian_output);
 
                     $('#sub_perencanaan_id').val(subId);
-                    
+
                     var baseUrl = '{{ route('realisasi.update', ':id') }}';
                     baseUrl = baseUrl.replace(':id', subId);
-                    $('#realisasiForm').attr('action', baseUrl)
+                    $('#realisasiForm').attr('action', baseUrl);
                     $('#tambahButton').addClass('disabled');
                     $('#ubahButton').removeClass('disabled');
                 } else {
-                    // Kosongkan field form jika tidak ada data realisasi yang sesuai
-                    $('#anggaran').val(anggaranKeuangan);
+                    // Kosongkan field form dan anggaran jika tidak ada data realisasi yang sesuai
+                    $('#anggaran').val('');
                     $('#progresKeuangan').val('');
                     $('#realisasiKeuangan').val('');
                     $('#tanggalPembayaran').val('');

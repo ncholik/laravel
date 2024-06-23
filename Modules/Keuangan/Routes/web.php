@@ -31,13 +31,12 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
 
         // realisasi
         Route::get('/realisasi', 'RealisasiController@index')->name('realisasi.index');
-        Route::get('realisasi/create', 'RealisasiController@create')->name('realisasi.create');
+        // Route::get('realisasi/create', 'RealisasiController@create')->name('realisasi.create');
         Route::get('/realisasi/{perencanaan}/show', 'RealisasiController@show')->name('realisasi.show');
-        Route::get('/realisasi/edit/{id}', 'RealisasiController@edit')->name('realisasi.edit');
+        // Route::get('/realisasi/edit/{id}', 'RealisasiController@edit')->name('realisasi.edit');
         Route::patch('realisasi/update/{id}', 'RealisasiController@update')->name('realisasi.update');
         Route::post('/realisasi/store', 'RealisasiController@store')->name('realisasi.store');
         Route::delete('/realisasi/destroy/{realisasi}', 'RealisasiController@destroy')->name('realisasi.destroy');
-        Route::get('/detail/{subPerencanaanId}', 'RealisasiController@getKegiatan');
 
         // laporan bulanan
         Route::get('/laporan', 'LaporanController@index')->name('laporan.index');
