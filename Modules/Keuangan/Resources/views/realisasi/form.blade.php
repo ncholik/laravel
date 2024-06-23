@@ -1,6 +1,6 @@
 <input type="hidden" name="backurl" value="<?php echo Request::server('HTTP_REFERER') == null ? '/monitoring/realisasi' : Request::server('HTTP_REFERER'); ?>">
 
-<input type="hidden" name="sub_perencanaan_id" id="sub_perencanaan_id">
+<input type="hidden" name="sub_perencanaan_id" id="subPerencanaanId">
 
 <div class="form-group {{ $errors->has('progres') ? 'has-error' : '' }}">
     <label for="progres" class="control-label">{{ 'Progres' }}</label>
