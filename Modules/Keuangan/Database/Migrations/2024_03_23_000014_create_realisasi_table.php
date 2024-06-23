@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->bigInteger('realisasi');
             $table->char('laporan_keuangan', 150);
             $table->char('laporan_kegiatan', 150);
-            $table->char('ketercapian_output', 100);
+            $table->char('ketercapaian_output', 100);
             $table->date('tanggal_kontrak');
             $table->date('tanggal_pembayaran');
             $table->unsignedBigInteger('sub_perencanaan_id');

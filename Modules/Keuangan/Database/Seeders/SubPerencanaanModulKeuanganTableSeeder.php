@@ -26,7 +26,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'file_hps' => 'file_hps_a1.pdf',
                 'file_kak' => 'file_kak_a1.pdf',
                 'perencanaan_id' => 1,
-                'pic_id' => 1,
+                'pic_id' => 74,
                 'ppk_id' => 1,
                 'jenis' => 'Barang'
             ],
@@ -42,7 +42,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'file_hps' => 'file_hps_a1.pdf',
                 'file_kak' => 'file_kak_a1.pdf',
                 'perencanaan_id' => 2,
-                'pic_id' => 1,
+                'pic_id' => 74,
                 'ppk_id' => 1,
                 'jenis' => 'Barang'
             ],
@@ -58,7 +58,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'file_hps' => 'file_hps_a1.pdf',
                 'file_kak' => 'file_kak_a1.pdf',
                 'perencanaan_id' => 3,
-                'pic_id' => 1,
+                'pic_id' => 74,
                 'ppk_id' => 1,
                 'jenis' => 'Barang'
             ],
@@ -74,7 +74,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'file_hps' => 'file_hps_a1.pdf',
                 'file_kak' => 'file_kak_a1.pdf',
                 'perencanaan_id' => 4,
-                'pic_id' => 1,
+                'pic_id' => 74,
                 'ppk_id' => 1,
                 'jenis' => 'Barang'
             ],
@@ -90,7 +90,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'file_hps' => 'file_hps_a1.pdf',
                 'file_kak' => 'file_kak_a1.pdf',
                 'perencanaan_id' => 5,
-                'pic_id' => 1,
+                'pic_id' => 74,
                 'ppk_id' => 1,
                 'jenis' => 'Barang'
             ],
@@ -106,7 +106,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'file_hps' => 'file_hps_a1.pdf',
                 'file_kak' => 'file_kak_a1.pdf',
                 'perencanaan_id' => 6,
-                'pic_id' => 1,
+                'pic_id' => 74,
                 'ppk_id' => 1,
                 'jenis' => 'Barang'
             ],
@@ -122,7 +122,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'file_hps' => 'file_hps_a1.pdf',
                 'file_kak' => 'file_kak_a1.pdf',
                 'perencanaan_id' => 7,
-                'pic_id' => 1,
+                'pic_id' => 74,
                 'ppk_id' => 1,
                 'jenis' => 'Barang'
             ],
