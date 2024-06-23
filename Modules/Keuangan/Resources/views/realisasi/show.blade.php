@@ -81,6 +81,10 @@
                             <i class="fa fa-pen" aria-hidden="true"></i> Ubah
                         </a>
 
+                        <a href="#" id="hapusButton" class="btn btn-danger btn-sm" title="Hapus Realisasi">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Hapus
+                        </a>
+
                         <!-- Modal tambah-->
                         <div class="modal fade" id="tambahRealisasiModal" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -203,8 +207,9 @@
 
                 var data = realisasiData[subId];
                 var anggaranKeuangan = volume * hargaSatuan;
-                
+
                 console.log(data);
+                $('#subPerencanaanId').val(subId);
 
                 if (data && data.length > 0) {
                     $('#anggaran').val(anggaranKeuangan);
@@ -214,8 +219,6 @@
                     $('#laporanKeuangan').val(data[0].laporan_keuangan);
                     $('#laporanKegiatan').val(data[0].laporan_kegiatan);
                     $('#ketercapaianOutput').val(data[0].ketercapaian_output);
-
-                    $('#sub_perencanaan_id').val(subId);
 
                     var baseUrl = '{{ route('realisasi.update', ':id') }}';
                     baseUrl = baseUrl.replace(':id', subId);
