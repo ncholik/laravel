@@ -205,6 +205,7 @@
                 var anggaranKeuangan = volume * hargaSatuan;
                 
                 console.log(data);
+                $('#sub_perencanaan_id').val(subId);
 
                 if (data && data.length > 0) {
                     $('#anggaran').val(anggaranKeuangan);
@@ -214,8 +215,6 @@
                     $('#laporanKeuangan').val(data[0].laporan_keuangan);
                     $('#laporanKegiatan').val(data[0].laporan_kegiatan);
                     $('#ketercapaianOutput').val(data[0].ketercapaian_output);
-
-                    $('#sub_perencanaan_id').val(subId);
 
                     var baseUrl = '{{ route('realisasi.update', ':id') }}';
                     baseUrl = baseUrl.replace(':id', subId);
