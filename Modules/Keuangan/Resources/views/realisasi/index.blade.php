@@ -5,7 +5,134 @@
 @stop
 
 @section('content')
-    <div class="row">
+<div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Pencarian</h3>
+                </div>
+                <!-- search-->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Unit</label>
+                                <select class="form-control select2" id="unit-select">
+                                    <!-- Options will be populated by JS -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Program</label>
+                                <select class="form-control select2" id="perencanaan-select">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Kegiatan</label>
+                                <select class="form-control select2" id="subperencanaan-select">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Sumber Dana</label>
+                                <select class="form-control select2" id="unit-select">
+                                    <!-- Options will be populated by JS -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Periode</label>
+                                <select class="form-control select2" id="perencanaan-select">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Level</label>
+                                <select class="form-control select2" id="subperencanaan-select">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Tahun</label>
+                                <select class="form-control select2" id="year-select">
+                                    <!-- Options will be populated by JS -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                        </div>
+                        <!-- chart-->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="d-flex flex-column"><span><i class="fas fa-chart-line"></i> Grafik
+                                            Realisasi
+                                            Keuangan</span></p>
+                                    <div class="position-relative mb-4">
+                                        <canvas id="realisasi-keuangan" height="100px"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- tabel rekapitulasi --}}
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Kode</th>
+                                                <th>Nama Program</th>
+                                                <th>KRO</th>
+                                                <th>Sumber Dana</th>
+                                                <th>aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td>cek</td>
+                                            <td>cek</td>
+                                            <td>cek</td>
+                                            <td>cek</td>
+                                            <td>
+                                                <a href="" title="View Realisasi">
+                                                    <button class="btn btn-info btn-sm">
+                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                        lihat
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <div class="d-flex">
+                                        {!! $perencanaans->links('pagination::bootstrap-4') !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end-->
+        </div>
+    </div>
+    <!-- <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">Data Realisasi</div>
@@ -67,7 +194,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 @endsection
 
 @push('js')

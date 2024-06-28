@@ -1,379 +1,320 @@
 @extends('adminlte::page')
-@section('title', 'Laporan Bulanan')
+@section('title', 'Laporan')
 
 @section('content_header')
-    <h1>Laporan Bulanan</h1>
 @stop
 
 @push('css')
-    <link rel="stylesheet" href="path/to/your/custom.css">
+<link rel="stylesheet" href="path/to/your/custom.css">
 @endpush
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Pencarian</h3>
-                </div>
-                <!-- search-->
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Nama Unit</label>
-                                <select class="form-control select2" id="unit-select">
-                                    <!-- Options will be populated by JS -->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Nama Program</label>
-                                <select class="form-control select2" id="perencanaan-select">
-                                    <option selected="selected">Pilih Program</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Nama Kegiatan</label>
-                                <select class="form-control select2" id="subperencanaan-select">
-                                    <option selected="selected">Pilih Program</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Tahun</label>
-                                <select class="form-control select2" id="year-select">
-                                    <!-- Options will be populated by JS -->
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Pencarian</h3>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Data</h3>
+            <!-- search-->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Unit</label>
+                            <select class="form-control select2" id="unit-select">
+                                <!-- Options will be populated by JS -->
+                            </select>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-6 m-3">
-                                <button type="button" class="btn btn-success">
-                                    <i class="fas fa-file-excel"></i> Cetak Excel
-                                </button>
-                                <button type="button" class="btn btn-success">
-                                    <i class="fas fa-file-pdf"></i> Cetak Pdf
-                                </button>
-                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            <select class="form-control select2" id="perencanaan-select">
+                            </select>
                         </div>
-
-                        <!-- chart-->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="d-flex flex-column"><span><i class="fas fa-chart-line"></i> Grafik Realisasi
-                                            Keuangan</span></p>
-                                    <div class="position-relative mb-4">
-                                        <canvas id="realisasi-keuangan" height="100px"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- tabel rekapitulasi --}}
-                            <div class="row mt-4">
-                                <div class="col-lg-12">
-                                    <div class="btn-group" role="group" aria-label="Table toggles">
-                                        <button type="button" class="btn btn-primary" id="btn-table-1">Rekapitulasi
-                                            Keuangan</button>
-                                        <button type="button" class="btn btn-outline-primary" id="btn-table-2">Rekapitulasi
-                                            Kendala</button>
-                                    </div>
-
-                                    <div id="table-1" class="table-responsive">
-                                        <div class="card">
-                                            <div class="card-body p-0">
-                                                <table class="table table-hover">
-                                                    <thead class="bg-primary text-white">
-                                                        <tr>
-                                                            <th>Bulan</th>
-                                                            <th>Target</th>
-                                                            <th>Realisasi</th>
-                                                            <th>%Serapan Akumulatif</th>
-                                                            <th>%Serapan Total</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>cek</td>
-                                                            <td>cek</td>
-                                                            <td>cek</td>
-                                                            <td>cek</td>
-                                                            <td>cek</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div id="table-2" class="table-responsive" style="display: none;">
-                                        <div class="card">
-                                            <div class="card-body p-0">
-                                                <table class="table table-hover">
-                                                    <thead class="bg-primary text-white">
-                                                        <tr>
-                                                            <th>Bulan</th>
-                                                            <th>Unit</th>
-                                                            <th>Kendala</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>cek</td>
-                                                            <td>cek</td>
-                                                            <td>cek</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Sampai Dengan</label>
+                            <select class="form-control select2" id="subperencanaan-select">
+                            </select>
                         </div>
-                        <!-- end-->
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <a href="" title="cari">
+                            <button class="btn btn-info btn-sm col-md-12">
+                                Cari
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Kode</th>
+                                        <th>Nama Program</th>
+                                        <th>KRO</th>
+                                        <th>Sumber Dana</th>
+                                        <th>aksi</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td>cek</td>
+                                    <td>cek</td>
+                                    <td>cek</td>
+                                    <td>cek</td>
+                                    <td>
+                                        <a href="" title="View Realisasi">
+                                            <button class="btn btn-info btn-sm">
+                                                Unduh
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- end-->
+</div>
 @stop
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-        function updateChart(year, unit, program, kegiatan) {
-            var url = '/api/data?year=' + year;
+<script>
+    function updateChart(year, unit, program, kegiatan) {
+        var url = '/api/data?year=' + year;
 
-            if (unit !== '') {
-                url += '&unit=' + unit;
-            }
-
-            if (program !== '') {
-                url += '&program=' + program;
-            }
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    var ctx = document.getElementById('realisasi-keuangan').getContext('2d');
-                    if (window.myChart) {
-                        window.myChart.destroy();
-                    }
-                    window.myChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
-                                'September', 'Oktober', 'November', 'Desember'
-                            ],
-                            datasets: [{
-                                label: 'Target Keuangan',
-                                data: data.target,
-                                backgroundColor: 'rgba(251, 135, 0, 1',
-                                borderColor: 'rgba(251, 135, 0, 1',
-                                fill: true,
-                                borderWidth: 0,
-                                tension: 0.5,
-                                order: 2
-                            }, {
-                                label: 'Realisasi Keuangan',
-                                data: data.realisasi,
-                                backgroundColor: 'rgba(0, 128, 0, 1)',
-                                borderColor: 'rgba(0, 128, 0, 1)',
-                                fill: true,
-                                borderWidth: 0,
-                                tension: 0.5,
-                                order: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            },
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(tooltipItem) {
-                                            let value = tooltipItem.raw;
-                                            return `${tooltipItem.label}: Rp ${value.toLocaleString('id-ID')}`;
-                                        }
-                                    }
-                                },
-                                legend: {
-                                    position: 'bottom',
-                                    labels: {
-                                        boxWidth: 15,
-                                        padding: 20
-                                    }
-                                },
-                            }
-                        }
-                    });
-                })
-                .catch(error => console.error('Error fetching financial data:', error));
+        if (unit !== '') {
+            url += '&unit=' + unit;
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var yearSelect = document.getElementById('year-select');
-            var unitSelect = document.getElementById('unit-select');
-            var programSelect = document.getElementById('perencanaan-select');
-            var kegiatanSelect = document.getElementById('subperencanaan-select');
-            var currentYear = new Date().getFullYear();
+        if (program !== '') {
+            url += '&program=' + program;
+        }
 
-            // Populate the yearSelect dropdown with options
-            for (var i = currentYear; i >= currentYear - 4; i--) {
-                var option = document.createElement('option');
-                option.value = i;
-                option.textContent = i;
-                yearSelect.appendChild(option);
-            }
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var ctx = document.getElementById('realisasi-keuangan').getContext('2d');
+                if (window.myChart) {
+                    window.myChart.destroy();
+                }
+                window.myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+                            'September', 'Oktober', 'November', 'Desember'
+                        ],
+                        datasets: [{
+                            label: 'Target Keuangan',
+                            data: data.target,
+                            backgroundColor: 'rgba(251, 135, 0, 1',
+                            borderColor: 'rgba(251, 135, 0, 1',
+                            fill: true,
+                            borderWidth: 0,
+                            tension: 0.5,
+                            order: 2
+                        }, {
+                            label: 'Realisasi Keuangan',
+                            data: data.realisasi,
+                            backgroundColor: 'rgba(0, 128, 0, 1)',
+                            borderColor: 'rgba(0, 128, 0, 1)',
+                            fill: true,
+                            borderWidth: 0,
+                            tension: 0.5,
+                            order: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (tooltipItem) {
+                                        let value = tooltipItem.raw;
+                                        return `${tooltipItem.label}: Rp ${value.toLocaleString('id-ID')}`;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    boxWidth: 15,
+                                    padding: 20
+                                }
+                            },
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching financial data:', error));
+    }
 
-            function fetchUnits() {
-                fetch('/api/data?year=' + currentYear)
-                    .then(response => response.json())
-                    .then(data => {
-                        unitSelect.innerHTML = '';
-                        var allOption = document.createElement('option');
-                        allOption.value = '';
-                        allOption.textContent = 'Semua Unit';
-                        unitSelect.appendChild(allOption);
+    document.addEventListener('DOMContentLoaded', function () {
+        var yearSelect = document.getElementById('year-select');
+        var unitSelect = document.getElementById('unit-select');
+        var programSelect = document.getElementById('perencanaan-select');
+        var kegiatanSelect = document.getElementById('subperencanaan-select');
+        var currentYear = new Date().getFullYear();
 
-                        data.units.forEach(unit => {
-                            var option = document.createElement('option');
-                            option.value = unit.id;
-                            option.textContent = unit.nama;
-                            unitSelect.appendChild(option);
-                        });
+        // Populate the yearSelect dropdown with options
+        for (var i = currentYear; i >= currentYear - 4; i--) {
+            var option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            yearSelect.appendChild(option);
+        }
 
-                        unitSelect.value = data.units[0].id;
+        function fetchUnits() {
+            fetch('/api/data?year=' + currentYear)
+                .then(response => response.json())
+                .then(data => {
+                    unitSelect.innerHTML = '';
+                    var allOption = document.createElement('option');
+                    allOption.value = '';
+                    allOption.textContent = 'Semua Unit';
+                    unitSelect.appendChild(allOption);
 
-                        unitSelect.dispatchEvent(new Event('change'));
-                    })
-                    .catch(error => console.error('Error fetching units:', error));
-            }
+                    data.units.forEach(unit => {
+                        var option = document.createElement('option');
+                        option.value = unit.id;
+                        option.textContent = unit.nama;
+                        unitSelect.appendChild(option);
+                    });
 
-            function fetchPrograms(unitId) {
-                fetch(`/api/program?unit=${unitId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        programSelect.innerHTML = '';
-                        var allOption = document.createElement('option');
-                        allOption.value = '';
-                        allOption.textContent = 'Semua Program';
-                        programSelect.appendChild(allOption);
+                    unitSelect.value = data.units[0].id;
 
-                        data.programs.forEach(program => {
-                            var option = document.createElement('option');
-                            option.value = program.id;
-                            option.textContent = program.nama;
-                            programSelect.appendChild(option);
-                        });
+                    unitSelect.dispatchEvent(new Event('change'));
+                })
+                .catch(error => console.error('Error fetching units:', error));
+        }
 
-                        programSelect.disabled = false;
-                        fetchKegiatan(programSelect.value);
-                    })
-                    .catch(error => console.error('Error fetching programs:', error));
-            }
+        function fetchPrograms(unitId) {
+            fetch(`/api/program?unit=${unitId}`)
+                .then(response => response.json())
+                .then(data => {
+                    programSelect.innerHTML = '';
+                    var allOption = document.createElement('option');
+                    allOption.value = '';
+                    allOption.textContent = 'Semua Program';
+                    programSelect.appendChild(allOption);
 
-            function fetchKegiatan(programId) {
-                fetch(`/api/kegiatan?program=${programId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        kegiatanSelect.innerHTML = '';
-                        var allOption = document.createElement('option');
-                        allOption.value = '';
-                        allOption.textContent = 'Semua Kegiatan';
-                        kegiatanSelect.appendChild(allOption);
+                    data.programs.forEach(program => {
+                        var option = document.createElement('option');
+                        option.value = program.id;
+                        option.textContent = program.nama;
+                        programSelect.appendChild(option);
+                    });
 
-                        data.kegiatan.forEach(kegiatan => {
-                            var option = document.createElement('option');
-                            option.value = kegiatan.id;
-                            option.textContent = kegiatan.kegiatan;
-                            kegiatanSelect.appendChild(option);
-                        });
+                    programSelect.disabled = false;
+                    fetchKegiatan(programSelect.value);
+                })
+                .catch(error => console.error('Error fetching programs:', error));
+        }
 
-                        kegiatanSelect.disabled = false;
-                        updateChart(yearSelect.value, unitSelect.value, programSelect.value, kegiatanSelect
-                            .value);
-                    })
-                    .catch(error => console.error('Error fetching kegiatan:', error));
-            }
+        function fetchKegiatan(programId) {
+            fetch(`/api/kegiatan?program=${programId}`)
+                .then(response => response.json())
+                .then(data => {
+                    kegiatanSelect.innerHTML = '';
+                    var allOption = document.createElement('option');
+                    allOption.value = '';
+                    allOption.textContent = 'Semua Kegiatan';
+                    kegiatanSelect.appendChild(allOption);
 
-            fetchUnits();
+                    data.kegiatan.forEach(kegiatan => {
+                        var option = document.createElement('option');
+                        option.value = kegiatan.id;
+                        option.textContent = kegiatan.kegiatan;
+                        kegiatanSelect.appendChild(option);
+                    });
 
-            yearSelect.addEventListener('change', function() {
-                updateChart(this.value, unitSelect.value, programSelect.value, kegiatanSelect.value);
-            });
+                    kegiatanSelect.disabled = false;
+                    updateChart(yearSelect.value, unitSelect.value, programSelect.value, kegiatanSelect
+                        .value);
+                })
+                .catch(error => console.error('Error fetching kegiatan:', error));
+        }
 
-            unitSelect.addEventListener('change', function() {
-                var selectedUnit = this.value;
-                fetchPrograms(selectedUnit);
-            });
+        fetchUnits();
 
-            programSelect.addEventListener('change', function() {
-                var selectProgram = this.value;
-                fetchKegiatan(this.value);
-            });
-
-            kegiatanSelect.addEventListener('change', function() {
-                updateChart(yearSelect.value, unitSelect.value, programSelect.value, this.value);
-            });
+        yearSelect.addEventListener('change', function () {
+            updateChart(this.value, unitSelect.value, programSelect.value, kegiatanSelect.value);
         });
-    </script>
 
-    {{-- tabel bulanan --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const table1 = document.getElementById('table-1');
-            const table2 = document.getElementById('table-2');
-            const btnTable1 = document.getElementById('btn-table-1');
-            const btnTable2 = document.getElementById('btn-table-2');
-
-            btnTable1.addEventListener('click', () => {
-                table1.style.display = 'block';
-                table2.style.display = 'none';
-                btnTable1.classList.add('btn-primary');
-                btnTable1.classList.remove('btn-outline-primary');
-                btnTable2.classList.add('btn-outline-primary');
-                btnTable2.classList.remove('btn-primary');
-            });
-
-            btnTable2.addEventListener('click', () => {
-                table1.style.display = 'none';
-                table2.style.display = 'block';
-                btnTable1.classList.add('btn-outline-primary');
-                btnTable1.classList.remove('btn-primary');
-                btnTable2.classList.add('btn-primary');
-                btnTable2.classList.remove('btn-outline-primary');
-            });
+        unitSelect.addEventListener('change', function () {
+            var selectedUnit = this.value;
+            fetchPrograms(selectedUnit);
         });
-    </script>
 
-    {{-- AJAX untuk mendapatkan perencanaan berdasarkan unit --}}
-    {{-- <script>
+        programSelect.addEventListener('change', function () {
+            var selectProgram = this.value;
+            fetchKegiatan(this.value);
+        });
+
+        kegiatanSelect.addEventListener('change', function () {
+            updateChart(yearSelect.value, unitSelect.value, programSelect.value, this.value);
+        });
+    });
+
+</script>
+
+{{-- tabel bulanan --}}
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const table1 = document.getElementById('table-1');
+        const table2 = document.getElementById('table-2');
+        const btnTable1 = document.getElementById('btn-table-1');
+        const btnTable2 = document.getElementById('btn-table-2');
+
+        btnTable1.addEventListener('click', () => {
+            table1.style.display = 'block';
+            table2.style.display = 'none';
+            btnTable1.classList.add('btn-primary');
+            btnTable1.classList.remove('btn-outline-primary');
+            btnTable2.classList.add('btn-outline-primary');
+            btnTable2.classList.remove('btn-primary');
+        });
+
+        btnTable2.addEventListener('click', () => {
+            table1.style.display = 'none';
+            table2.style.display = 'block';
+            btnTable1.classList.add('btn-outline-primary');
+            btnTable1.classList.remove('btn-primary');
+            btnTable2.classList.add('btn-primary');
+            btnTable2.classList.remove('btn-outline-primary');
+        });
+    });
+
+</script>
+
+{{-- AJAX untuk mendapatkan perencanaan berdasarkan unit --}}
+{{-- <script>
         $('#unit-select').change(function() {
             var unitId = $(this).val();
             $('#perencanaan-select').prop('disabled', true).html('<option selected="selected">Memuat...</option>');
@@ -432,5 +373,5 @@
                     'disabled', true);
             }
         });
-    </script> --}}
+    </script> --}} -->
 @endpush

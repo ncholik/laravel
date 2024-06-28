@@ -65,7 +65,7 @@ class MenuModulKeuanganTableSeeder extends Seeder
 
             Menu::create([
                 'modul' => 'Keuangan',
-                'label' => 'Laporan Bulanan',
+                'label' => 'Laporan',
                 'url' => 'keuangan/laporan',
                 'can' => serialize(['admin', 'keuangan', 'pimpinan']),
                 'icon' => 'fas fa-file-alt',

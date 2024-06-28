@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
         Route::post('/realisasi/store', 'RealisasiController@store')->name('realisasi.store');
         Route::delete('/realisasi/destroy/{realisasi}', 'RealisasiController@destroy')->name('realisasi.destroy');
 
-        // laporan bulanan
+        // laporan
         Route::get('/laporan', 'LaporanController@index')->name('laporan.index');
     });
 });
