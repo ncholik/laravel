@@ -3,6 +3,9 @@
 @section('content_header')
     <h1 class="m-0 text-dark"></h1>
 @stop
+@push('css')
+    <link rel="stylesheet" href="{{ asset("vendor/sweetalert2/sweetalert2.min.css")}}">
+@endpush()
 @section('content')
 
 <div class="row">
@@ -239,6 +242,7 @@
 @endsection
 
 @push('js')
+    <script src="{{ asset("vendor/sweetalert2/sweetalert2.min.js")}}"></script>
     <script>
         $(document).ready(function() {
             $('#kegiatanSelect').on('change', function() {
@@ -246,10 +250,10 @@
                 var realisasiData = @json($realisasi);
                 var volume = $('option:selected', this).data('volume');
                 var hargaSatuan = $('option:selected', this).data('harga');
+                var nama = $('option:selected', this).text();
 
                 console.log('ID:', subId);
-                console.log('Realisasi Data:', realisasiData);
-                console.log('Anggaran Keuangan:', volume * hargaSatuan);
+                console.log('Realisasi Data:', nama);
 
                 var data = realisasiData[subId];
                 var anggaranKeuangan = volume * hargaSatuan;
@@ -277,7 +281,7 @@
                     // tombol hapus
                     var deleteUrl = '{{ route('realisasi.destroy', ':id') }}';
                     deleteUrl = deleteUrl.replace(':id', data[0].id);
-                    $('#hapusButton').data('url', deleteUrl);
+                    $('#hapusButton').data('url', deleteUrl).data('nama', nama);
                     $('#hapusButton').removeClass('disabled');
                 } else {
                     // Kosongkan field form dan anggaran jika tidak ada data realisasi yang sesuai
@@ -300,56 +304,89 @@
             // Add click event for the delete button
             $('#hapusButton').on('click', function() {
                 var deleteUrl = $(this).data('url');
+                var namaKegiatan = $(this).data('nama');
+
                 if (deleteUrl) {
-                    if (confirm('Apakah Anda yakin ingin menghapus realisasi ini?')) {
-                        $.ajax({
-                            url: deleteUrl,
-                            type: 'DELETE',
-                            data: {
-                                _token: '{{ csrf_token() }}'
-                            },
-                            success: function(result) {
-                                // Handle success response
-                                alert('Realisasi berhasil dihapus.');
-                                location.reload(); // Reload the page
-                            },
-                            error: function(xhr) {
-                                // Handle error response
-                                alert('Gagal menghapus realisasi.');
-                            }
-                        });
-                    }
+                    Swal.fire({
+                        title: 'Apakah anda yakin?',
+                        html: '<p>Menghapus realisasi <b>"' + namaKegiatan +
+                            '"</b> akan menghapus seluruh realisasi didalamnya.</p>',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, hapus',
+                        cancelButtonText: 'Tidak'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: deleteUrl,
+                                type: 'DELETE',
+                                data: {
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function(result) {
+                                    // Handle success response
+                                    Swal.fire('Realisasi berhasil dihapus.', '',
+                                        'success');
+                                    setTimeout(function() {
+                                        location.reload();
+                                    }, 2000);
+                                },
+                                error: function(xhr) {
+                                    // Handle error response
+                                    Swal.fire('Gagal menghapus realisasi.', '',
+                                        'error');
+                                }
+                            });
+                        }
+                    });
                 }
+            });
+
+            $('#tambahRealisasiModal form').on('submit', function(event) {
+                event.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    method: form.attr('method'),
+                    data: form.serialize(),
+                    success: function(response) {
+                        // Handle success response
+                        Swal.fire('Tambah realisasi berhasil.', '', 'success');
+                        $('#tambahRealisasiModal').modal('hide'); // Hide the modal
+                        setTimeout(function() {
+                            location.reload();
+                        }, 5000);
+                    },
+                    error: function(xhr) {
+                        // Handle error response
+                        Swal.fire('Gagal menambah realisasi.', '', 'error');
+                    }
+                });
+            });
+
+            $('#editRealisasiModal form').on('submit', function(event) {
+                event.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    method: form.attr('method'),
+                    data: form.serialize(),
+                    success: function(response) {
+                        // Handle success response
+                        Swal.fire('Edit realisasi berhasil.', '', 'success');
+                        $('#editRealisasiModal').modal('hide'); // Hide the modal
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
+                    },
+                    error: function(xhr) {
+                        // Handle error response
+                        Swal.fire('Gagal mengedit realisasi.', '', 'error');
+                    }
+                });
             });
         });
     </script>
-
-
-    {{-- <script>
-        (document).ready(function() {
-            function updateRealisasiDetails(realisasi) {
-                if (realisasi && realisasi.length > 0) {
-                    const data = realisasi[
-                    0]; // Assuming each subPerencanaan has a single realisasi for this example
-                    $('#anggaranKeuangan').val(data.anggaran_keuangan);
-                    $('#progres').val(data.progres);
-                    $('#realisasi').val(data.realisasi);
-                    $('#tanggalPembayaran').val(data.tanggal_pembayaran);
-                    $('#laporanKeuangan').val(data.laporan_keuangan);
-                    $('#laporanKegiatan').val(data.laporan_kegiatan);
-                    $('#ketercapaianOutput').val(data.ketercapaian_output);
-                }
-            }
-
-            // Set initial data on page load
-            const initialRealisasi = $('#kegiatanSelect').find('option:selected').data('realisasi');
-            updateRealisasiDetails(initialRealisasi);
-
-            // Update data on change
-            $('#kegiatanSelect').on('change', function() {
-                const realisasi = $(this).find('option:selected').data('realisasi');
-                updateRealisasiDetails(realisasi);
-            });
-        });$
-    </script> --}}
 @endpush

@@ -2,9 +2,6 @@
 
 @extends('adminlte::page')
 @section('title', 'Dashboard')
-@push('css')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-@endpush
 
 @section('content')
 
@@ -49,5 +46,5 @@
 @stop
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endpush
