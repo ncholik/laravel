@@ -24,13 +24,20 @@ class RealisasiController extends Controller
         }
 
         foreach ($perencanaans as $perencanaan) {
-            $perencanaan->jumlah_anggaran = $perencanaan->subPerencanaan->sum(function ($sub) {
+            $perencanaan->anggaran = $perencanaan->subPerencanaan->sum(function ($sub) {
                 return $sub->volume * $sub->harga_satuan;
             });
 
-            $perencanaan->realisasi_keuangan = $perencanaan->subPerencanaan->sum(function ($sub) {
+            $perencanaan->realisasi_ini = $perencanaan->subPerencanaan->sum(function ($sub) {
                 return $sub->realisasi->sum('realisasi');
             });
+
+            // menghitung kegiatan
+            foreach ($perencanaan->subPerencanaan as $sub) {
+                $sub->sub_anggaran = $sub->volume * $sub->harga_satuan;
+
+                $sub->sub_realisasi = $sub->realisasi->isNotEmpty() ? $sub->realisasi->first()->realisasi : 0;
+            }
         }
 
         return view('keuangan::realisasi.index', compact('perencanaans'));
@@ -110,7 +117,7 @@ class RealisasiController extends Controller
     {
         $realisasi = Realisasi::findOrFail($id);
         $realisasi->delete();
-    
+
         return response()->json(['success' => 'Realisasi berhasil dihapus.']);
     }
 }
