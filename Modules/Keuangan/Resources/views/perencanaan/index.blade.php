@@ -1,10 +1,45 @@
 @extends('adminlte::page')
 @section('title', 'Perencanaan')
 @section('content_header')
-    <h1 class="m-0 text-dark"></h1>
+<h1 class="m-0 text-dark"></h1>
 @stop
 @section('content')
-    <div class="row">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">Data Perencanaan</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Nama Program</th>
+                                <th>KRO</th>
+                                <th>Sumber Dana</th>
+                                <th>Jenis Belanja</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>cek</td>
+                            <td>cek</td>
+                            <td>cek</td>
+                            <td>cek</td>
+                            <td>cek</td>
+                        </tr>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="d-flex">
+                        {!! $perencanaans->links('pagination::bootstrap-4') !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">Data Perencanaan</div>
@@ -92,7 +127,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 @endsection
 
 @push('js')
