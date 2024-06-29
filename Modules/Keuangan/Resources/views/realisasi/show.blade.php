@@ -4,56 +4,56 @@
     <h1 class="m-0 text-dark"></h1>
 @stop
 @push('css')
-    <link rel="stylesheet" href="{{ asset("vendor/sweetalert2/sweetalert2.min.css")}}">
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}">
 @endpush()
 @section('content')
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">Detail Realisasi</div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Detail Realisasi</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Pagu</th>
+                                    <th>Periode Lalu</th>
+                                    <th>Periode ini</th>
+                                    <th>s.d Periode</th>
+                                    <th>Persentase</th>
+                                    <th>sisa</th>
+                                </tr>
+                            </thead>
                             <tr>
-                                <th>Pagu</th>
-                                <th>Periode Lalu</th>
-                                <th>Periode ini</th>
-                                <th>s.d Periode</th>
-                                <th>Persentase</th>
-                                <th>sisa</th>
+                                <td>cek</td>
+                                <td>cek</td>
+                                <td>cek</td>
+                                <td>cek</td>
+                                <td>cek</td>
+                                <td>cek</td>
                             </tr>
-                        </thead>
-                        <tr>
-                            <td>cek</td>
-                            <td>cek</td>
-                            <td>cek</td>
-                            <td>cek</td>
-                            <td>cek</td>
-                            <td>cek</td>
-                        </tr>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-end mb-3">
-                        {!! $perencanaans->links('pagination::bootstrap-4') !!}
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end mb-3">
+                            {{-- {!! $perencanaans->links('pagination::bootstrap-4') !!} --}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer d-flex justify-content-end">
-                <button class="btn btn-warning btn-sm mr-2" onclick="window.history.back()">
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
-                </button>
-                <button class="btn btn-success btn-sm">
-                    <i class="fas fa-file-pdf" aria-hidden="true"></i> Cetak
-                </button>
+                <div class="card-footer d-flex justify-content-end">
+                    <button class="btn btn-warning btn-sm mr-2" onclick="window.history.back()">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
+                    </button>
+                    <button class="btn btn-success btn-sm">
+                        <i class="fas fa-file-pdf" aria-hidden="true"></i> Cetak
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -70,7 +70,7 @@
                         class="fa fa-trash-o" aria-hidden="true"></i> Hapus</button>
                 </form> --}}
 
-                    <div class="fixed-table">
+                    {{-- <div class="fixed-table">
                         <table class="table table-bordered">
                             <tbody id="collapsibleTable">
                                 <tr>
@@ -135,7 +135,7 @@
                         </a>
 
                         <!-- Modal tambah-->
-                        <!-- <div class="modal fade" id="tambahRealisasiModal" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="tambahRealisasiModal" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -158,7 +158,7 @@
                             </div>
                         </div>
                         <!-- Modal ubah-->
-                        <!-- <div class="modal fade" id="editRealisasiModal" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="editRealisasiModal" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -181,13 +181,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -238,11 +238,11 @@
                 </div>
             </div>
         </div>
-    </div> --> --> -->
+    </div> --}}
 @endsection
 
 @push('js')
-    <script src="{{ asset("vendor/sweetalert2/sweetalert2.min.js")}}"></script>
+    <script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#kegiatanSelect').on('change', function() {
