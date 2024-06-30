@@ -40,5 +40,7 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
 
         // laporan
         Route::get('/laporan', 'LaporanController@index')->name('laporan.index');
+        Route::get('/laporan/show-laporan', 'LaporanController@show_laporan')->name('show_laporan');
+        Route::get('/laporan/cetak-laporan', 'LaporanController@cetak_laporan')->name('laporan.cetak_laporan');
     });
 });
