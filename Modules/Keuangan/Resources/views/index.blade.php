@@ -37,6 +37,9 @@
                         @include('keuangan::include.chart_serapan')
                     </div>
                     <div class="row mt-4">
+                        @include('keuangan::include.chart_sumber_dana')
+                    </div>
+                    <div class="row mt-4">
                         @include('keuangan::include.tabel_unit')
                     </div>
                 </div>
