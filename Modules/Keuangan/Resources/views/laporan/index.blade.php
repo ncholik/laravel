@@ -18,39 +18,41 @@
                 <!-- search-->
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="form-group">
-                                <label>Unit</label>
-                                <select class="form-control select2" id="unit-select">
-                                    <!-- Options will be populated by JS -->
-                                </select>
+                                <label for="anggaran_program" class="control-label">Tanggal</label>
+                                <input class="form-control" name="anggaran_program" type="date" id="anggaran_program" value="" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Tahun</label>
-                                <select class="form-control select2" id="perencanaan-select">
-                                </select>
-                            </div>
+                
+                        <div class="col-md-2 text-center align-self-center">
+                            <span class="sd-text">s.d</span>
                         </div>
-                        <div class="col-md-4">
+                
+                        <div class="col-md-5">
                             <div class="form-group">
-                                <label>Sampai Dengan</label>
-                                <select class="form-control select2" id="subperencanaan-select">
-                                </select>
+                                <label for="anggaran_kegiatan" class="control-label">Anggaran Kegiatan</label>
+                                <input class="form-control" name="anggaran_kegiatan" type="date" id="anggaran_kegiatan" value="" required>
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-12">
+                    <div class="row mt-2 d-flex justify-content-end">
+                        <div class="col-1 ">
+                            <a href="" title="cari">
+                                <button class="btn btn-info btn-sm col-md-12">
+                                    Reset
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-1 ">
                             <a href="" title="cari">
                                 <button class="btn btn-info btn-sm col-md-12">
                                     Cari
                                 </button>
                             </a>
                         </div>
-                    </div>
-                </div>
+                    </div>                    
+                </div> 
             </div>
 
             <div class="row">
@@ -63,21 +65,22 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Kode</th>
-                                            <th>Nama Program</th>
-                                            <th>KRO</th>
-                                            <th>Sumber Dana</th>
+                                            <th>Timeline</th>
+                                            <th>Status</th>
                                             <th>aksi</th>
                                         </tr>
                                     </thead>
                                     <tr>
-                                        <td>cek</td>
-                                        <td>cek</td>
-                                        <td>cek</td>
-                                        <td>cek</td>
+                                        <td>28 juli 2024</td>
+                                        <td>selesai</td>
                                         <td>
                                             <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#pdfModal">
-                                                Unduh
+                                            <i class="fa fa-solid fa-file-excel" aria-hidden="true"></i>
+                                                Escel
+                                            </button>
+                                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#pdfModal">
+                                            <i class="fa fa-solid fa-file-pdf" aria-hidden="true"></i>
+                                                Pdf
                                             </button>
                                         </td>
                                     </tr>
