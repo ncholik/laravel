@@ -24,19 +24,21 @@ class RealisasiController extends Controller
         }
 
         foreach ($perencanaans as $perencanaan) {
-            $perencanaan->anggaran = $perencanaan->subPerencanaan->sum(function ($sub) {
+            $perencanaan->total_anggaran = $perencanaan->subPerencanaan->sum(function ($sub) {
                 return $sub->volume * $sub->harga_satuan;
             });
 
-            $perencanaan->realisasi_ini = $perencanaan->subPerencanaan->sum(function ($sub) {
+            $perencanaan->total_realisasi = $perencanaan->subPerencanaan->sum(function ($sub) {
                 return $sub->realisasi->sum('realisasi');
             });
 
-            // menghitung kegiatan
-            foreach ($perencanaan->subPerencanaan as $sub) {
-                $sub->sub_anggaran = $sub->volume * $sub->harga_satuan;
+            $perencanaan->sisa_anggaran = $perencanaan->pagu - $perencanaan->total_realisasi;
 
-                $sub->sub_realisasi = $sub->realisasi->isNotEmpty() ? $sub->realisasi->first()->realisasi : 0;
+            // Menghitung persentase realisasi
+            if ($perencanaan->total_anggaran > 0) {
+                $perencanaan->persentase = ($perencanaan->total_realisasi / $perencanaan->total_anggaran) * 100;
+            } else {
+                $perencanaan->persentase = 0;
             }
         }
 

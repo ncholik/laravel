@@ -15,7 +15,8 @@
                     <thead class="bg-success">
                         <tr>
                             <th>Unit Serapan Tertinggi</th>
-                            <th>Anggaran</th>
+                            <th>Pagu</th>
+                            <th>RPD</th>
                             <th>Realisasi</th>
                             <th>Persentase</th>
                         </tr>
@@ -24,6 +25,9 @@
                         @foreach ($topUnits as $unit)
                             <tr>
                                 <td>{{ $unit['nama'] }}</td>
+                                <td>
+                                    Rp. {{ number_format($unit['total_pagu'], 0, ',', '.') }}
+                                </td>
                                 <td>
                                     Rp. {{ number_format($unit['total_perencanaan'], 0, ',', '.') }}
                                 </td>

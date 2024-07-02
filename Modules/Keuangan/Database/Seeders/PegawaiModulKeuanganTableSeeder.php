@@ -19,7 +19,7 @@ class PegawaiModulKeuanganTableSeeder extends Seeder
         Model::unguard();
 
         $faker = Factory::create('id_ID'); // Menggunakan lokal bahasa Indonesia
-        foreach (range(1, 2) as $index) {
+        foreach (range(1, 6) as $index) {
             DB::table('pegawais')->insert([
                 'nip' => $faker->optional()->numerify('###############'),
                 'noid' => $faker->optional()->numerify('###############'),
@@ -27,7 +27,7 @@ class PegawaiModulKeuanganTableSeeder extends Seeder
                 'id_staff' => $faker->optional()->randomDigitNotNull,
                 'id_jurusan' => $faker->optional()->randomDigitNotNull,
                 'id_prodi' => $faker->optional()->randomDigitNotNull,
-                'unit_id' => 74,
+                'unit_id' => $faker->randomElement(['74', '75']),
                 'jenis_kelamin' => $faker->randomElement(['L', 'P']),
                 'agama' => $faker->optional()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Konghucu']),
                 'no_tlp' => $faker->optional()->phoneNumber,

@@ -22,5 +22,6 @@ class KeuanganDatabaseSeeder extends Seeder
         $this->call(PegawaiModulKeuanganTableSeeder::class);
         $this->call(PerencanaanModulKeuanganTableSeeder::class);
         $this->call(SubPerencanaanModulKeuanganTableSeeder::class);
+        $this->call(RealisasiModulKeuanganTableSeeder::class);
     }
 }

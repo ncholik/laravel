@@ -13,7 +13,7 @@
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <h6>TOTAL ANGGARAN</h6>
             <h4 class="card-text text-danger"><b>Rp.
-                    {{ number_format($total_perencanaan, 0, ',', '.') }}</b></h4>
+                    {{ number_format($total_pagu, 0, ',', '.') }}</b></h4>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <h6 class="card-title">SISA ANGGARAN</h6>
             <h4 class="card-text text-warning"><b>Rp.
-                    {{ number_format($total_perencanaan - $total_realisasi, 0, ',', '.') }}</b>
+                    {{ number_format($total_pagu - $total_realisasi, 0, ',', '.') }}</b>
             </h4>
         </div>
     </div>

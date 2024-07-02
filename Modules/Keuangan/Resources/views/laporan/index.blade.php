@@ -39,7 +39,7 @@
                     <div class="row mt-2 d-flex justify-content-end">
                         <div class="col-1 ">
                             <a href="" title="cari">
-                                <button class="btn btn-info btn-sm col-md-12">
+                                <button class="btn btn-warning btn-sm col-md-12">
                                     Reset
                                 </button>
                             </a>
@@ -65,12 +65,14 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
+                                            <th>Nama File</th>
                                             <th>Timeline</th>
                                             <th>Status</th>
                                             <th>aksi</th>
                                         </tr>
                                     </thead>
                                     <tr>
+                                        <td>laporan realisasi TA 2024</td>
                                         <td>28 juli 2024</td>
                                         <td>selesai</td>
                                         <td>

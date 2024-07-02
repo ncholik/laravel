@@ -2,6 +2,7 @@
 
 namespace Modules\Keuangan\Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -18,76 +19,56 @@ class RealisasiModulKeuanganTableSeeder extends Seeder
         Model::unguard();
 
         DB::table('realisasis')->insert([
+            
+            // mesin
             [
                 'progres' => 'Progres 1',
-                'realisasi' => 0,
+                'realisasi' => 799200,
                 'laporan_keuangan' => 'laporan_keuangan_a1.pdf',
                 'laporan_kegiatan' => 'laporan_kegiatan_a1.pdf',
-                'ketercapian_output' => 'Tercapai',
-                'tanggal_kontrak' => '2024-06-15',
-                'tanggal_pembayaran' => '2024-07-15',
-                'sub_perencanaan_id' => 1,
+                'ketercapaian_output' => 'Tercapai',
+                'tanggal_kontrak' => '2024-04-15',
+                'tanggal_pembayaran' => '2024-04-15',
+                'sub_perencanaan_id' => 9,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ],
             [
                 'progres' => 'Progres 2',
-                'realisasi' => 0,
+                'realisasi' => 3595400,
                 'laporan_keuangan' => 'laporan_keuangan_a1.pdf',
                 'laporan_kegiatan' => 'laporan_kegiatan_a1.pdf',
-                'ketercapian_output' => 'Tercapai',
+                'ketercapaian_output' => 'Tercapai',
                 'tanggal_kontrak' => '2024-06-15',
-                'tanggal_pembayaran' => '2024-07-15',
-                'sub_perencanaan_id' => 2,
+                'tanggal_pembayaran' => '2024-06-15',
+                'sub_perencanaan_id' => 10,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ],
             [
-                'progres' => 'Progres 3',
-                'realisasi' => 0,
+                'progres' => 'Progres 1',
+                'realisasi' => 10000000,
                 'laporan_keuangan' => 'laporan_keuangan_a1.pdf',
                 'laporan_kegiatan' => 'laporan_kegiatan_a1.pdf',
-                'ketercapian_output' => 'Tercapai',
-                'tanggal_kontrak' => '2024-06-15',
-                'tanggal_pembayaran' => '2024-07-15',
-                'sub_perencanaan_id' => 3,
+                'ketercapaian_output' => 'Tercapai',
+                'tanggal_kontrak' => '2024-04-15',
+                'tanggal_pembayaran' => '2024-04-15',
+                'sub_perencanaan_id' => 14,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ],
             [
-                'progres' => 'Progres 4',
-                'realisasi' => 0,
+                'progres' => 'Progres 1',
+                'realisasi' => 7000000,
                 'laporan_keuangan' => 'laporan_keuangan_a1.pdf',
                 'laporan_kegiatan' => 'laporan_kegiatan_a1.pdf',
-                'ketercapian_output' => 'Tercapai',
-                'tanggal_kontrak' => '2024-06-15',
-                'tanggal_pembayaran' => '2024-07-15',
-                'sub_perencanaan_id' => 4,
+                'ketercapaian_output' => 'Tercapai',
+                'tanggal_kontrak' => '2024-02-15',
+                'tanggal_pembayaran' => '2024-02-15',
+                'sub_perencanaan_id' => 16,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ],
-            [
-                'progres' => 'Progres 5',
-                'realisasi' => 0,
-                'laporan_keuangan' => 'laporan_keuangan_a1.pdf',
-                'laporan_kegiatan' => 'laporan_kegiatan_a1.pdf',
-                'ketercapian_output' => 'Tercapai',
-                'tanggal_kontrak' => '2024-06-15',
-                'tanggal_pembayaran' => '2024-07-15',
-                'sub_perencanaan_id' => 5,
-            ],
-            [
-                'progres' => 'Progres 6',
-                'realisasi' => 0,
-                'laporan_keuangan' => 'laporan_keuangan_a1.pdf',
-                'laporan_kegiatan' => 'laporan_kegiatan_a1.pdf',
-                'ketercapian_output' => 'Tercapai',
-                'tanggal_kontrak' => '2024-06-15',
-                'tanggal_pembayaran' => '2024-07-15',
-                'sub_perencanaan_id' => 6,
-            ],
-            [
-                'progres' => 'Progres 7',
-                'realisasi' => 0,
-                'laporan_keuangan' => 'laporan_keuangan_a1.pdf',
-                'laporan_kegiatan' => 'laporan_kegiatan_a1.pdf',
-                'ketercapian_output' => 'Tercapai',
-                'tanggal_kontrak' => '2024-06-15',
-                'tanggal_pembayaran' => '2024-07-15',
-                'sub_perencanaan_id' => 7,
-            ]
         ]);
     }
 }

@@ -1,48 +1,19 @@
 {{-- chart serapan --}}
 
-<div class="col-md-7">
+<div class="col-md-12">
     <div class="chart">
         <!-- Sales Chart Canvas -->
-        <canvas id="doughnut" style="max-height: 300px; max-width: 100%;"></canvas>
+        <canvas id="serapan" style="max-height: 300px; max-width: 100%;"></canvas>
     </div>
 </div>
-
-{{-- info anggaran --}}
-<div class="col-md-5">
-    <div class="card border-danger mb-2" style="width: 300px;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-            <h6>RUPIAH MURNI</h6>
-            <h4 class="card-text text-danger"><b>Rp.
-                    {{ number_format($total_perencanaan, 0, ',', '.') }}</b></h4>
-        </div>
-    </div>
-
-    <div class="card border-success mb-2" style="width: 300px;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-            <h6 class="card-title">BOPTN</h6>
-            <h4 class="card-text text-success"><b>Rp.
-                    {{ number_format($total_realisasi, 0, ',', '.') }}</b></h4>
-        </div>
-    </div>
-
-    <div class="card border-warning mb-2" style="width: 300px;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-            <h6 class="card-title">PNBP</h6>
-            <h4 class="card-text text-warning"><b>Rp.
-                    {{ number_format($total_perencanaan - $total_realisasi, 0, ',', '.') }}</b>
-            </h4>
-        </div>
-    </div>
-</div>
-{{-- end --}}
 
 @push('js')
-    {{-- chart doughnut --}}
+    {{-- chart serapan --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var ctx = document.getElementById('doughnut').getContext('2d');
-            var doughnutChart = new Chart(ctx, {
-                type: 'doughnut',
+            var ctx = document.getElementById('serapan').getContext('2d');
+            var serapan = new Chart(ctx, {
+                type: 'bar',
                 data: {
                     labels: [
                         'Diserap',

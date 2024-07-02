@@ -104,10 +104,11 @@
                                     <table class="table table-striped">
                                         <thead class="text-center">
                                             <tr>
+                                                <th>Kode</th>
                                                 <th>Uraian</th>
+                                                <th>Pagu</th>
                                                 <th>RPD</th>
                                                 <th>Realisasi</th>
-                                                <th>Sumber Dana</th>
                                                 <th>Sisa</th>
                                                 <th>Persentase</th>
                                                 <th>Aksi</th>
@@ -115,18 +116,29 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($perencanaans as $perencanaan)
-                                                <tr data-tt-id="{{ $perencanaan->id }}">
+                                                <tr class="text-center">
+                                                    <td>{{ $perencanaan->kode }}</td>
                                                     <td class="text-left">
-                                                        {{ $perencanaan->kode }}. {{ $perencanaan->nama }}
+                                                        {{ $perencanaan->nama }}
                                                     </td>
-                                                    <td>
-                                                        {{ str_replace(',', '.', number_format($perencanaan->anggaran)) }}
+                                                    <td class="{{ $perencanaan->pagu == 0 ? 'text-danger' : '' }}">
+                                                        {{ str_replace(',', '.', number_format($perencanaan->pagu)) }}
                                                     </td>
-                                                    <td>
-                                                        {{ str_replace(',', '.', number_format($perencanaan->realisasi_ini)) }}
+                                                    <td
+                                                        class="{{ $perencanaan->total_anggaran == 0 ? 'text-danger' : '' }}">
+                                                        {{ str_replace(',', '.', number_format($perencanaan->total_anggaran)) }}
                                                     </td>
-                                                    <td colspan="2">{{ $perencanaan->sumber }}</td>
-                                                    <td></td>
+                                                    <td
+                                                        class="{{ $perencanaan->total_realisasi == 0 ? 'text-danger' : '' }}">
+                                                        {{ str_replace(',', '.', number_format($perencanaan->total_realisasi)) }}
+                                                    </td>
+                                                    <td
+                                                        class="{{ $perencanaan->sisa_anggaran == 0 ? 'text-danger' : '' }}">
+                                                        {{ str_replace(',', '.', number_format($perencanaan->sisa_anggaran)) }}
+                                                    </td>
+                                                    <td class="{{ $perencanaan->persentase == 0 ? 'text-danger' : '' }}">
+                                                        {{ number_format($perencanaan->persentase, 2) }} %
+                                                    </td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button class="btn btn-info btn-sm dropdown-toggle"
@@ -136,8 +148,8 @@
                                                                 Aksi
                                                             </button>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <a class="dropdown-item" href="#" title="Tambah">
-                                                                    <i class="fas fa-plus"></i> Tambah
+                                                                <a class="dropdown-item" href="{{ route('realisasi.create')}}" title="Tambah">
+                                                                    <i class="fas fa-plus" aria-hidden="true"></i> Tambah
                                                                 </a>
                                                                 <a class="dropdown-item" href="#" title="Edit">
                                                                     <i class="fas fa-pen"></i> Edit

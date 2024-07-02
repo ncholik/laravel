@@ -20,11 +20,11 @@
                         </ul>
                     @endif
 
-                    <form method="POST" action="{{ route('perencanaan.store') }}" accept-charset="UTF-8"
+                    <form method="POST" action="{{ route('realisasi.store') }}" accept-charset="UTF-8"
                         class="form-horizontal" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
-                        @include ('monitoring::realisasi.form', ['formMode' => 'create'])
+                        @include ('keuangan::realisasi.form', ['formMode' => 'create'])
 
                     </form>
 

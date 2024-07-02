@@ -25,6 +25,12 @@ class KeuanganController extends Controller
         $units = Unit::all();
         $data = [];
 
+        // hitung total pagu
+        $total_pagu = 0;
+        foreach ($perencanaan as $item) {
+            $total_pagu += $item->pagu;
+        }
+
         // Hitung total perencanaan
         $total_perencanaan = $perencanaan->reduce(function ($carry, $item) {
             return $carry + $item->subPerencanaan->sum(function ($sub) {
@@ -52,18 +58,19 @@ class KeuanganController extends Controller
         foreach ($units as $unit) {
             $unitRealisasi[$unit->id] = [
                 'nama' => $unit->nama,
-                'total_realisasi' => 0,
+                'total_pagu' => 0,
                 'total_perencanaan' => 0,
+                'total_realisasi' => 0,
                 'percentage' => 0
             ];
         }
 
-        // Hitung total realisasi per unit
-        foreach ($realisasi as $item) {
-            $unit = $item->subPerencanaan->perencanaan->unit;
+        // Hitung total pagu per unit
+        foreach ($perencanaan as $item) {
+            $unit = $item->unit;
             if ($unit) {
                 $unitId = $unit->id;
-                $unitRealisasi[$unitId]['total_realisasi'] += $item->realisasi;
+                $unitRealisasi[$unitId]['total_pagu'] += $item->pagu;
             }
         }
 
@@ -75,6 +82,15 @@ class KeuanganController extends Controller
                 $unitRealisasi[$unitId]['total_perencanaan'] += $item->subPerencanaan->sum(function ($sub) {
                     return $sub->volume * $sub->harga_satuan;
                 });
+            }
+        }
+
+        // Hitung total realisasi per unit
+        foreach ($realisasi as $item) {
+            $unit = $item->subPerencanaan->perencanaan->unit;
+            if ($unit) {
+                $unitId = $unit->id;
+                $unitRealisasi[$unitId]['total_realisasi'] += $item->realisasi;
             }
         }
 
@@ -127,6 +143,7 @@ class KeuanganController extends Controller
         // dd($unitRealisasi);
         return view('keuangan::index', compact(
             'perencanaan',
+            'total_pagu',
             'total_perencanaan',
             'total_realisasi',
             'topUnits',

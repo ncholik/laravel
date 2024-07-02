@@ -16,6 +16,7 @@ return new class extends Migration
             $table->char('nama', 150);
             $table->char('kode', 100);
             $table->enum('sumber', ['PNP', 'RM', 'Hibah']);
+            $table->integer('pagu');
             $table->integer('revisi');
             $table->unsignedBigInteger('unit_id');
             $table->timestamps();
