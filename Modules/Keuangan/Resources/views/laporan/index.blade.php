@@ -76,7 +76,7 @@
                                         <td>
                                             <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#pdfModal">
                                             <i class="fa fa-solid fa-file-excel" aria-hidden="true"></i>
-                                                Escel
+                                                Excel
                                             </button>
                                             <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#pdfModal">
                                             <i class="fa fa-solid fa-file-pdf" aria-hidden="true"></i>

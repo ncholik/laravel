@@ -20,7 +20,7 @@ class RealisasiController extends Controller
                 ->orWhere('kode', 'LIKE', "%{$query}%")
                 ->paginate(10);
         } else {
-            $perencanaans = Perencanaan::with('subPerencanaan')->paginate(10);
+            $perencanaans = Perencanaan::with('subPerencanaan')->paginate(20);
         }
 
         foreach ($perencanaans as $perencanaan) {

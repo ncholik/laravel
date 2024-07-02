@@ -15,6 +15,7 @@
                     <thead class="bg-success">
                         <tr>
                             <th>Unit Serapan Tertinggi</th>
+                            <th>Anggaran</th>
                             <th>Realisasi</th>
                             <th>Persentase</th>
                         </tr>
@@ -23,7 +24,11 @@
                         @foreach ($topUnits as $unit)
                             <tr>
                                 <td>{{ $unit['nama'] }}</td>
-                                <td>Rp. {{ number_format($unit['total_realisasi'], 0, ',', '.') }}
+                                <td>
+                                    Rp. {{ number_format($unit['total_perencanaan'], 0, ',', '.') }}
+                                </td>
+                                <td>
+                                    Rp. {{ number_format($unit['total_realisasi'], 0, ',', '.') }}
                                 </td>
                                 <td>{{ number_format($unit['percentage'], 2) }}%</td>
                             </tr>
@@ -41,6 +46,7 @@
                     <thead class="bg-success">
                         <tr>
                             <th>Unit Serapan Terendah</th>
+                            <td>Anggaran</td>
                             <th>Realisasi</th>
                             <th>Persentase</th>
                         </tr>
@@ -49,7 +55,11 @@
                         @foreach ($bottomUnits as $unit)
                             <tr>
                                 <td>{{ $unit['nama'] }}</td>
-                                <td>Rp. {{ number_format($unit['total_realisasi'], 0, ',', '.') }}
+                                <td>
+                                    Rp. {{ number_format($unit['total_perencanaan'], 0, ',', '.') }}
+                                </td>
+                                <td>
+                                    Rp. {{ number_format($unit['total_realisasi'], 0, ',', '.') }}
                                 </td>
                                 <td>{{ number_format($unit['percentage'], 2) }}%</td>
                             </tr>

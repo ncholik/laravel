@@ -53,6 +53,7 @@ class KeuanganController extends Controller
             $unitRealisasi[$unit->id] = [
                 'nama' => $unit->nama,
                 'total_realisasi' => 0,
+                'total_perencanaan' => 0,
                 'percentage' => 0
             ];
         }
@@ -63,6 +64,17 @@ class KeuanganController extends Controller
             if ($unit) {
                 $unitId = $unit->id;
                 $unitRealisasi[$unitId]['total_realisasi'] += $item->realisasi;
+            }
+        }
+
+        // Hitung total perencanaan per unit
+        foreach ($perencanaan as $item) {
+            $unit = $item->unit;
+            if ($unit) {
+                $unitId = $unit->id;
+                $unitRealisasi[$unitId]['total_perencanaan'] += $item->subPerencanaan->sum(function ($sub) {
+                    return $sub->volume * $sub->harga_satuan;
+                });
             }
         }
 
@@ -95,7 +107,7 @@ class KeuanganController extends Controller
             ->pluck('total', 'bulan')
             ->toArray();
 
-        $realisasiPerBulan = Realisasi::selectRaw('MONTH(created_at) as bulan, SUM(realisasi) as total')
+        $realisasiPerBulan = Realisasi::selectRaw('MONTH(tanggal_pembayaran) as bulan, SUM(realisasi) as total')
             ->groupBy('bulan')
             ->pluck('total', 'bulan')
             ->toArray();

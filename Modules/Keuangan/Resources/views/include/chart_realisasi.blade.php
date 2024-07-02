@@ -2,11 +2,11 @@
 
 <div class="col-md-8">
     <p class="text-center">
-        <strong id="yearText">Realisasi Tahun: {{ date('Y') }}</strong>
+        <strong id="yearText">Serapan Anggaran Tahun: {{ date('Y') }}</strong>
     </p>
     <!-- chart-->
     <div class="chart">
-        <canvas id="line-serapan"></canvas>
+        <canvas id="line-serapan" style="width: 100%; height:450px"></canvas>
     </div>
     <!-- end-->
 </div>
@@ -18,6 +18,19 @@
             const realisasi = @json($realisasi);
 
             const ctx = document.getElementById('line-serapan').getContext('2d');
+
+            const customLegendPlugin = {
+                id: 'customLegendPlugin',
+                afterDatasetsDraw(chart, args, options) {
+                    const legendContainer = chart.legend.legendItems;
+                    legendContainer.sort((a, b) => {
+                        if (a.text === 'Realisasi per Bulan') return 1;
+                        if (b.text === 'Realisasi per Bulan') return -1;
+                        return 0;
+                    });
+                }
+            };
+
             new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -27,8 +40,8 @@
                     datasets: [{
                         label: 'Target per Bulan',
                         data: target,
-                        backgroundColor: 'rgba(251, 135, 0, 1)',
-                        borderColor: 'rgba(251, 135, 0, 1)',
+                        backgroundColor: 'rgba(0, 159, 255, 1)',
+                        borderColor: 'rgba(0, 159, 255, 1)',
                         borderWidth: 1,
                         fill: true,
                         tension: 0.5,
@@ -36,12 +49,12 @@
                     }, {
                         label: 'Realisasi per Bulan',
                         data: realisasi,
-                        backgroundColor: 'rgba(0, 128, 0, 1)',
-                        borderColor: 'rgba(0, 128, 0, 1)',
+                        backgroundColor: 'rgba(0, 150, 0, 1)',
+                        borderColor: 'rgba(0, 150, 0, 1)',
                         borderWidth: 1,
                         fill: true,
                         tension: 0.5,
-                        order: 1
+                        order: 0
                     }]
                 },
                 options: {
@@ -60,7 +73,8 @@
                             }
                         }
                     }
-                }
+                },
+                plugins: [customLegendPlugin]
             });
         });
     </script>
