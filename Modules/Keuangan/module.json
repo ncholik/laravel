@@ -1,0 +1,13 @@
+{
+    "name": "Keuangan",
+    "alias": "keuangan",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Keuangan\\Providers\\KeuanganServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
