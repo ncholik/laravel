@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-2 d-flex justify-content-end">
+                    <div class="row mt-2 d-flex justify-content-center">
                         <div class="col-1 ">
                             <a href="" title="cari">
                                 <button class="btn btn-warning btn-sm col-md-12">
