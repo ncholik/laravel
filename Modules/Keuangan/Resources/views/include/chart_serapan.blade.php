@@ -1,6 +1,6 @@
 {{-- chart serapan --}}
 
-<div class="col-md-6">
+<div class="col-md-7">
     <div class="chart">
         <!-- Sales Chart Canvas -->
         <canvas id="doughnut" style="max-height: 300px; max-width: 100%;"></canvas>
@@ -8,18 +8,17 @@
 </div>
 
 {{-- info anggaran --}}
-<div class="col-md-6">
-    <div class="card border-danger mb-2" style="width: 400px;">
+<div class="col-md-5">
+    <div class="card border-danger mb-2" style="width: 350px;">
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <h6>TOTAL ANGGARAN</h6>
             <h4 class="card-text text-danger">
                 <b>Rp. {{ number_format($total_pagu, 0, ',', '.') }}</b>
-                ({{ number_format($persentase_belum_direalisasi, 2) }}%)
             </h4>
         </div>
     </div>
 
-    <div class="card border-success mb-2" style="width: 400px;">
+    <div class="card border-success mb-2" style="width: 350px;">
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <h6 class="card-title">TOTAL SERAPAN</h6>
             <h4 class="card-text text-success">
@@ -29,20 +28,32 @@
         </div>
     </div>
 
-    <div class="card border-warning mb-2" style="width: 400px;">
+    <div class="card border-warning mb-2" style="width: 350px;">
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <h6 class="card-title">SISA ANGGARAN</h6>
-            <h4 class="card-text text-warning"><b>Rp.
-                    {{ number_format($total_pagu - $total_realisasi, 0, ',', '.') }} (30%)</b>
+            <h4 class="card-text text-warning">
+                <b>Rp. {{ number_format($total_pagu - $total_realisasi, 0, ',', '.') }}</b>
+                ({{ number_format($persentase_belum_direalisasi, 2) }}%)
             </h4>
         </div>
     </div>
 
-    <div class="card border-warning mb-2" style="width: 400px;">
+    <div class="card border-warning mb-2" style="width: 350px;">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+            <h6 class="card-title">TOTAL RPD</h6>
+            <h4 class="card-text text-success">
+                <b>Rp. {{ number_format($total_perencanaan, 0, ',', '.') }}</b>
+                ({{ number_format($persentase_rpd, 2) }}%)
+            </h4>
+        </div>
+    </div>
+
+    <div class="card border-warning mb-2" style="width: 350px;">
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <h6 class="card-title">SISA RPD</h6>
-            <h4 class="card-text text-warning"><b>Rp.
-                    (30%)</b>
+            <h4 class="card-text text-warning">
+                <b>Rp. {{ number_format($total_perencanaan - $total_realisasi, 0, ',', '.') }}</b>
+                ({{ number_format($persentase_sisa_rpd, 2) }}%)
             </h4>
         </div>
     </div>

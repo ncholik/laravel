@@ -42,12 +42,22 @@ class KeuanganController extends Controller
             $total_realisasi += $item->realisasi;
         }
 
+
+
         $persentase_realisasi = 0;
         $persentase_belum_direalisasi = 0;
         // Hitung persentase
-        if ($total_perencanaan > 0) {
-            $persentase_realisasi = ($total_realisasi / $total_perencanaan) * 100;
+        if ($total_pagu > 0) {
+            $persentase_realisasi = ($total_realisasi / $total_pagu) * 100;
             $persentase_belum_direalisasi = 100 - $persentase_realisasi;
+        }
+
+        $persentase_rpd = 0;
+        $persentase_sisa_rpd = 0;
+        // Hitung persentase
+        if ($total_perencanaan > 0) {
+            $persentase_rpd = ($total_realisasi / $total_perencanaan) * 100;
+            $persentase_sisa_rpd = 100 - $persentase_rpd;
         }
 
         // Inisialisasi unitRealisasi dengan semua unit
@@ -160,6 +170,8 @@ class KeuanganController extends Controller
             'bottomUnits',
             'persentase_realisasi',
             'persentase_belum_direalisasi',
+            'persentase_rpd',
+            'persentase_sisa_rpd',
             'target',
             'realisasi'
         ))->with('data', $data);

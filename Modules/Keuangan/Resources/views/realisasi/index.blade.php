@@ -183,4 +183,13 @@
 
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#unit-select, #sumber-select').change(function() {
+                this.form.submit();
+            });
+        });
+    </script>
+
 @endpush
