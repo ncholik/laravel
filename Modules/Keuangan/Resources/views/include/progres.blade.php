@@ -5,70 +5,57 @@
             <thead>
                 <tr>
                     <th>Bulan</th>
-                    <th>TK</th>
-                    <th>RK</th>
+                    <th>Persentase</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Januari</td>
-                    <td>100</td>
-                    <td>100</td>
+                    <td>100%</td>
                 </tr>
                 <tr>
                     <td>Februari</td>
-                    <td>200</td>
-                    <td>200</td>
+                    <td>20%</td>
                 </tr>
                 <tr>
                     <td>Maret</td>
-                    <td>300</td>
-                    <td>300</td>
+                    <td>30%</td>
                 </tr>
                 <tr>
                     <td>April</td>
-                    <td>400</td>
-                    <td>400</td>
+                    <td>40%</td>
                 </tr>
                 <tr>
                     <td>Mei</td>
-                    <td>500</td>
-                    <td>500</td>
+                    <td>50%</td>
                 </tr>
                 <tr>
                     <td>Juni</td>
-                    <td>600</td>
-                    <td>600</td>
+                    <td>60%</td>
                 </tr>
                 <tr>
                     <td>Juli</td>
-                    <td>600</td>
-                    <td>600</td>
+                    <td>60%</td>
                 </tr>
                 <tr>
                     <td>Agustus</td>
-                    <td>600</td>
-                    <td>600</td>
+                    <td>60%</td>
                 </tr>
                 <tr>
                     <td>September</td>
-                    <td>600</td>
-                    <td>600</td>
+                    <td>60%</td>
                 </tr>
                 <tr>
                     <td>Oktober</td>
-                    <td>600</td>
-                    <td>600</td>
+                    <td>60%</td>
                 </tr>
                 <tr>
                     <td>November</td>
-                    <td>600</td>
-                    <td>600</td>
+                    <td>60%</td>
                 </tr>
                 <tr>
                     <td>Desember</td>
-                    <td>600</td>
-                    <td>600</td>
+                    <td>60%</td>
                 </tr>
             </tbody>
         </table>

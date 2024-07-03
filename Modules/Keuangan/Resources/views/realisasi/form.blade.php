@@ -7,77 +7,46 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="program" class="control-label">Program</label>
+                <label for="program" class="control-label">Progres</label>
                 <input class="form-control" name="program" type="text" id="program" value="" required>
             </div>
             <div class="form-group">
-                <label for="kegiatan" class="control-label">Kegiatan</label>
+                <label for="kegiatan" class="control-label">Realisasi</label>
                 <input class="form-control" name="kegiatan" type="text" id="kegiatan" value="" required>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="anggaran_program" class="control-label">Anggaran Keuangan Program</label>
-                        <input class="form-control" name="anggaran_program" type="text" id="anggaran_program" value=""
-                            required>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="anggaran_kegiatan" class="control-label">Anggaran Keuangan Kegiatan</label>
-                        <input class="form-control" name="anggaran_kegiatan" type="text" id="anggaran_kegiatan" value=""
-                            required>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="laporan_keuangan" class="control-label">Laporan Keuangan</label>
+                <input class="form-control" name="laporan_keuangan" type="text" id="laporan_keuangan" value="" required>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="uang_program" class="control-label">Realisasi Keuangan Program</label>
-                        <input class="form-control" name="uang_program" type="text" id="uang_program" value="" required>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="uang_realisasi" class="control-label">Realisasi Keuangan Kegiatan</label>
-                        <input class="form-control" name="uang_realisasi" type="text" id="uang_realisasi" value=""
-                            required>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="laporan_kegiatan" class="control-label">Laporan Kegiatan</label>
+                <input class="form-control" name="laporan_kegiatan" type="text" id="laporan_kegiatan" value="" required>
             </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Sumber Dana</label>
-                        <select class="form-control select2" id="unit-select">
-                            <!-- Options will be populated by JS -->
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label for="sisa" class="control-label">Sisa</label>
-                        <input class="form-control" name="sisa" type="text" id="sisa" value="" required>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label for="Persentase" class="control-label">Persentase</label>
-                        <div class="input-group">
-                            <input class="form-control" name="Persentase" type="text" id="Persentase" value="" required>
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-percent"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="ketercapaian_output" class="control-label">Ketercapaian Output</label>
+                <input class="form-control" name="ketercapaian_output" type="text" id="ketercapaian_output" value="" required>
             </div>
+            <div class="form-group">
+                <label for="tanggal_kontrak" class="control-label">Tanggal Kontrak</label>
+                <input class="form-control" name="tanggal_kontrak" type="date" id="tanggal_kontrak" value="" required>
+            </div>
+            <div class="form-group">
+                <label for="tanggal_pembayaran" class="control-label">Tanggal Pembayaran</label>
+                <input class="form-control" name="tanggal_pembayaran" type="date" id="tanggal_pembayaran" value="" required>
+            </div>
+            <!-- <div class="form-group">
+                <label for="sub_perencanaan_id" class="control-label">Sub Perencanaanid</label>
+                <input class="form-control" name="sub_perencanaan_id" type="text" id="sub_perencanaan_id" value="" required>
+            </div> -->
         </div>
     </div>
-    <a href="{{ url(Request::server('HTTP_REFERER') == null ? '/monitoring/realisasi' : Request::server('HTTP_REFERER')) }}"
-                        title="Kembali"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left"
-                                aria-hidden="true"></i> Kembali</button></a>
-    <div class="form-group">
-        <input class="btn btn-primary" type="submit" value="{{ $formMode === 'create' ? 'Tambah' : 'Memperbarui' }}">
+    <div style="display: flex; gap: 10px;">
+        <a href="{{ url(Request::server('HTTP_REFERER') == null ? '/monitoring/realisasi' : Request::server('HTTP_REFERER')) }}"
+            title="Kembali">
+            <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali </button>
+        </a>
+        <div class="form-group">
+            <input class="btn btn-primary btn-sm" type="submit" value="{{ $formMode === 'create' ? 'Tambah' : 'Memperbarui' }}">
+        </div>
     </div>
 </div>
