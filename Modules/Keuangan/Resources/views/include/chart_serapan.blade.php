@@ -13,8 +13,7 @@
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <h6>TOTAL ANGGARAN</h6>
             <h4 class="card-text text-danger">
-                <b>Rp. {{ number_format($total_pagu, 0, ',', '.') }}</b>
-                ({{ number_format($persentase_belum_direalisasi, 2) }}%)
+                <b>Rp. {{ number_format($total_pagu, 0, ',', '.') }} (100%)</b>
             </h4>
         </div>
     </div>
@@ -22,9 +21,9 @@
     <div class="card border-success mb-2" style="width: 400px;">
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <h6 class="card-title">TOTAL SERAPAN</h6>
-            <h4 class="card-text text-success">
-                <b>Rp. {{ number_format($total_realisasi, 0, ',', '.') }}</b>
-                ({{ number_format($persentase_realisasi, 2) }}%)
+            <h4 class="card-text text-success"><b>Rp.
+                {{ number_format($total_realisasi, 0, ',', '.') }}
+                ({{ number_format($persentase_realisasi, 2) }}%)</b>
             </h4>
         </div>
     </div>
@@ -33,7 +32,8 @@
         <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <h6 class="card-title">SISA ANGGARAN</h6>
             <h4 class="card-text text-warning"><b>Rp.
-                    {{ number_format($total_pagu - $total_realisasi, 0, ',', '.') }} (30%)</b>
+                    {{ number_format($total_pagu - $total_realisasi, 0, ',', '.') }} 
+                    ({{ number_format($persentase_belum_direalisasi, 2) }}%)</b>
             </h4>
         </div>
     </div>
