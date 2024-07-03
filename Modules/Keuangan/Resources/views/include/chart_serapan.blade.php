@@ -1,9 +1,9 @@
 {{-- chart serapan --}}
 
 <div class="col-md-7">
-    <div class="chart">
+    <div class="chart mt-5">
         <!-- Sales Chart Canvas -->
-        <canvas id="doughnut" style="max-height: 300px; max-width: 100%;"></canvas>
+        <canvas id="doughnut" style="max-height: 400px; max-width: 100%;"></canvas>
     </div>
 </div>
 
