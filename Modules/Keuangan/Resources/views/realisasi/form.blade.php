@@ -24,7 +24,8 @@
             </div>
             <div class="form-group">
                 <label for="ketercapaian_output" class="control-label">Ketercapaian Output</label>
-                <input class="form-control" name="ketercapaian_output" type="text" id="ketercapaian_output" value="" required>
+                <input class="form-control" name="ketercapaian_output" type="text" id="ketercapaian_output" value=""
+                    required>
             </div>
             <div class="form-group">
                 <label for="tanggal_kontrak" class="control-label">Tanggal Kontrak</label>
@@ -32,7 +33,8 @@
             </div>
             <div class="form-group">
                 <label for="tanggal_pembayaran" class="control-label">Tanggal Pembayaran</label>
-                <input class="form-control" name="tanggal_pembayaran" type="date" id="tanggal_pembayaran" value="" required>
+                <input class="form-control" name="tanggal_pembayaran" type="date" id="tanggal_pembayaran" value=""
+                    required>
             </div>
             <!-- <div class="form-group">
                 <label for="sub_perencanaan_id" class="control-label">Sub Perencanaanid</label>
@@ -41,12 +43,9 @@
         </div>
     </div>
     <div style="display: flex; gap: 10px;">
-        <a href="{{ url(Request::server('HTTP_REFERER') == null ? '/monitoring/realisasi' : Request::server('HTTP_REFERER')) }}"
-            title="Kembali">
-            <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali </button>
-        </a>
         <div class="form-group">
-            <input class="btn btn-primary btn-sm" type="submit" value="{{ $formMode === 'create' ? 'Tambah' : 'Memperbarui' }}">
+            <input class="btn btn-primary btn-sm" type="submit"
+                value="{{ $formMode === 'create' ? 'Tambah' : 'Memperbarui' }}">
         </div>
     </div>
 </div>
