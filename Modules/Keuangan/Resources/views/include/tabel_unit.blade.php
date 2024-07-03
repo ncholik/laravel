@@ -57,7 +57,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($topUnits as $unit)
+                        @foreach ($bottomUnits as $unit)
                         <tr>
                             <td>{{ $unit['nama'] }}</td>
                             <td>

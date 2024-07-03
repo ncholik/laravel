@@ -18,8 +18,6 @@ class KeuanganController extends Controller
      */
     public function index()
     {
-        $jumlahPerencanaan = Perencanaan::count();
-        $jumlahSubPerencanaan = SubPerencanaan::count();
         $perencanaan = Perencanaan::with('subPerencanaan')->get();
         $realisasi = Realisasi::with('subPerencanaan.perencanaan.unit')->get();
         $units = Unit::all();
@@ -44,13 +42,12 @@ class KeuanganController extends Controller
             $total_realisasi += $item->realisasi;
         }
 
+        $persentase_realisasi = 0;
+        $persentase_belum_direalisasi = 0;
         // Hitung persentase
         if ($total_perencanaan > 0) {
             $persentase_realisasi = ($total_realisasi / $total_perencanaan) * 100;
             $persentase_belum_direalisasi = 100 - $persentase_realisasi;
-        } else {
-            $persentase_realisasi = 0;
-            $persentase_belum_direalisasi = 0;
         }
 
         // Inisialisasi unitRealisasi dengan semua unit
@@ -128,11 +125,24 @@ class KeuanganController extends Controller
             ->pluck('total', 'bulan')
             ->toArray();
 
+        $currentMonth = date('m');
+
         $target = [];
         $realisasi = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $target[] = $targetPerBulan[$i] ?? 0;
-            $realisasi[] = $realisasiPerBulan[$i] ?? 0;
+        for ($i = 1; $i <= $currentMonth; $i++) {
+            // Inisialisasi nilai sementara untuk akumulasi
+            $targetSum = 0;
+            $realisasiSum = 0;
+
+            // Akumulasi nilai mulai dari bulan i hingga bulan ke-12
+            for ($j = 1; $j <= $i; $j++) {
+                $targetSum += $targetPerBulan[$j] ?? 0;
+                $realisasiSum += $realisasiPerBulan[$j] ?? 0;
+            }
+
+            // Simpan nilai akumulasi ke array target dan realisasi
+            $target[] = $targetSum;
+            $realisasi[] = $realisasiSum;
         }
 
         $data = [
@@ -148,8 +158,8 @@ class KeuanganController extends Controller
             'total_realisasi',
             'topUnits',
             'bottomUnits',
-            'jumlahPerencanaan',
-            'jumlahSubPerencanaan',
+            'persentase_realisasi',
+            'persentase_belum_direalisasi',
             'target',
             'realisasi'
         ))->with('data', $data);

@@ -15,9 +15,10 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->char('nama', 150);
             $table->char('kode', 100);
-            $table->enum('sumber', ['PNP', 'RM', 'Hibah']);
+            $table->enum('sumber', ['PNBP', 'BOPTN', 'RM',  'Hibah']);
             $table->integer('pagu');
             $table->integer('revisi');
+            $table->integer('tahun');
             $table->unsignedBigInteger('unit_id');
             $table->timestamps();
 

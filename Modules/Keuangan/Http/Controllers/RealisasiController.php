@@ -6,22 +6,28 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Keuangan\Entities\Perencanaan;
 use Modules\Keuangan\Entities\Realisasi;
-use Modules\Keuangan\Entities\SubPerencanaan;
+use Modules\Keuangan\Entities\Unit;
 
 class RealisasiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = $request->input('search');
+        $unitId = $request->input('unit_id');
+        $sumber_dana = $request->input('sumber');
+        $endDate = $request->input('end_date');
+        $startDate = date('Y') . '-01-01';
 
-        if ($query) {
-            $perencanaans = Perencanaan::with('subPerencanaan')
-                ->where('nama', 'LIKE', "%{$query}%")
-                ->orWhere('kode', 'LIKE', "%{$query}%")
-                ->paginate(10);
-        } else {
-            $perencanaans = Perencanaan::with('subPerencanaan')->paginate(20);
+        $perencanaansQuery = Perencanaan::with(['subPerencanaan']);
+
+        if ($unitId) {
+            $perencanaansQuery->where('unit_id', $unitId);
         }
+
+        if ($sumber_dana) {
+            $perencanaansQuery->where('sumber', $sumber_dana);
+        }
+
+        $perencanaans = $perencanaansQuery->orderBy('kode', 'asc')->paginate(20);
 
         foreach ($perencanaans as $perencanaan) {
             $perencanaan->total_anggaran = $perencanaan->subPerencanaan->sum(function ($sub) {
@@ -42,7 +48,10 @@ class RealisasiController extends Controller
             }
         }
 
-        return view('keuangan::realisasi.index', compact('perencanaans'));
+        $units = Unit::all();
+        $sumber = ['BOPTN', 'PNBP', 'RM', 'Hibah'];
+
+        return view('keuangan::realisasi.index', compact('perencanaans', 'units', 'sumber', 'unitId', 'sumber_dana'));
     }
 
     public function create()

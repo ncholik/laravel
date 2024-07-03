@@ -9,9 +9,15 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
+                    <p class="text-center">
+                        <strong id="yearText">Serapan Anggaran Tahun:
+                            <select class="form-control-md" id="subperencanaan-select">
+                                <option value="">2024</option>
+                            </select>
+                        </strong>
+                    </p>
                     <div class="row">
                         @include('keuangan::include.chart_realisasi')
-
                         @include('keuangan::include.progres')
                     </div>
                 </div>
