@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth', 'permission']], function () {
     Route::prefix('keuangan')->group(function () {
-        Route::get('/', 'KeuanganController@index');
+        Route::get('/', function () {
+            return redirect()->route('dashboard');
+        });
+        Route::get('/dashboard', 'KeuanganController@index')->name('dashboard');
+        Route::get('/dashboard-triwulan', 'KeuanganController@index_triwulan');
         // perencanaan
         Route::get('/perencanaan', 'PerencanaanController@index')->name('perencanaan.index');
         Route::get('/perencanaan/create', 'PerencanaanController@create')->name('perencanaan.create');

@@ -16,7 +16,7 @@ class KeuanganController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $perencanaan = Perencanaan::with('subPerencanaan')->get();
         $realisasi = Realisasi::with('subPerencanaan.perencanaan.unit')->get();
@@ -139,21 +139,41 @@ class KeuanganController extends Controller
 
         $target = [];
         $realisasi = [];
+        $persentasePerBulan = [];
+
         for ($i = 1; $i <= $currentMonth; $i++) {
-            // Inisialisasi nilai sementara untuk akumulasi
             $targetSum = 0;
             $realisasiSum = 0;
 
-            // Akumulasi nilai mulai dari bulan i hingga bulan ke-12
             for ($j = 1; $j <= $i; $j++) {
                 $targetSum += $targetPerBulan[$j] ?? 0;
                 $realisasiSum += $realisasiPerBulan[$j] ?? 0;
             }
 
-            // Simpan nilai akumulasi ke array target dan realisasi
             $target[] = $targetSum;
             $realisasi[] = $realisasiSum;
+
+            if ($targetSum > 0) {
+                $persentasePerBulan[$i] = ($realisasiSum / $targetSum) * 100;
+            } else {
+                $persentasePerBulan[$i] = 0;
+            }
         }
+
+        $namaBulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember'
+        ];
 
         $data = [
             $persentase_realisasi,
@@ -173,7 +193,14 @@ class KeuanganController extends Controller
             'persentase_rpd',
             'persentase_sisa_rpd',
             'target',
-            'realisasi'
+            'realisasi',
+            'persentasePerBulan',
+            'namaBulan'
         ))->with('data', $data);
+    }
+
+    public function index_triwulan()
+    {
+        return view('keuangan::index_triwulan');
     }
 }

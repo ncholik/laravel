@@ -27,7 +27,8 @@
                                     <select class="form-control select2" id="unit-select" name="unit_id">
                                         <option value="">All</option>
                                         @foreach ($units as $unit)
-                                            <option value="{{ $unit->id }}" {{ $unitId == $unit->id ? 'selected' : '' }}>
+                                            <option value="{{ $unit->id }}"
+                                                {{ $unitId == $unit->id ? 'selected' : '' }}>
                                                 {{ $unit->nama }}
                                             </option>
                                         @endforeach
@@ -40,7 +41,8 @@
                                     <select class="form-control select2" id="sumber-select" name="sumber">
                                         <option value="">All</option>
                                         @foreach ($sumber as $sumber)
-                                            <option value="{{ $sumber }}" {{ $sumber_dana == $sumber ? 'selected' : '' }}>
+                                            <option value="{{ $sumber }}"
+                                                {{ $sumber_dana == $sumber ? 'selected' : '' }}>
                                                 {{ $sumber }}
                                             </option>
                                         @endforeach
@@ -50,8 +52,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Akun Belanja</label>
-                                    <select class="form-control select2" id="unit-select">
-                                        <!-- Options will be populated by JS -->
+                                    <select class="form-control select2" id="akun-select" name="akun">
+                                        <option value="">All</option>
+                                        @foreach ($akun as $akun)
+                                            <option value="{{ $akun }}"
+                                                {{ $akun_belanja == $akun ? 'selected' : '' }}>
+                                                {{ $akun }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -65,7 +73,13 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Tahun</label>
-                                    <select class="form-control select2" id="subperencanaan-select">
+                                    <select class="form-control select2" id="tahun-select" name="tahun">
+                                        @foreach ($tahun as $item)
+                                            <option value="{{ $item }}"
+                                                {{ $tahun_anggaran == $item ? 'selected' : '' }}>
+                                                {{ $item }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -123,7 +137,8 @@
                                                         class="{{ $perencanaan->total_realisasi == 0 ? 'text-danger' : '' }}">
                                                         {{ str_replace(',', '.', number_format($perencanaan->total_realisasi)) }}
                                                     </td>
-                                                    <td class="{{ $perencanaan->sisa_anggaran == 0 ? 'text-danger' : '' }}">
+                                                    <td
+                                                        class="{{ $perencanaan->sisa_anggaran == 0 ? 'text-danger' : '' }}">
                                                         {{ str_replace(',', '.', number_format($perencanaan->sisa_anggaran)) }}
                                                     </td>
                                                     <td class="{{ $perencanaan->persentase == 0 ? 'text-danger' : '' }}">
@@ -186,10 +201,9 @@
 
     <script>
         $(document).ready(function() {
-            $('#unit-select, #sumber-select').change(function() {
+            $('#unit-select, #sumber-select, #akun-select, #tahun-select').change(function() {
                 this.form.submit();
             });
         });
     </script>
-
 @endpush

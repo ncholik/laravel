@@ -32,13 +32,24 @@ class MenuModulKeuanganTableSeeder extends Seeder
         if ($menu) {
             Menu::create([
                 'modul' => 'Keuangan',
-                'label' => 'Serapan Anggaran',
-                'url' => 'keuangan',
+                'label' => 'Dashboard',
+                'url' => 'keuangan/dashboard',
                 'can' => serialize([]),
-                'icon' => 'fas fa-calculator',
+                'icon' => 'fas fa-tachometer-alt',
                 'urut' => 1,
                 'parent_id' => $menu->id,
-                'active' => serialize(['keuangan', 'keuangan*']),
+                'active' => serialize(['keuangan/dashboard', 'keuangan/dashboard*']),
+            ]);
+
+            Menu::create([
+                'modul' => 'Keuangan',
+                'label' => 'Dashboard Triwulan',
+                'url' => 'keuangan/dashboard-triwulan',
+                'can' => serialize([]),
+                'icon' => 'fas fa-tachometer-alt',
+                'urut' => 2,
+                'parent_id' => $menu->id,
+                'active' => serialize(['keuangan/dashboard-triwulan', 'keuangan/dashboard-triwulan*']),
             ]);
 
             Menu::create([
@@ -47,7 +58,7 @@ class MenuModulKeuanganTableSeeder extends Seeder
                 'url' => 'keuangan/perencanaan',
                 'can' => serialize([]),
                 'icon' => 'fas fa-chart-line',
-                'urut' => 2,
+                'urut' => 3,
                 'parent_id' => $menu->id,
                 'active' => serialize(['keuangan/perencanaan', 'keuangan/perencanaan*']),
             ]);
@@ -58,7 +69,7 @@ class MenuModulKeuanganTableSeeder extends Seeder
                 'url' => 'keuangan/realisasi',
                 'can' => serialize([]),
                 'icon' => 'fas fa-plus',
-                'urut' => 3,
+                'urut' => 4,
                 'parent_id' => $menu->id,
                 'active' => serialize(['keuangan/realisasi', 'keuangan/realisasi*']),
             ]);
@@ -69,7 +80,7 @@ class MenuModulKeuanganTableSeeder extends Seeder
                 'url' => 'keuangan/laporan',
                 'can' => serialize(['admin', 'keuangan', 'pimpinan']),
                 'icon' => 'fas fa-file-alt',
-                'urut' => 4,
+                'urut' => 5,
                 'parent_id' => $menu->id,
                 'active' => serialize(['keuangan/laporan', 'keuangan/laporan*']),
             ]);

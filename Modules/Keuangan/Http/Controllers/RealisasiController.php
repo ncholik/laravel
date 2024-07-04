@@ -14,8 +14,8 @@ class RealisasiController extends Controller
     {
         $unitId = $request->input('unit_id');
         $sumber_dana = $request->input('sumber');
-        $endDate = $request->input('end_date');
-        $startDate = date('Y') . '-01-01';
+        $akun_belanja = $request->input('akun');
+        $tahun_anggaran = $request->input('tahun');
 
         $perencanaansQuery = Perencanaan::with(['subPerencanaan']);
 
@@ -25,6 +25,17 @@ class RealisasiController extends Controller
 
         if ($sumber_dana) {
             $perencanaansQuery->where('sumber', $sumber_dana);
+        }
+
+        if ($akun_belanja) {
+            // Join with sub_perencanaans and filter based on 'jenis' column
+            $perencanaansQuery->whereHas('subPerencanaan', function ($query) use ($akun_belanja) {
+                $query->where('jenis', $akun_belanja);
+            });
+        }
+
+        if ($tahun_anggaran) {
+            $perencanaansQuery->where('tahun', $tahun_anggaran);
         }
 
         $perencanaans = $perencanaansQuery->orderBy('kode', 'asc')->paginate(20);
@@ -50,8 +61,20 @@ class RealisasiController extends Controller
 
         $units = Unit::all();
         $sumber = ['BOPTN', 'PNBP', 'RM', 'Hibah'];
+        $akun = ['Barang', 'Jasa Konsultasi', 'Operasional', 'Pekerjaan Kontruksi'];
+        $tahun = range(date('Y'), date('Y') - 5);
 
-        return view('keuangan::realisasi.index', compact('perencanaans', 'units', 'sumber', 'unitId', 'sumber_dana'));
+        return view('keuangan::realisasi.index', compact(
+            'perencanaans', 
+            'units',
+            'sumber', 
+            'akun', 
+            'tahun', 
+            'unitId', 
+            'sumber_dana', 
+            'akun_belanja',
+            'tahun_anggaran'
+        ));
     }
 
     public function create()

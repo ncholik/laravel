@@ -1,5 +1,3 @@
-{{-- @extends('layouts.master') --}}
-
 @extends('adminlte::page')
 @section('title', 'Dashboard')
 
@@ -18,7 +16,7 @@
                     </p>
                     <div class="row">
                         @include('keuangan::include.chart_realisasi')
-                        @include('keuangan::include.progres')
+                        @include('keuangan::include.tabel_progres')
                     </div>
                 </div>
             </div>
@@ -41,9 +39,6 @@
                 <div class="card-body">
                     <div class="row">
                         @include('keuangan::include.chart_serapan')
-                    </div>
-                    <div class="row mt-4">
-                        @include('keuangan::include.chart_sumber_dana')
                     </div>
                     <div class="row mt-4">
                         @include('keuangan::include.tabel_unit')

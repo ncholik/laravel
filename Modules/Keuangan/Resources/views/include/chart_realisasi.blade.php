@@ -35,7 +35,7 @@
                         'Agustus', 'September', 'Oktober', 'November', 'Desember'
                     ],
                     datasets: [{
-                        label: 'Target per Bulan',
+                        label: 'Target Keuangan',
                         data: target,
                         backgroundColor: 'rgba(0, 159, 255, 1)',
                         borderColor: 'rgba(0, 159, 255, 1)',
@@ -44,7 +44,7 @@
                         tension: 0.5,
                         order: 1
                     }, {
-                        label: 'Realisasi per Bulan',
+                        label: 'Realisasi Keuangan',
                         data: realisasi,
                         backgroundColor: 'rgba(0, 150, 0, 1)',
                         borderColor: 'rgba(0, 150, 0, 1)',
