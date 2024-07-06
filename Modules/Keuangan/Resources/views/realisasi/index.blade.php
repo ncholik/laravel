@@ -160,12 +160,20 @@
                                                                         Tambah
                                                                     </button>
                                                                 </a>
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('realisasi.create') }}" title="Tambah">
-                                                                    <button class="btn btn-info btn-sm btn-block"> <i
+                                                                {{-- <a class="dropdown-item"
+                                                                    href="{{ route('realisasi.edit', $perencanaan->id) }}" title="Ubah">
+                                                                    <button class="btn btn-warning btn-sm btn-block"> <i
                                                                             class="fas fa-pencil-alt"
                                                                             aria-hidden="true"></i>
-                                                                        Edit
+                                                                        Ubah
+                                                                    </button>
+                                                                </a> --}}
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('realisasi.show', $perencanaan->id) }}" title="lihat">
+                                                                    <button class="btn btn-info btn-sm btn-block"> <i
+                                                                            class="fas fa-eye"
+                                                                            aria-hidden="true"></i>
+                                                                        lihat
                                                                     </button>
                                                                 </a>
                                                             </div>

@@ -65,13 +65,13 @@ class RealisasiController extends Controller
         $tahun = range(date('Y'), date('Y') - 5);
 
         return view('keuangan::realisasi.index', compact(
-            'perencanaans', 
+            'perencanaans',
             'units',
-            'sumber', 
-            'akun', 
-            'tahun', 
-            'unitId', 
-            'sumber_dana', 
+            'sumber',
+            'akun',
+            'tahun',
+            'unitId',
+            'sumber_dana',
             'akun_belanja',
             'tahun_anggaran'
         ));
@@ -100,32 +100,47 @@ class RealisasiController extends Controller
         return redirect()->back()->with('success', 'Realisasi berhasil ditambahkan.');
     }
 
+    // Controller Method
     public function show($id)
     {
-        $perencanaans = Perencanaan::with('subPerencanaan.realisasi')->findOrFail($id);
+        // Fetch the perencanaan data by ID
+        $perencanaan = Perencanaan::with('subPerencanaan.realisasi')->findOrFail($id);
 
-        $realisasi = $perencanaans->subPerencanaan->mapWithKeys(function ($sub) {
-            return [$sub->id => $sub->realisasi];
-        });
+        // Calculate the required fields, e.g., pagu, periode_lalu, periode_ini, sd_periode, persentase, sisa
+        $data = [];
+        foreach ($perencanaan->subPerencanaan as $sub) {
+            foreach ($sub->realisasi as $realisasi) {
+                $data[] = [
+                    'progres' => $realisasi->progres,
+                    'realisasi' => $realisasi->realisasi,
+                    'laporan_keuangan' => $realisasi->laporan_keuangan,
+                    'laporan_kegiatan' => $realisasi->laporan_kegiatan,
+                    'ketercapaian_output' => $realisasi->ketercapaian_output,
+                    'tanggal_kontrak' => $realisasi->tanggal_kontrak,
+                    'tanggal_pembayaran' => $realisasi->tanggal_pembayaran,
+                ];
+            }
+        }
 
-        $filterBulan = $perencanaans->subPerencanaan->map(function ($sub) {
-            return \Carbon\Carbon::parse($sub->rencana_bayar)->format('F');
-        })->unique()->values();
-
-        $jumlah_anggaran = $perencanaans->subPerencanaan->sum(function ($sub) {
-            return $sub->volume * $sub->harga_satuan;
-        });
-
-        $realisasi_keuangan = $perencanaans->subPerencanaan->sum(function ($sub) {
-            return $sub->realisasi->sum('realisasi');
-        });
-
-        return view('keuangan::realisasi.show', compact('realisasi', 'perencanaans', 'filterBulan', 'jumlah_anggaran', 'realisasi_keuangan'));
+        return view('keuangan::realisasi.show', compact('perencanaan', 'data'));
     }
+
 
     public function edit($id)
     {
-        $realisasi = Realisasi::findOrFail($id);
+        // Find the perencanaan by id
+        $perencanaan = Perencanaan::findOrFail($id);
+
+        // Find the related subPerencanaan
+        $subPerencanaan = $perencanaan->subPerencanaans->first();
+
+        // Find the related realisasi through subPerencanaan
+        $realisasi = $subPerencanaan ? $subPerencanaan->realisasi : null;
+
+        if (!$realisasi) {
+            // Handle case where there is no related realisasi
+            return redirect()->back()->with('error', 'Realisasi not found.');
+        }
         return view('keuangan::realisasi.edit', compact('realisasi'));
     }
 
