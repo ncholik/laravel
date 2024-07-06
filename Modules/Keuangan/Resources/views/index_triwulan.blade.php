@@ -7,9 +7,9 @@
             <div class="card">
                 <div class="card-body">
                     <p class="text-center">
-                        <strong id="yearText">Serapan Anggaran Tahun:
+                        <strong id="yearText">Serapan Anggaran Bulan:
                             <select class="form-control-md" id="subperencanaan-select">
-                                <option value="">2024</option>
+                                <option value="">Januari</option>
                             </select>
                         </strong>
                     </p>
