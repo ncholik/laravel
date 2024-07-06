@@ -14,8 +14,8 @@
                         </strong>
                     </p>
                     <div class="row">
-                        @include('keuangan::include.chart_realisasi')
-                        @include('keuangan::include.tabel_progres')
+                        @include('keuangan::include.chart_realisasi_triwulan')
+                        @include('keuangan::include.tabel_progres_triwulan')
                     </div>
                 </div>
             </div>
@@ -37,10 +37,10 @@
 
                 <div class="card-body">
                     <div class="row">
-                        @include('keuangan::include.chart_serapan')
+                        @include('keuangan::include.chart_serapan_triwulan')
                     </div>
                     <div class="row mt-4">
-                        @include('keuangan::include.tabel_unit')
+                        @include('keuangan::include.tabel_unit_triwulan')
                     </div>
                 </div>
             </div>
