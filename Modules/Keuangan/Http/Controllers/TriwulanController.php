@@ -10,13 +10,13 @@ use Modules\Keuangan\Entities\Realisasi;
 use Modules\Keuangan\Entities\SubPerencanaan;
 use Modules\Keuangan\Entities\Unit;
 
-class KeuanganController extends Controller
+class TriwulanController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index(Request $request)
+    public function index()
     {
         $perencanaan = Perencanaan::with('subPerencanaan')->get();
         $realisasi = Realisasi::with('subPerencanaan.perencanaan.unit')->get();
@@ -181,7 +181,7 @@ class KeuanganController extends Controller
         ];
 
         // dd($unitRealisasi);
-        return view('keuangan::index', compact(
+        return view('keuangan::index_triwulan', compact(
             'perencanaan',
             'total_pagu',
             'total_perencanaan',
