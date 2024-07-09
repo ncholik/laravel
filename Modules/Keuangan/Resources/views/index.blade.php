@@ -15,8 +15,8 @@
                         </strong>
                     </p>
                     <div class="row">
-                        @include('keuangan::include.chart_realisasi')
-                        @include('keuangan::include.tabel_progres')
+                        @include('keuangan::include.dashboard-bulanan.chart_realisasi')
+                        @include('keuangan::include.dashboard-bulanan.tabel_progres')
                     </div>
                 </div>
             </div>
@@ -38,10 +38,10 @@
 
                 <div class="card-body">
                     <div class="row">
-                        @include('keuangan::include.chart_serapan')
+                        @include('keuangan::include.dashboard-bulanan.chart_serapan')
                     </div>
                     <div class="row mt-4">
-                        @include('keuangan::include.tabel_unit')
+                        @include('keuangan::include.dashboard-bulanan.tabel_unit')
                     </div>
                 </div>
             </div>

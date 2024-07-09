@@ -15,6 +15,11 @@
                     Detail Realisasi : <strong>{{ $perencanaan->nama }}</strong>
                 </div>
                 <div class="card-body">
+                    <div class="mb-4">
+                        <button class="btn btn-warning btn-sm mr-2" onclick="window.history.back()">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
+                        </button>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -46,14 +51,6 @@
                             {{-- {!! $perencanaans->links('pagination::bootstrap-4') !!} --}}
                         </div>
                     </div>
-                </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <button class="btn btn-warning btn-sm mr-2" onclick="window.history.back()">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
-                    </button>
-                    <button class="btn btn-success btn-sm">
-                        <i class="fas fa-file-pdf" aria-hidden="true"></i> Cetak
-                    </button>
                 </div>
             </div>
         </div>

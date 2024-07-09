@@ -9,11 +9,9 @@
         <div class="card">
             <div class="card-header">Tambah Realisasi</div>
             <div class="card-body">
-                <a href="{{ url(Request::server('HTTP_REFERER') == null ? '/monitoring/realisasi' : Request::server('HTTP_REFERER')) }}"
-                    title="Kembali">
-                    <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
-                    </button>
-                </a>
+                <button class="btn btn-warning btn-sm mr-2" onclick="window.history.back()">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
+                </button>
                 @if ($errors->any())
                 <ul class="alert alert-danger">
                     @foreach ($errors->all() as $error)

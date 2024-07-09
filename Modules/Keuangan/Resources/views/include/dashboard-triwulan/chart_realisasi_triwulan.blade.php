@@ -3,7 +3,7 @@
 <div class="col-md-8">
     <!-- chart-->
     <div class="chart">
-        <canvas id="line-serapan" style="width: 100%; height:450px"></canvas>
+        <canvas id="line-realisasi" style="width: 100%; height:450px"></canvas>
     </div>
     <!-- end-->
 </div>
@@ -11,10 +11,7 @@
 @push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const target = @json($target);
-            const realisasi = @json($realisasi);
-
-            const ctx = document.getElementById('line-serapan').getContext('2d');
+            const ctx = document.getElementById('line-realisasi').getContext('2d');
 
             const customLegendPlugin = {
                 id: 'customLegendPlugin',
@@ -31,12 +28,14 @@
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
-                        'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                    labels: [
+                        @foreach (range($bulanAwal, $bulanAkhir) as $i)
+                            '{{ $namaBulan[$i] }}',
+                        @endforeach
                     ],
                     datasets: [{
                         label: 'Target Keuangan',
-                        data: target,
+                        data: @json($target),
                         backgroundColor: 'rgba(0, 159, 255, 1)',
                         borderColor: 'rgba(0, 159, 255, 1)',
                         borderWidth: 1,
@@ -45,7 +44,7 @@
                         order: 1
                     }, {
                         label: 'Realisasi Keuangan',
-                        data: realisasi,
+                        data: @json($realisasi),
                         backgroundColor: 'rgba(0, 150, 0, 1)',
                         borderColor: 'rgba(0, 150, 0, 1)',
                         borderWidth: 1,
