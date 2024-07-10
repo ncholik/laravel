@@ -1,78 +1,40 @@
-{{-- row atas --}}
-
-<div class="col-md-8">
-    <!-- chart-->
-    <div class="chart">
-        <canvas id="line-serapan" style="width: 100%; height:450px"></canvas>
+<div class="col-md-12">
+    <div class="position-relative mb-4">
+        <canvas id="myBarChart" height="100px"></canvas>
     </div>
-    <!-- end-->
 </div>
 
 @push('js')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const target = @json($target);
-            const realisasi = @json($realisasi);
-
-            const ctx = document.getElementById('line-serapan').getContext('2d');
-
-            const customLegendPlugin = {
-                id: 'customLegendPlugin',
-                afterDatasetsDraw(chart, args, options) {
-                    const legendContainer = chart.legend.legendItems;
-                    legendContainer.sort((a, b) => {
-                        if (a.text === 'Realisasi per Bulan') return 1;
-                        if (b.text === 'Realisasi per Bulan') return -1;
-                        return 0;
-                    });
-                }
-            };
-
-            new Chart(ctx, {
-                type: 'line',
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('myBarChart').getContext('2d');
+            const myBarChart = new Chart(ctx, {
+                type: 'bar',
                 data: {
-                    labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
-                        'Agustus', 'September', 'Oktober', 'November', 'Desember'
-                    ],
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                     datasets: [{
-                        label: 'Target Keuangan',
-                        data: target,
+                        label: 'Realisasi',
+                        data: [12, 19, 3, 5, 2, 3, 9],
                         backgroundColor: 'rgba(0, 159, 255, 1)',
                         borderColor: 'rgba(0, 159, 255, 1)',
-                        borderWidth: 1,
-                        fill: true,
-                        tension: 0.5,
-                        order: 1
-                    }, {
-                        label: 'Realisasi Keuangan',
-                        data: realisasi,
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Perencanaan',
+                        data: [15, 10, 5, 2, 20, 30, 45],
                         backgroundColor: 'rgba(0, 150, 0, 1)',
                         borderColor: 'rgba(0, 150, 0, 1)',
-                        borderWidth: 1,
-                        fill: true,
-                        tension: 0.5,
-                        order: 0
+                        borderWidth: 1
                     }]
                 },
                 options: {
-                    responsive: true,
                     scales: {
                         y: {
                             beginAtZero: true
                         }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                boxWidth: 15,
-                                padding: 20
-                            }
-                        }
                     }
-                },
-                plugins: [customLegendPlugin]
+                }
             });
         });
-    </script>
+</script>
 @endpush
