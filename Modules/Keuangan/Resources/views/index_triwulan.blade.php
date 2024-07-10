@@ -11,10 +11,10 @@
                     <strong id="yearText">Serapan Anggaran :
                             <select class="form-control-md" name="triwulan" id="subperencanaan-select"
                                 onchange="document.getElementById('triwulan-form').submit()">
-                                <option value="1" {{ $triwulan == 1 ? 'selected' : '' }}>Triwulan 1</option>
-                                <option value="2" {{ $triwulan == 2 ? 'selected' : '' }}>Triwulan 2</option>
-                                <option value="3" {{ $triwulan == 3 ? 'selected' : '' }}>Triwulan 3</option>
-                                <option value="4" {{ $triwulan == 4 ? 'selected' : '' }}>Triwulan 4</option>
+                                <option value="1" {{ $triwulan == 1 ? 'selected' : '' }}>Januari - Maret</option>
+                                <option value="2" {{ $triwulan == 2 ? 'selected' : '' }}>April - Juni</option>
+                                <option value="3" {{ $triwulan == 3 ? 'selected' : '' }}>Juli - September</option>
+                                <option value="4" {{ $triwulan == 4 ? 'selected' : '' }}>Oktober - Desember</option>
                             </select>
                         </strong>
                     </p>
