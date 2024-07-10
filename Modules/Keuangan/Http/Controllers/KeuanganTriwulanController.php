@@ -10,16 +10,23 @@ use Modules\Keuangan\Entities\Realisasi;
 use Modules\Keuangan\Entities\SubPerencanaan;
 use Modules\Keuangan\Entities\Unit;
 
-class TriwulanController extends Controller
+class KeuanganTriwulanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $perencanaan = Perencanaan::with('subPerencanaan')->get();
-        $realisasi = Realisasi::with('subPerencanaan.perencanaan.unit')->get();
+        $triwulan = $request->input('triwulan', 1);
+        $bulanAwal = ($triwulan - 1) * 3 + 1;
+        $bulanAkhir = $bulanAwal + 2;
+
+        $perencanaan = Perencanaan::with('subPerencanaan')
+            ->whereHas('subPerencanaan', function ($query) use ($bulanAwal, $bulanAkhir) {
+                $query->whereBetween(\DB::raw('MONTH(rencana_mulai)'), [$bulanAwal, $bulanAkhir]);
+            })->get();
+
+        $realisasi = Realisasi::with('subPerencanaan.perencanaan.unit')
+            ->whereBetween(\DB::raw('MONTH(tanggal_pembayaran)'), [$bulanAwal, $bulanAkhir])
+            ->get();
+
         $units = Unit::all();
         $data = [];
 
@@ -29,7 +36,7 @@ class TriwulanController extends Controller
             $total_pagu += $item->pagu;
         }
 
-        // Hitung total perencanaan
+        // Hitung total rpd
         $total_perencanaan = $perencanaan->reduce(function ($carry, $item) {
             return $carry + $item->subPerencanaan->sum(function ($sub) {
                 return $sub->volume * $sub->harga_satuan;
@@ -41,8 +48,6 @@ class TriwulanController extends Controller
         foreach ($realisasi as $item) {
             $total_realisasi += $item->realisasi;
         }
-
-
 
         $persentase_realisasi = 0;
         $persentase_belum_direalisasi = 0;
@@ -141,14 +146,9 @@ class TriwulanController extends Controller
         $realisasi = [];
         $persentasePerBulan = [];
 
-        for ($i = 1; $i <= $currentMonth; $i++) {
-            $targetSum = 0;
-            $realisasiSum = 0;
-
-            for ($j = 1; $j <= $i; $j++) {
-                $targetSum += $targetPerBulan[$j] ?? 0;
-                $realisasiSum += $realisasiPerBulan[$j] ?? 0;
-            }
+        for ($i = $bulanAwal; $i <= $bulanAkhir; $i++) {
+            $targetSum = $targetPerBulan[$i] ?? 0;
+            $realisasiSum = $realisasiPerBulan[$i] ?? 0;
 
             $target[] = $targetSum;
             $realisasi[] = $realisasiSum;
@@ -182,6 +182,9 @@ class TriwulanController extends Controller
 
         // dd($unitRealisasi);
         return view('keuangan::index_triwulan', compact(
+            'triwulan',
+            'bulanAwal',
+            'bulanAkhir',
             'perencanaan',
             'total_pagu',
             'total_perencanaan',

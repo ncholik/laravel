@@ -18,8 +18,8 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
         Route::get('/', function () {
             return redirect()->route('dashboard');
         });
-        Route::get('/dashboard', 'KeuanganController@index')->name('dashboard');
-        Route::get('/dashboard-triwulan', 'TriwulanController@index');
+        Route::get('/dashboard-bulanan', 'KeuanganController@index')->name('dashboard');
+        Route::get('/dashboard-triwulan', 'KeuanganTriwulanController@index')->name('dashboard_triwulan');
         // perencanaan
         Route::get('/perencanaan', 'PerencanaanController@index')->name('perencanaan.index');
         Route::get('/perencanaan/create', 'PerencanaanController@create')->name('perencanaan.create');

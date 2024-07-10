@@ -9,7 +9,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for ($i = 1; $i <= 12; $i++)
+                @for ($i = $bulanAwal; $i <= $bulanAkhir; $i++)
                     <tr>
                         <td>{{ $namaBulan[$i] }}</td>
                         <td class="text-center">{{ number_format($persentasePerBulan[$i] ?? 0, 2) }}%</td>

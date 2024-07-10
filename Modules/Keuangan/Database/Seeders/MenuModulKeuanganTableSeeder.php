@@ -32,13 +32,13 @@ class MenuModulKeuanganTableSeeder extends Seeder
         if ($menu) {
             Menu::create([
                 'modul' => 'Keuangan',
-                'label' => 'Dashboard',
-                'url' => 'keuangan/dashboard',
+                'label' => 'Dashboard Bulanan',
+                'url' => 'keuangan/dashboard-bulanan',
                 'can' => serialize([]),
                 'icon' => 'fas fa-tachometer-alt',
                 'urut' => 1,
                 'parent_id' => $menu->id,
-                'active' => serialize(['keuangan/dashboard', 'keuangan/dashboard*']),
+                'active' => serialize(['keuangan/dashboard-bulanan', 'keuangan/dashboard-bulanan*']),
             ]);
 
             Menu::create([
