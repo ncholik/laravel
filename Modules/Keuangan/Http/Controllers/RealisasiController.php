@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Keuangan\Entities\Perencanaan;
 use Modules\Keuangan\Entities\Realisasi;
+use Modules\Keuangan\Entities\SubPerencanaan;
 use Modules\Keuangan\Entities\Unit;
 
 class RealisasiController extends Controller
@@ -15,49 +16,56 @@ class RealisasiController extends Controller
         $unitId = $request->input('unit_id');
         $sumber_dana = $request->input('sumber');
         $akun_belanja = $request->input('akun');
+        $periode_anggaran = $request->input('periode');
         $tahun_anggaran = $request->input('tahun');
 
-        $perencanaansQuery = Perencanaan::with(['subPerencanaan']);
+        $perencanaansQuery = SubPerencanaan::with(['perencanaan.unit', 'realisasi']);
 
         if ($unitId) {
-            $perencanaansQuery->where('unit_id', $unitId);
+            $perencanaansQuery->whereHas('perencanaan', function ($query) use ($unitId) {
+                $query->where('unit_id', $unitId);
+            });
         }
 
         if ($sumber_dana) {
-            $perencanaansQuery->where('sumber', $sumber_dana);
+            $perencanaansQuery->whereHas('perencanaan', function ($query) use ($sumber_dana) {
+                $query->where('sumber', $sumber_dana);
+            });
         }
 
         if ($akun_belanja) {
-            // Join with sub_perencanaans and filter based on 'jenis' column
-            $perencanaansQuery->whereHas('subPerencanaan', function ($query) use ($akun_belanja) {
-                $query->where('jenis', $akun_belanja);
+            $perencanaansQuery->whereHas('perencanaan', function ($query) use ($akun_belanja) {
+                $query->where('akun', $akun_belanja);
             });
+        }
+
+        if ($periode_anggaran) {
+            $perencanaansQuery->whereMonth('rencana_bayar', '>=', 1)->whereMonth('rencana_bayar', '<=', $periode_anggaran);
         }
 
         if ($tahun_anggaran) {
-            $perencanaansQuery->where('tahun', $tahun_anggaran);
+            $perencanaansQuery->whereHas('perencanaan', function ($query) use ($tahun_anggaran) {
+                $query->where('tahun', $tahun_anggaran);
+            });
         }
 
-        $perencanaans = $perencanaansQuery->orderBy('kode', 'asc')->paginate(20);
+        $subPerencanaans = $perencanaansQuery->get()->map(function ($subPerencanaan) {
+            $pagu = $subPerencanaan->perencanaan->pagu;
+            $realisasiTotal = $subPerencanaan->realisasi->sum('realisasi');
+            $sisa = $pagu - $realisasiTotal;
+            $persentase = $pagu > 0 ? ($realisasiTotal / $pagu) * 100 : 0;
 
-        foreach ($perencanaans as $perencanaan) {
-            $perencanaan->total_anggaran = $perencanaan->subPerencanaan->sum(function ($sub) {
-                return $sub->volume * $sub->harga_satuan;
-            });
-
-            $perencanaan->total_realisasi = $perencanaan->subPerencanaan->sum(function ($sub) {
-                return $sub->realisasi->sum('realisasi');
-            });
-
-            $perencanaan->sisa_anggaran = $perencanaan->pagu - $perencanaan->total_realisasi;
-
-            // Menghitung persentase realisasi
-            if ($perencanaan->total_anggaran > 0) {
-                $perencanaan->persentase = ($perencanaan->total_realisasi / $perencanaan->total_anggaran) * 100;
-            } else {
-                $perencanaan->persentase = 0;
-            }
-        }
+            return [
+                'id' => $subPerencanaan->id,
+                'pic' => $subPerencanaan->perencanaan->unit->nama,
+                'kode' => $subPerencanaan->perencanaan->kode,
+                'kegiatan' => $subPerencanaan->kegiatan,
+                'pagu' => $pagu,
+                'realisasi' => $realisasiTotal,
+                'sisa' => $sisa,
+                'persentase' => $persentase,
+            ];
+        });
 
         $units = Unit::all();
         $sumber = ['BOPTN', 'PNBP', 'RM', 'Hibah'];
@@ -65,7 +73,7 @@ class RealisasiController extends Controller
         $tahun = range(date('Y'), date('Y') - 5);
 
         return view('keuangan::realisasi.index', compact(
-            'perencanaans',
+            'subPerencanaans',
             'units',
             'sumber',
             'akun',
@@ -73,13 +81,15 @@ class RealisasiController extends Controller
             'unitId',
             'sumber_dana',
             'akun_belanja',
+            'periode_anggaran',
             'tahun_anggaran'
         ));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('keuangan::realisasi.create');
+        $subPerencanaanId = $request->input('sub_perencanaan_id');
+        return view('keuangan::realisasi.create', compact('subPerencanaanId'));
     }
 
     public function store(Request $request)
@@ -87,17 +97,31 @@ class RealisasiController extends Controller
         $request->validate([
             'progres' => 'required|numeric',
             'realisasi' => 'required|numeric',
-            'laporan_keuangan' => 'required|string',
-            'laporan_kegiatan' => 'required|string',
+            'laporan_keuangan' => 'required|file|mimes:pdf|max:5120',
+            'laporan_kegiatan' => 'required|file|mimes:pdf|max:5120',
             'ketercapaian_output' => 'required|string',
             'tanggal_kontrak' => 'required|date',
             'tanggal_pembayaran' => 'required|date',
             'sub_perencanaan_id' => 'required|exists:sub_perencanaans,id',
         ]);
 
-        Realisasi::create($request->all());
+        $data = $request->all();
 
-        return redirect()->back()->with('success', 'Realisasi berhasil ditambahkan.');
+        if ($request->hasFile('laporan_keuangan')) {
+            $file = $request->file('laporan_keuangan');
+            $path = $file->storeAs('laporan-keuangan', $file->getClientOriginalName(), 'public');
+            $data['laporan_keuangan'] = $path;
+        }
+
+        if ($request->hasFile('laporan_kegiatan')) {
+            $file = $request->file('laporan_kegiatan');
+            $path = $file->storeAs('laporan-kegiatan', $file->getClientOriginalName(), 'public');
+            $data['laporan_kegiatan'] = $path;
+        }
+
+        Realisasi::create($data);
+
+        return redirect()->route('realisasi.index')->with('success', 'Realisasi berhasil ditambahkan.');
     }
 
     // Controller Method

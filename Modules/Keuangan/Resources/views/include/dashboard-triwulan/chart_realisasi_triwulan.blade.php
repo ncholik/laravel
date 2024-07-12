@@ -18,8 +18,8 @@
                 afterDatasetsDraw(chart, args, options) {
                     const legendContainer = chart.legend.legendItems;
                     legendContainer.sort((a, b) => {
-                        if (a.text === 'Realisasi per Bulan') return 1;
-                        if (b.text === 'Realisasi per Bulan') return -1;
+                        if (a.text === 'Realisasi Keuangan') return 1;
+                        if (b.text === 'Realisasi Keuangan') return -1;
                         return 0;
                     });
                 }
@@ -41,7 +41,7 @@
                         borderWidth: 1,
                         fill: true,
                         tension: 0.5,
-                        order: 1
+                        order: 2
                     }, {
                         label: 'Realisasi Keuangan',
                         data: @json($realisasi),
@@ -50,7 +50,7 @@
                         borderWidth: 1,
                         fill: true,
                         tension: 0.5,
-                        order: 0
+                        order: 1
                     }]
                 },
                 options: {

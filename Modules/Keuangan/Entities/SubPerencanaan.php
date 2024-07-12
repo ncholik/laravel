@@ -9,7 +9,7 @@ class SubPerencanaan extends Model
 {
     use HasFactory;
 
-    protected $primary = 'id';
+    protected $primaryKey = 'id';
 
     public function perencanaan()
     {

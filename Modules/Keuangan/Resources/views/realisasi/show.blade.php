@@ -33,18 +33,34 @@
                                     <th>tgl pembayaran</th>
                                 </tr>
                             </thead>
-                            @foreach ($data as $item)
-                                <tr>
-                                    <td>{{ $item['progres'] }}</td>
-                                    <td>{{ str_replace(',', '.', number_format($item['realisasi'])) }}</td>
-                                    <td>{{ $item['laporan_keuangan'] }}</td>
-                                    <td>{{ $item['laporan_kegiatan'] }}</td>
-                                    <td>{{ $item['ketercapaian_output'] }}</td>
-                                    <td>{{ $item['tanggal_kontrak'] }}</td>
-                                    <td>{{ $item['tanggal_pembayaran'] }}</td>
-                                </tr>
-                            @endforeach
                             <tbody>
+                                @foreach ($data as $item)
+                                    <tr>
+                                        <td>{{ $item['progres'] }}</td>
+                                        <td>{{ str_replace(',', '.', number_format($item['realisasi'])) }}</td>
+                                        <td>
+                                            @if ($item['laporan_keuangan'])
+                                                <a href="{{ Storage::url($item['laporan_keuangan']) }}" target="_blank">
+                                                    {{ basename($item['laporan_keuangan']) }}
+                                                </a>
+                                            @else
+                                                Tidak ada file
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($item['laporan_kegiatan'])
+                                                <a href="{{ Storage::url($item['laporan_kegiatan']) }}" target="_blank">
+                                                    {{ basename($item['laporan_kegiatan']) }}
+                                                </a>
+                                            @else
+                                                Tidak ada file
+                                            @endif
+                                        </td>
+                                        <td>{{ $item['ketercapaian_output'] }}</td>
+                                        <td>{{ $item['tanggal_kontrak'] }}</td>
+                                        <td>{{ $item['tanggal_pembayaran'] }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end mb-3">

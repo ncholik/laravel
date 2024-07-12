@@ -42,8 +42,6 @@ class KeuanganController extends Controller
             $total_realisasi += $item->realisasi;
         }
 
-
-
         $persentase_realisasi = 0;
         $persentase_belum_direalisasi = 0;
         // Hitung persentase
