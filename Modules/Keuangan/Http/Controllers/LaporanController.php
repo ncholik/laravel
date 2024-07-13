@@ -2,128 +2,70 @@
 
 namespace Modules\Keuangan\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Keuangan\Entities\Perencanaan;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\LaporanExport;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class LaporanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
         return view('keuangan::laporan.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function generate_laporan(Request $request)
     {
-        return view('keuangan::create');
-    }
+        $subPerencanaans = json_decode($request->input('sub_perencanaans'), true);
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Pastikan direktori ada
+        $pdfDirectory = 'laporan-realisasi/pdf';
+        $excelDirectory = 'laporan-realisasi/excel';
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    
-    public function show_laporan()
-    {
-        $perencanaans = Perencanaan::with('subPerencanaan.realisasi')->get();
-
-        $this->hitungAnggaran($perencanaans);
-
-        $data = [
-            'perencanaans' => $perencanaans
-        ];
-
-        return view('keuangan::laporan.show_laporan', $data);
-    }
-
-    function hitungAnggaran($perencanaans)
-    {
-        // menghitung program
-        foreach ($perencanaans as $perencanaan) {
-            $perencanaan->anggaran = $perencanaan->subPerencanaan->sum(function ($sub) {
-                return $sub->volume * $sub->harga_satuan;
-            });
-
-            $perencanaan->realisasi_ini = $perencanaan->subPerencanaan->sum(function ($sub) {
-                return $sub->realisasi->sum('realisasi');
-            });
-
-            $perencanaan->sisa = $perencanaan->anggaran - $perencanaan->realisasi_ini;
-
-            // menghitung kegiatan
-            foreach ($perencanaan->subPerencanaan as $sub) {
-                $sub->sub_anggaran = $sub->volume * $sub->harga_satuan;
-
-                $sub->sub_realisasi = $sub->realisasi->isNotEmpty() ? $sub->realisasi->first()->realisasi : 0;
-
-                $sub->sisa_sub = $sub->sub_anggaran - $sub->sub_realisasi;
-            }
+        if (!is_dir($pdfDirectory)) {
+            mkdir($pdfDirectory, 0755, true);
         }
-    }
 
-    public function cetak_laporan()
-    {
-        $perencanaans = Perencanaan::with('subPerencanaan.realisasi')->get();
-        $this->hitungAnggaran($perencanaans);
+        if (!is_dir($excelDirectory)) {
+            mkdir($excelDirectory, 0755, true);
+        }
 
-        $data = [
-            'perencanaans' => $perencanaans
+        // Generate PDF
+        $pdf = PDF::loadView('keuangan::laporan.cetak_laporan', compact('subPerencanaans'));
+        $pdfFileName = 'laporan_realisasi_TA_' . now()->format('Ymd_His') . '.pdf';
+        $pdfPath = $pdfDirectory . '/' . $pdfFileName;
+        Storage::put('public/' . $pdfPath, $pdf->output());
+
+        // Generate Excel
+        $excelFileName = 'laporan_realisasi_TA_' . now()->format('Ymd_His') . '.xlsx';
+        $excelPath = $excelDirectory . '/' . $excelFileName;
+        Excel::store(new LaporanExport($subPerencanaans), $excelPath, 'public');
+
+        $laporan = session()->get('laporan', []);
+        $laporan[] = [
+            'name' => 'laporan_realisasi_TA_' . now()->format('Ymd_His'),
+            'pdf_path' => Storage::url($pdfPath),
+            'excel_path' => Storage::url($excelPath),
+            'date' => now()->format('d M Y'),
         ];
+        session()->put('laporan', $laporan);
 
-        $pdf = PDF::loadView('keuangan::laporan.cetak_laporan', $data);
-        $pdf->setPaper('A4', 'landscape');
-
-        return response($pdf->stream('laporan_realisasi_TA_2024.pdf'), 200)
-        ->header('Content-Type', 'application/pdf');
+        return back()->with('success', 'Laporan berhasil dicetak');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    public function show_pdf($filename)
     {
-        return view('keuangan::edit');
+        $path = storage_path('app/public/laporan-realisasi/pdf/' . $filename);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
         //

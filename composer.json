@@ -7,14 +7,15 @@
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^2.2",
+        "doctrine/dbal": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jeroennoten/laravel-adminlte": "^3.8",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
-        "doctrine/dbal": "^3.0",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^4.0",
         "laravelcollective/html": "^6.3",
+        "maatwebsite/excel": "^3.1",
         "nwidart/laravel-modules": "8.6.0",
         "spatie/laravel-permission": "^5.5"
     },

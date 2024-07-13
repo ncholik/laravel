@@ -205,11 +205,15 @@
                                         {{-- {!! $subPerencanaans->links('pagination::bootstrap-4') !!} --}}
                                     </div>
 
-                                    <div class="col-12 ">
-                                        <a href="" title="cetak">
-                                            <button class="btn btn-success btn-sm col-md-12"> Cetak </button>
-                                        </a>
-                                    </div>
+                                    <form action="{{ route('laporan.generate') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="sub_perencanaans"
+                                            value="{{ json_encode($subPerencanaans) }}">
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-success btn-sm col-md-12"> Cetak
+                                            </button>
+                                        </div>
+                                    </form>
 
                                 </div>
                             </div>
