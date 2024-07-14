@@ -41,10 +41,10 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
         Route::patch('realisasi/update/{id}', 'RealisasiController@update')->name('realisasi.update');
         Route::post('/realisasi/store', 'RealisasiController@store')->name('realisasi.store');
         Route::delete('/realisasi/destroy/{realisasi}', 'RealisasiController@destroy')->name('realisasi.destroy');
-
+        
         // laporan
         Route::get('/laporan', 'LaporanController@index')->name('laporan.index');
-        Route::get('/laporan/show-laporan', 'LaporanController@show_laporan')->name('show_laporan');
-        Route::get('/laporan/cetak-laporan', 'LaporanController@cetak_laporan')->name('laporan.cetak_laporan');
+        Route::post('/laporan/generate-laporan', 'LaporanController@generate_laporan')->name('laporan.generate');
+        Route::get('/laporan/show-pdf/{filename}', 'LaporanController@show_pdf')->name('laporan.show_pdf');
     });
 });

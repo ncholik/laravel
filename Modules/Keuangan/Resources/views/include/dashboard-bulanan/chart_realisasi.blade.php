@@ -21,8 +21,8 @@
                 afterDatasetsDraw(chart, args, options) {
                     const legendContainer = chart.legend.legendItems;
                     legendContainer.sort((a, b) => {
-                        if (a.text === 'Realisasi per Bulan') return 1;
-                        if (b.text === 'Realisasi per Bulan') return -1;
+                        if (a.text === 'Realisasi Keuangan') return 1;
+                        if (b.text === 'Realisasi Keuangan') return -1;
                         return 0;
                     });
                 }

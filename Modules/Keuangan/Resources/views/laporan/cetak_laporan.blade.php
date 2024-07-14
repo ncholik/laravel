@@ -92,28 +92,15 @@
                 <th>cek</th>
                 <th>cek</th>
             </tr>
-            @foreach ($perencanaans as $perencanaan)
+            @foreach ($subPerencanaans as $item)
                 <tr>
-                    <td style="text-align: left">{{ $perencanaan->kode }} {{ $perencanaan->nama }}</td>
-                    <td>{{ number_format($perencanaan->anggaran, 2, ',', '.') }}</td>
-                    <td></td>
-                    <td>{{ number_format($perencanaan->realisasi_ini, 2, ',', '.') }}</td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ number_format($perencanaan->sisa, 2, ',', '.') }}</td>
+                    <td>{{ $item['pic'] }}</td>
+                    <td>{{ $item['kode'] }}. {{ $item['kegiatan'] }}</td>
+                    <td>{{ str_replace(',', '.', number_format($item['pagu'])) }}</td>
+                    <td>{{ str_replace(',', '.', number_format($item['realisasi'])) }}</td>
+                    <td>{{ str_replace(',', '.', number_format($item['sisa'])) }}</td>
+                    <td>{{ number_format($item['persentase'], 2) }} %</td>
                 </tr>
-                @foreach ($perencanaan->subPerencanaan as $kegiatan)
-                    <tr class="text-danger">
-                        <td class="text-purple" style="padding-left: 50px; text-align: left;">{{ $kegiatan->kegiatan }}
-                        </td>
-                        <td class="text-purple">{{ number_format($kegiatan->sub_anggaran, 2, ',', '.') }}</td>
-                        <td class="text-purple"></td>
-                        <td class="text-purple">{{ number_format($kegiatan->sub_realisasi, 2, ',', '.') }}</td>
-                        <td class="text-purple"></td>
-                        <td class="text-purple"></td>
-                        <td class="text-purple">{{ number_format($kegiatan->sisa_sub, 2, ',', '.') }}</td>
-                    </tr>
-                @endforeach
             @endforeach
         </tbody>
     </table>

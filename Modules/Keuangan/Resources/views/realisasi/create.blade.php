@@ -23,7 +23,7 @@
                 <form method="POST" action="{{ route('realisasi.store') }}" accept-charset="UTF-8"
                     class="form-horizontal" enctype="multipart/form-data">
                     {{ csrf_field() }}
-
+                    <input type="hidden" name="sub_perencanaan_id" value="{{ $subPerencanaanId }}">
                     @include ('keuangan::realisasi.form', ['formMode' => 'create'])
 
                 </form>

@@ -20,7 +20,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
         DB::table('perencanaans')->insert([
             // bisnis dan informatika
             [
-                'nama' => 'Pengadaan Bahan Praktikum - Jurusan Bisnis dan Informatika',
+                'nama' => ' ',
                 'kode' => '000031',
                 'sumber' => 'BOPTN',
                 'pagu' => '40306000',
@@ -29,7 +29,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 74
             ],
             [
-                'nama' => 'Workshop Big Data Analysis using Python (Internal)',
+                'nama' => ' ',
                 'kode' => '000235',
                 'sumber' => 'PNBP',
                 'pagu' => '27088000',
@@ -38,7 +38,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 74
             ],
             [
-                'nama' => 'Workshop Introduction to DevOps with Kubernetes',
+                'nama' => ' ',
                 'kode' => '000236',
                 'sumber' => 'PNBP',
                 'pagu' => '27087000',
@@ -47,7 +47,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 74
             ],
             [
-                'nama' => 'Workshop System Analyst and Design',
+                'nama' => ' ',
                 'kode' => '000237',
                 'sumber' => 'PNBP',
                 'pagu' => '27088000',
@@ -56,7 +56,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 74
             ],
             [
-                'nama' => 'Workshop Software Quality Assurance',
+                'nama' => ' ',
                 'kode' => '000238',
                 'sumber' => 'PNBP',
                 'pagu' => '18207000',
@@ -65,7 +65,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 74
             ],
             [
-                'nama' => 'Sewa lisensi software',
+                'nama' => ' ',
                 'kode' => '000239',
                 'sumber' => 'PNBP',
                 'pagu' => '20000000',
@@ -74,7 +74,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 74
             ],
             [
-                'nama' => 'Perbaikan Peralatan Laboratorium',
+                'nama' => ' ',
                 'kode' => '000240',
                 'sumber' => 'PNBP',
                 'pagu' => '27271000',
@@ -85,7 +85,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
 
             // teknik mesin
             [
-                'nama' => 'Pengadaan Bahan Praktikum Bahan Segar - Jurusan Teknik Mesin',
+                'nama' => ' ',
                 'kode' => '000028',
                 'sumber' => 'BOPTN',
                 'pagu' => '20000000',
@@ -94,7 +94,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 75
             ],
             [
-                'nama' => 'Pengadaan Bahan Praktikum -Jurusan Teknik Mesin',
+                'nama' => ' ',
                 'kode' => '000036',
                 'sumber' => 'BOPTN',
                 'pagu' => '150000000',
@@ -103,7 +103,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 75
             ],
             [
-                'nama' => 'Keikutsertaan Lomba Nasional KKCTBN 2024',
+                'nama' => ' ',
                 'kode' => '000223',
                 'sumber' => 'PNBP',
                 'pagu' => '10000000',
@@ -112,7 +112,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 75
             ],
             [
-                'nama' => 'Keikutsertaan Lomba Nasional KMHE, KRI, KMLI 2024',
+                'nama' => ' ',
                 'kode' => '000224',
                 'sumber' => 'PNBP',
                 'pagu' => '10000000',
@@ -121,7 +121,7 @@ class PerencanaanModulKeuanganTableSeeder extends Seeder
                 'unit_id' => 75
             ],
             [
-                'nama' => 'Perpanjangan lisensi 3 (tiga) software lab. Komputer',
+                'nama' => ' ',
                 'kode' => '000225',
                 'sumber' => 'PNBP',
                 'pagu' => '64100000',

@@ -66,7 +66,32 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Periode</label>
-                                    <select class="form-control select2" id="perencanaan-select">
+                                    <select class="form-control select2" id="periode-select" name="periode">
+                                        <option value="">All</option>
+                                        <option value="01" {{ $periode_anggaran == '01' ? 'selected' : '' }}>Januari
+                                        </option>
+                                        <option value="02" {{ $periode_anggaran == '02' ? 'selected' : '' }}>Februari
+                                        </option>
+                                        <option value="03" {{ $periode_anggaran == '03' ? 'selected' : '' }}>Maret
+                                        </option>
+                                        <option value="04" {{ $periode_anggaran == '04' ? 'selected' : '' }}>April
+                                        </option>
+                                        <option value="05" {{ $periode_anggaran == '05' ? 'selected' : '' }}>Mei
+                                        </option>
+                                        <option value="06" {{ $periode_anggaran == '06' ? 'selected' : '' }}>Juni
+                                        </option>
+                                        <option value="07" {{ $periode_anggaran == '07' ? 'selected' : '' }}>Juli
+                                        </option>
+                                        <option value="08" {{ $periode_anggaran == '08' ? 'selected' : '' }}>Agustus
+                                        </option>
+                                        <option value="09" {{ $periode_anggaran == '09' ? 'selected' : '' }}>September
+                                        </option>
+                                        <option value="10" {{ $periode_anggaran == '10' ? 'selected' : '' }}>Oktober
+                                        </option>
+                                        <option value="11" {{ $periode_anggaran == '11' ? 'selected' : '' }}>November
+                                        </option>
+                                        <option value="12" {{ $periode_anggaran == '12' ? 'selected' : '' }}>Desember
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -109,10 +134,10 @@
                                     <table class="table table-striped">
                                         <thead class="text-center">
                                             <tr>
-                                                <th>Kode</th>
+                                                <th>PIC</th>
                                                 <th>Uraian</th>
                                                 <th>Pagu</th>
-                                                <th>RPD</th>
+                                                {{-- <th>RPD</th> --}}
                                                 <th>Realisasi</th>
                                                 <th>Sisa</th>
                                                 <th>Persentase</th>
@@ -120,29 +145,29 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($perencanaans as $perencanaan)
+                                            @foreach ($subPerencanaans as $item)
                                                 <tr class="text-center">
-                                                    <td>{{ $perencanaan->kode }}</td>
                                                     <td class="text-left">
-                                                        {{ $perencanaan->nama }}
+                                                        {{ $item['pic'] }}
                                                     </td>
-                                                    <td class="{{ $perencanaan->pagu == 0 ? 'text-danger' : '' }}">
-                                                        {{ str_replace(',', '.', number_format($perencanaan->pagu)) }}
+                                                    <td class="text-left">
+                                                        {{ $item['kode'] }}. {{ $item['kegiatan'] }}
                                                     </td>
-                                                    <td
-                                                        class="{{ $perencanaan->total_anggaran == 0 ? 'text-danger' : '' }}">
-                                                        {{ str_replace(',', '.', number_format($perencanaan->total_anggaran)) }}
+                                                    <td class="{{ $item['pagu'] == 0 ? 'text-danger' : '' }}">
+                                                        {{ str_replace(',', '.', number_format($item['pagu'])) }}
                                                     </td>
-                                                    <td
-                                                        class="{{ $perencanaan->total_realisasi == 0 ? 'text-danger' : '' }}">
-                                                        {{ str_replace(',', '.', number_format($perencanaan->total_realisasi)) }}
+                                                    {{-- <td
+                                                        class="{{ $item['total_anggaran'] == 0 ? 'text-danger' : '' }}">
+                                                        {{ str_replace(',', '.', number_format($item['total_anggaran'])) }}
+                                                    </td> --}}
+                                                    <td class="{{ $item['realisasi'] == 0 ? 'text-danger' : '' }}">
+                                                        {{ str_replace(',', '.', number_format($item['realisasi'])) }}
                                                     </td>
-                                                    <td
-                                                        class="{{ $perencanaan->sisa_anggaran == 0 ? 'text-danger' : '' }}">
-                                                        {{ str_replace(',', '.', number_format($perencanaan->sisa_anggaran)) }}
+                                                    <td class="{{ $item['sisa'] == 0 ? 'text-danger' : '' }}">
+                                                        {{ str_replace(',', '.', number_format($item['sisa'])) }}
                                                     </td>
-                                                    <td class="{{ $perencanaan->persentase == 0 ? 'text-danger' : '' }}">
-                                                        {{ number_format($perencanaan->persentase, 2) }} %
+                                                    <td class="{{ $item['persentase'] == 0 ? 'text-danger' : '' }}">
+                                                        {{ number_format($item['persentase'], 2) }} %
                                                     </td>
                                                     <td>
                                                         <div class="dropdown">
@@ -154,26 +179,19 @@
                                                             </button>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('realisasi.create') }}" title="Tambah">
+                                                                    href="{{ route('realisasi.show', ['perencanaan' => $item['id']]) }}"
+                                                                    title="lihat">
+                                                                    <button class="btn btn-info btn-sm btn-block"> <i
+                                                                            class="fas fa-eye" aria-hidden="true"></i>
+                                                                        lihat
+                                                                    </button>
+                                                                </a>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('realisasi.create', ['sub_perencanaan_id' => $item['id']]) }}"
+                                                                    title="Tambah">
                                                                     <button class="btn btn-success btn-sm btn-block"> <i
                                                                             class="fa fa-plus" aria-hidden="true"></i>
                                                                         Tambah
-                                                                    </button>
-                                                                </a>
-                                                                {{-- <a class="dropdown-item"
-                                                                    href="{{ route('realisasi.edit', $perencanaan->id) }}" title="Ubah">
-                                                                    <button class="btn btn-warning btn-sm btn-block"> <i
-                                                                            class="fas fa-pencil-alt"
-                                                                            aria-hidden="true"></i>
-                                                                        Ubah
-                                                                    </button>
-                                                                </a> --}}
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('realisasi.show', $perencanaan->id) }}" title="lihat">
-                                                                    <button class="btn btn-info btn-sm btn-block"> <i
-                                                                            class="fas fa-eye"
-                                                                            aria-hidden="true"></i>
-                                                                        lihat
                                                                     </button>
                                                                 </a>
                                                             </div>
@@ -184,14 +202,18 @@
                                         </tbody>
                                     </table>
                                     <div class="d-flex">
-                                        {!! $perencanaans->links('pagination::bootstrap-4') !!}
+                                        {{-- {!! $subPerencanaans->links('pagination::bootstrap-4') !!} --}}
                                     </div>
 
-                                    <div class="col-12 ">
-                                        <a href="" title="cetak">
-                                            <button class="btn btn-success btn-sm col-md-12"> Cetak </button>
-                                        </a>
-                                    </div>
+                                    <form action="{{ route('laporan.generate') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="sub_perencanaans"
+                                            value="{{ json_encode($subPerencanaans) }}">
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-success btn-sm col-md-12"> Cetak
+                                            </button>
+                                        </div>
+                                    </form>
 
                                 </div>
                             </div>
@@ -209,7 +231,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#unit-select, #sumber-select, #akun-select, #tahun-select').change(function() {
+            $('#unit-select, #sumber-select, #akun-select, #periode-select, #tahun-select').change(function() {
                 this.form.submit();
             });
         });

@@ -56,7 +56,7 @@ class MenuModulKeuanganTableSeeder extends Seeder
                 'modul' => 'Keuangan',
                 'label' => 'Perencanaan',
                 'url' => 'keuangan/perencanaan',
-                'can' => serialize([]),
+                'can' => serialize(['admin', 'keuangan',]),
                 'icon' => 'fas fa-chart-line',
                 'urut' => 3,
                 'parent_id' => $menu->id,

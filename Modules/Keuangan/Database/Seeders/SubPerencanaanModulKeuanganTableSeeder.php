@@ -16,7 +16,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
         DB::table('sub_perencanaans')->insert([
             // bisnis informatika
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Pengadaan Bahan Praktikum - Jurusan Bisnis dan Informatika',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -32,7 +32,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Workshop Big Data Analysis using Python (Internal)',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -48,7 +48,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Workshop Introduction to DevOps with Kubernetes',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -64,7 +64,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Workshop System Analyst and Design',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -80,7 +80,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Workshop Software Quality Assurance',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -96,7 +96,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Sewa lisensi software',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -112,7 +112,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Perbaikan Peralatan Laboratorium',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -130,7 +130,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
 
             // mesin 8 - 18
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Pengadaan Bahan Praktikum Bahan Segar - Jurusan Teknik Mesin',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -146,7 +146,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Pengadaan Bahan Praktikum Bahan Segar - Jurusan Teknik Mesin',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -162,7 +162,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Pengadaan Bahan Praktikum Bahan Segar - Jurusan Teknik Mesin',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -178,7 +178,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Pengadaan Bahan Praktikum Bahan Segar - Jurusan Teknik Mesin',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -194,7 +194,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Pengadaan Bahan Praktikum Bahan Segar - Jurusan Teknik Mesin',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -210,7 +210,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Pengadaan Bahan Praktikum Bahan Segar - Jurusan Teknik Mesin',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -227,7 +227,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
             ],
 
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Keikutsertaan Lomba Nasional KKCTBN 2024',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -243,7 +243,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Keikutsertaan Lomba Nasional KKCTBN 2024',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -260,7 +260,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
             ],
 
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Keikutsertaan Lomba Nasional KMHE, KRI, KMLI 2024',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -276,7 +276,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
                 'jenis' => 'Barang'
             ],
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Keikutsertaan Lomba Nasional KMHE, KRI, KMLI 2024',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
@@ -293,7 +293,7 @@ class SubPerencanaanModulKeuanganTableSeeder extends Seeder
             ],
 
             [
-                'kegiatan' => ' ',
+                'kegiatan' => 'Perpanjangan lisensi 3 (tiga) software lab. Komputer',
                 'metode_pengadaan' => 'Swakelola',
                 'satuan' => 'Unit',
                 'volume' => 1,
