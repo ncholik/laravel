@@ -54,17 +54,6 @@ class MenuModulKeuanganTableSeeder extends Seeder
 
             Menu::create([
                 'modul' => 'Keuangan',
-                'label' => 'Perencanaan',
-                'url' => 'keuangan/perencanaan',
-                'can' => serialize(['admin', 'keuangan',]),
-                'icon' => 'fas fa-chart-line',
-                'urut' => 3,
-                'parent_id' => $menu->id,
-                'active' => serialize(['keuangan/perencanaan', 'keuangan/perencanaan*']),
-            ]);
-
-            Menu::create([
-                'modul' => 'Keuangan',
                 'label' => 'Realisasi',
                 'url' => 'keuangan/realisasi',
                 'can' => serialize([]),

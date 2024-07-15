@@ -34,9 +34,7 @@ class RealisasiController extends Controller
         }
 
         if ($akun_belanja) {
-            $perencanaansQuery->whereHas('perencanaan', function ($query) use ($akun_belanja) {
-                $query->where('akun', $akun_belanja);
-            });
+            $perencanaansQuery->where('jenis', $akun_belanja);
         }
 
         if ($periode_anggaran) {

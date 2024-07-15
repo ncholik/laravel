@@ -48,7 +48,7 @@ class LaporanController extends Controller
             'name' => 'laporan_realisasi_TA_' . now()->format('Ymd_His'),
             'pdf_path' => Storage::url($pdfPath),
             'excel_path' => Storage::url($excelPath),
-            'date' => now()->format('d M Y'),
+            'date' => now()->format('d M Y H:i:s'),
         ];
         session()->put('laporan', $laporan);
 
@@ -66,8 +66,28 @@ class LaporanController extends Controller
         return response()->file($path);
     }
 
-    public function destroy($id)
+    public function reset()
     {
-        //
+        $laporan = session('laporan', []);
+    
+        // Delete files from storage
+        foreach ($laporan as $item) {
+            $pdfPath = 'public/' . str_replace(url('storage/'), '', $item['pdf_path']);
+            $excelPath = 'public/' . str_replace(url('storage/'), '', $item['excel_path']);
+    
+            if (Storage::exists($pdfPath)) {
+                Storage::delete($pdfPath);
+            }
+    
+            if (Storage::exists($excelPath)) {
+                Storage::delete($excelPath);
+            }
+        }
+    
+        // Clear the session
+        session()->forget('laporan');
+    
+        return back()->with('success', 'Semua laporan telah direset.');
     }
+    
 }

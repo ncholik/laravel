@@ -4,7 +4,24 @@
     <h1 class="m-0 text-dark"></h1>
 @stop
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}">
+@endpush
+
 @section('content')
+    @if (session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: true,
+                    timer: 3000
+                });
+            });
+        </script>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -116,17 +133,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                        </div>
-                        <br>
-
                         <!-- chart-->
                         <div class="card-body">
-                            <div class="row">
-
+                            {{-- <div class="row">
                                 @include('keuangan::include.chart_realisasi_unit')
-
-                            </div>
+                            </div> --}}
 
                             {{-- tabel rekapitulasi --}}
                             <div class="card-body">
@@ -186,14 +197,16 @@
                                                                         lihat
                                                                     </button>
                                                                 </a>
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('realisasi.create', ['sub_perencanaan_id' => $item['id']]) }}"
-                                                                    title="Tambah">
-                                                                    <button class="btn btn-success btn-sm btn-block"> <i
-                                                                            class="fa fa-plus" aria-hidden="true"></i>
-                                                                        Tambah
-                                                                    </button>
-                                                                </a>
+                                                                @hasanyrole('admin|penanggung')
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('realisasi.create', ['sub_perencanaan_id' => $item['id']]) }}"
+                                                                        title="Tambah">
+                                                                        <button class="btn btn-success btn-sm btn-block"> <i
+                                                                                class="fa fa-plus" aria-hidden="true"></i>
+                                                                            Tambah
+                                                                        </button>
+                                                                    </a>
+                                                                @endhasanyrole
                                                             </div>
                                                         </div>
                                                     </td>
@@ -205,16 +218,17 @@
                                         {{-- {!! $subPerencanaans->links('pagination::bootstrap-4') !!} --}}
                                     </div>
 
-                                    <form action="{{ route('laporan.generate') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="sub_perencanaans"
-                                            value="{{ json_encode($subPerencanaans) }}">
-                                        <div class="col-12">
-                                            <button type="submit" class="btn btn-success btn-sm col-md-12"> Cetak
-                                            </button>
-                                        </div>
-                                    </form>
-
+                                    @hasanyrole('admin|keuangan|pimpinan')
+                                        <form action="{{ route('laporan.generate') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="sub_perencanaans"
+                                                value="{{ json_encode($subPerencanaans) }}">
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-success btn-sm col-md-12"> Cetak
+                                                </button>
+                                            </div>
+                                        </form>
+                                    @endhasanyrole
                                 </div>
                             </div>
                         </div>
@@ -228,6 +242,7 @@
 
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/vendor/sweetalert2/sweetalert2.min.js"></script>
 
     <script>
         $(document).ready(function() {

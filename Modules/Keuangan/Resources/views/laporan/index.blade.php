@@ -4,10 +4,6 @@
 @section('content_header')
 @stop
 
-@push('css')
-    <link rel="stylesheet" href="path/to/your/custom.css">
-@endpush
-
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -41,11 +37,12 @@
                     </div>
                     <div class="row mt-2 d-flex justify-content-center">
                         <div class="col-1 ">
-                            <a href="" title="cari">
-                                <button class="btn btn-warning btn-sm col-md-12">
+                            <form action="{{ route('laporan.reset') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mereset laporan?');">
+                                @csrf
+                                <button type="submit" class="btn btn-warning btn-sm col-md-12">
                                     Reset
                                 </button>
-                            </a>
+                            </form>
                         </div>
                         <div class="col-1 ">
                             <a href="" title="cari">
@@ -94,14 +91,16 @@
                                                         @if ($pdfExists)
                                                             <button class="btn btn-info btn-sm" data-toggle="modal"
                                                                 data-target="#pdfModal"
-                                                                data-pdf-url="{{ route('laporan.show_pdf', basename($item['pdf_path'])) }}">Lihat
-                                                                PDF</button>
+                                                                data-pdf-url="{{ route('laporan.show_pdf', basename($item['pdf_path'])) }}">
+                                                                <i class="fas fa-file-pdf"></i> PDF
+                                                            </button>
                                                         @endif
 
                                                         @if ($excelExists)
                                                             <a href="{{ url($item['excel_path']) }}"
-                                                                class="btn btn-info btn-sm" target="_blank">Download
-                                                                Excel</a>
+                                                                class="btn btn-info btn-sm" target="_blank">
+                                                                <i class="fas fa-file-excel"></i> Excel
+                                                            </a>
                                                         @endif
                                                     </td>
                                                 </tr>

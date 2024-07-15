@@ -22,30 +22,20 @@ class UserModulKeuanganTableSeeder extends Seeder
 
         \Artisan::call('permission:create-permission-routes-sync');
 
-        $perencanaan = User::create([
-            'name' => 'Perencanaan',
-            'email' => 'perencanaan@gmail.com',
-            'username' => 'perencanaan',
-            'password' => Hash::make('12345678'),
-            'unit' => 72,
-            'staff' => 22,
-            'status' => 2
-        ]);
-
         $keuangan = User::create([
             'name' => 'Keuangan',
             'email' => 'keuangan@gmail.com',
-            'username' => 'keuangan',
+            'username' => 'yuli',
             'password' => Hash::make('12345678'),
-            'unit' => 72,
-            'staff' => 22,
+            'unit' => 18,
+            'staff' => 18,
             'status' => 2
         ]);
 
         $penanggung = User::create([
             'name' => 'Penanggung Jawab Unit',
             'email' => 'penanggung@gmail.com',
-            'username' => 'penanggung',
+            'username' => 'dianni yusuf',
             'password' => Hash::make('12345678'),
             'unit' => 72,
             'staff' => 22,
@@ -55,38 +45,74 @@ class UserModulKeuanganTableSeeder extends Seeder
         $pimpinan = User::create([
             'name' => 'Pimpinan',
             'email' => 'pimpinan@gmail.com',
-            'username' => 'pimpinan',
+            'username' => 'devit suwardiyanto',
             'password' => Hash::make('12345678'),
-            'unit' => 72,
-            'staff' => 22,
+            'unit' => 13,
+            'staff' => 21,
             'status' => 2
         ]);
 
-        $rolePerencanaan = Role::create(['name' => 'perencanaan']);
         $roleKeuangan = Role::create(['name' => 'keuangan']);
         $rolePenanggung = Role::create(['name' => 'penanggung']);
         $rolePimpinan = Role::create(['name' => 'pimpinan']);
 
-        $permissions = Permission::where('name', 'adminlte.darkmode.toggle')
+        $permissions_keuangan = Permission::where('name', 'adminlte.darkmode.toggle')
             ->orWhere('name', 'logout.perform')
             ->orWhere('name', 'home.index')
             ->orWhere('name', 'login.show')
-            ->orWhere('name', 'perencanaan.index')
-            ->orWhere('name', 'perencanaan.show')
+            ->orWhere('name', 'dashboard')
+            ->orWhere('name', 'dashboard_triwulan')
             ->orWhere('name', 'perencanaan.sub_index')
+            ->orWhere('name', 'perencanaan.show')
             ->orWhere('name', 'realisasi.index')
+            ->orWhere('name', 'realisasi.show')
             ->orWhere('name', 'laporan.index')
+            ->orWhere('name', 'laporan.generate')
+            ->orWhere('name', 'laporan.show_pdf')
+            ->orWhere('name', 'laporan.reset')
             ->pluck('id', 'id')
             ->all();
 
-        $perencanaan->assignRole([$rolePerencanaan->id]);
+        $permissions_penanggung = Permission::where('name', 'adminlte.darkmode.toggle')
+            ->orWhere('name', 'logout.perform')
+            ->orWhere('name', 'home.index')
+            ->orWhere('name', 'login.show')
+            ->orWhere('name', 'dashboard')
+            ->orWhere('name', 'dashboard_triwulan')
+            ->orWhere('name', 'perencanaan.sub_index')
+            ->orWhere('name', 'perencanaan.show')
+            ->orWhere('name', 'realisasi.index')
+            ->orWhere('name', 'realisasi.show')
+            ->orWhere('name', 'laporan.create')
+            ->orWhere('name', 'laporan.store')
+            ->orWhere('name', 'laporan.edit')
+            ->orWhere('name', 'laporan.update')
+            ->pluck('id', 'id')
+            ->all();
+
+        $permissions_pimpinan = Permission::where('name', 'adminlte.darkmode.toggle')
+            ->orWhere('name', 'logout.perform')
+            ->orWhere('name', 'home.index')
+            ->orWhere('name', 'login.show')
+            ->orWhere('name', 'dashboard')
+            ->orWhere('name', 'dashboard_triwulan')
+            ->orWhere('name', 'perencanaan.sub_index')
+            ->orWhere('name', 'perencanaan.show')
+            ->orWhere('name', 'realisasi.index')
+            ->orWhere('name', 'realisasi.show')
+            ->orWhere('name', 'laporan.index')
+            ->orWhere('name', 'laporan.generate')
+            ->orWhere('name', 'laporan.show_pdf')
+            ->orWhere('name', 'laporan.reset')
+            ->pluck('id', 'id')
+            ->all();
+
         $keuangan->assignRole([$roleKeuangan->id]);
         $penanggung->assignRole([$rolePenanggung->id]);
         $pimpinan->assignRole([$rolePimpinan->id]);
 
-        $rolePerencanaan->syncPermissions($permissions);
-        $roleKeuangan->syncPermissions($permissions);
-        $rolePenanggung->syncPermissions($permissions);
-        $rolePimpinan->syncPermissions($permissions);
+        $roleKeuangan->syncPermissions($permissions_keuangan);
+        $rolePenanggung->syncPermissions($permissions_penanggung);
+        $rolePimpinan->syncPermissions($permissions_pimpinan);
     }
 }
