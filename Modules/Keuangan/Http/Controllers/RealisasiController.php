@@ -93,11 +93,11 @@ class RealisasiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'progres' => 'required|numeric',
-            'realisasi' => 'required|numeric',
+            'progres' => 'required|string|max:20',
+            'realisasi' => 'required|numeric|min:0|max:12',
             'laporan_keuangan' => 'required|file|mimes:pdf|max:5120',
             'laporan_kegiatan' => 'required|file|mimes:pdf|max:5120',
-            'ketercapaian_output' => 'required|string',
+            'ketercapaian_output' => 'required|string|max:100',
             'tanggal_kontrak' => 'required|date',
             'tanggal_pembayaran' => 'required|date',
             'sub_perencanaan_id' => 'required|exists:sub_perencanaans,id',
