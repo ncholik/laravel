@@ -147,8 +147,13 @@ class KeuanganTriwulanController extends Controller
         $persentasePerBulan = [];
 
         for ($i = $bulanAwal; $i <= $bulanAkhir; $i++) {
-            $targetSum = $targetPerBulan[$i] ?? 0;
-            $realisasiSum = $realisasiPerBulan[$i] ?? 0;
+            $targetSum = 0;
+            $realisasiSum = 0;
+
+            for ($j = 1; $j <= $i; $j++) {
+                $targetSum += $targetPerBulan[$j] ?? 0;
+                $realisasiSum += $realisasiPerBulan[$j] ?? 0;
+            }
 
             $target[] = $targetSum;
             $realisasi[] = $realisasiSum;
