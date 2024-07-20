@@ -14,9 +14,9 @@
             <div class="card">
                 <div class="card-header">Tambah Realisasi</div>
                 <div class="card-body">
-                    <button class="btn btn-warning btn-sm mr-2" onclick="window.history.back()">
+                    <a href="{{ route('realisasi.index') }}" class="btn btn-warning btn-sm mr-2">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali
-                    </button>
+                    </a>                    
                     @if ($errors->any())
                         <ul class="alert alert-danger">
                             @foreach ($errors->all() as $error)
@@ -25,7 +25,7 @@
                         </ul>
                     @endif
 
-                    <form id="realisasi-form" method="POST" action="{{ route('realisasi.store') }}" accept-charset="UTF-8"
+                    <form id="realisasi-tambah" method="POST" action="{{ route('realisasi.store') }}" accept-charset="UTF-8"
                         class="form-horizontal" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input type="hidden" name="sub_perencanaan_id" value="{{ $subPerencanaanId }}">
@@ -42,7 +42,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        document.getElementById('realisasi-form').addEventListener('submit', function(event) {
+        document.getElementById('realisasi-tambah').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting immediately
 
             Swal.fire({
