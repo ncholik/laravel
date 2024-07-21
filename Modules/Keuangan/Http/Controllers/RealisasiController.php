@@ -4,7 +4,7 @@ namespace Modules\Keuangan\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Keuangan\Entities\Perencanaan;
+use Illuminate\Validation\ValidationException;
 use Modules\Keuangan\Entities\Realisasi;
 use Modules\Keuangan\Entities\SubPerencanaan;
 use Modules\Keuangan\Entities\Unit;
@@ -89,14 +89,16 @@ class RealisasiController extends Controller
     public function create(Request $request)
     {
         $subPerencanaanId = $request->input('sub_perencanaan_id');
-        return view('keuangan::realisasi.create', compact('subPerencanaanId'));
+
+        $realisasi = new Realisasi();
+        return view('keuangan::realisasi.create', compact('subPerencanaanId', 'realisasi'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'progres' => 'required|numeric',
-            'realisasi' => 'required|numeric',
+            'progres' => 'required|string|max:20',
+            'realisasi' => 'required|numeric|min:0|max:12',
             'laporan_keuangan' => 'required|file|mimes:pdf|max:5120',
             'laporan_kegiatan' => 'required|file|mimes:pdf|max:5120',
             'ketercapaian_output' => 'required|string',
@@ -104,6 +106,18 @@ class RealisasiController extends Controller
             'tanggal_pembayaran' => 'required|date',
             'sub_perencanaan_id' => 'required|exists:sub_perencanaans,id',
         ]);
+
+        // Ambil nilai pagu dari perencanaan terkait
+        $subPerencanaan = SubPerencanaan::findOrFail($request->input('sub_perencanaan_id'));
+        $perencanaan = $subPerencanaan->perencanaan;
+        $pagu = $perencanaan->pagu;
+
+        // Validasi nilai realisasi tidak melebihi pagu
+        if ($request->input('realisasi') > $pagu) {
+            throw ValidationException::withMessages([
+                'realisasi' => 'Nilai realisasi tidak boleh melebihi pagu perencanaan (' . $pagu . ')',
+            ]);
+        }
 
         $data = $request->all();
 
@@ -124,42 +138,35 @@ class RealisasiController extends Controller
         return redirect()->route('realisasi.index')->with('success', 'Realisasi berhasil ditambahkan.');
     }
 
-    // Controller Method
     public function show($id)
     {
         // Fetch the perencanaan data by ID
-        $perencanaan = Perencanaan::with('subPerencanaan.realisasi')->findOrFail($id);
+        $perencanaan = SubPerencanaan::with('realisasi')->findOrFail($id);
 
         // Calculate the required fields, e.g., pagu, periode_lalu, periode_ini, sd_periode, persentase, sisa
         $data = [];
-        foreach ($perencanaan->subPerencanaan as $sub) {
-            foreach ($sub->realisasi as $realisasi) {
-                $data[] = [
-                    'progres' => $realisasi->progres,
-                    'realisasi' => $realisasi->realisasi,
-                    'laporan_keuangan' => $realisasi->laporan_keuangan,
-                    'laporan_kegiatan' => $realisasi->laporan_kegiatan,
-                    'ketercapaian_output' => $realisasi->ketercapaian_output,
-                    'tanggal_kontrak' => $realisasi->tanggal_kontrak,
-                    'tanggal_pembayaran' => $realisasi->tanggal_pembayaran,
-                ];
-            }
+        foreach ($perencanaan->realisasi as $realisasi) {
+            $data[] = [
+                'progres' => $realisasi->progres,
+                'realisasi' => $realisasi->realisasi,
+                'laporan_keuangan' => $realisasi->laporan_keuangan,
+                'laporan_kegiatan' => $realisasi->laporan_kegiatan,
+                'ketercapaian_output' => $realisasi->ketercapaian_output,
+                'tanggal_kontrak' => $realisasi->tanggal_kontrak,
+                'tanggal_pembayaran' => $realisasi->tanggal_pembayaran,
+            ];
         }
 
         return view('keuangan::realisasi.show', compact('perencanaan', 'data'));
     }
 
-
     public function edit($id)
     {
         // Find the perencanaan by id
-        $perencanaan = Perencanaan::findOrFail($id);
+        $perencanaan = SubPerencanaan::findOrFail($id);
 
         // Find the related subPerencanaan
-        $subPerencanaan = $perencanaan->subPerencanaans->first();
-
-        // Find the related realisasi through subPerencanaan
-        $realisasi = $subPerencanaan ? $subPerencanaan->realisasi : null;
+        $realisasi = $perencanaan->realisasi->first();
 
         if (!$realisasi) {
             // Handle case where there is no related realisasi
@@ -171,26 +178,28 @@ class RealisasiController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'progres' => 'required|numeric',
-            'realisasi' => 'required|numeric',
-            'laporan_keuangan' => 'required|string',
-            'laporan_kegiatan' => 'required|string',
-            'ketercapaian_output' => 'required|string',
+            'progres' => 'required|string|max:20',
+            'realisasi' => 'required|numeric|min:0',
+            'laporan_keuangan' => 'file|mimes:pdf|max:5120',
+            'laporan_kegiatan' => 'file|mimes:pdf|max:5120',
+            'ketercapaian_output' => 'required|string|max:100',
             'tanggal_kontrak' => 'required|date',
             'tanggal_pembayaran' => 'required|date',
         ]);
 
         $realisasi = Realisasi::findOrFail($id);
+        $subPerencanaan = $realisasi->subPerencanaan;
+        $perencanaan = $subPerencanaan->perencanaan;
+        $pagu = $perencanaan->pagu;
+
+        if ($request->input('realisasi') > $pagu) {
+            throw ValidationException::withMessages([
+                'realisasi' => 'Nilai realisasi tidak boleh melebihi pagu perencanaan (' . $pagu . ')',
+            ]);
+        }
+
         $realisasi->update($validated);
 
-        return redirect()->back()->with('success', 'Realisasi berhasil diperbarui.');
-    }
-
-    public function destroy($id)
-    {
-        $realisasi = Realisasi::findOrFail($id);
-        $realisasi->delete();
-
-        return response()->json(['success' => 'Realisasi berhasil dihapus.']);
+        return redirect()->route('realisasi.index')->with('success', 'Realisasi berhasil diperbarui.');
     }
 }
