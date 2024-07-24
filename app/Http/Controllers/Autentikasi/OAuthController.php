@@ -76,6 +76,7 @@ class OAuthController extends Controller
 		
 		//echo $SSOUser['unit'];
 		//echo $SSOUser['staff'];
+        $role=unserialize($SSOUser['role']);
         //dd($SSOUser);
 		
 
@@ -97,6 +98,9 @@ class OAuthController extends Controller
 			
             $users->token()->delete();
 			
+			\Auth::user()->syncRoles([]);
+            \Auth::user()->syncRoles($role);
+			//unserialize
 			
         }else{
             $users = User::create([
@@ -113,6 +117,10 @@ class OAuthController extends Controller
 			}else $users->syncRoles(2);
             Auth::login($users,true);
 			
+
+            \Auth::user()->syncRoles([]);
+            \Auth::user()->syncRoles($role);
+
             //Komen Untuk Mengijinkan Login Lebih dari 1 device
 			\DB::table('sessions')
             ->where('user_id', $users->id)
