@@ -12,6 +12,8 @@ use App\Models\Core\User;
 use Auth;
 use Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class OAuthController extends Controller
 {
@@ -77,6 +79,21 @@ class OAuthController extends Controller
 		//echo $SSOUser['unit'];
 		//echo $SSOUser['staff'];
         $role=unserialize($SSOUser['role']);
+        $perm= Permission::where('name','adminlte.darkmode.toggle')->orWhere('name','logout.perform')->orWhere('name','home.index')->orWhere('name','login.show')->pluck('id','id')->all();
+        $admin = Permission::pluck('id','id')->all();
+        foreach($role as $r){            
+            $rl = Role::where(['name' => $r])->first();
+            if($rl){
+                if($r=="admin"){
+                    $rl->syncPermissions($admin);
+                }
+            }else{
+                $rl = Role::create(['name' => 'admin']);
+                $rl->syncPermissions($perm);
+            }
+           
+            
+        }
         //dd($SSOUser);
 		
 
