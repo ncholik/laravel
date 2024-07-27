@@ -7,7 +7,7 @@
                     <div class="col-md-6 {{ $errors->has('progres') ? 'has-error' : '' }}">
                         <label for="progres" class="control-label">{{ 'Progres' }}</label>
                         <input class="form-control" name="progres" type="text" id="progres"
-                            value="{{ old('progres', $realisasi->progres) }}" required>
+                            value="{{ old('progres', $realisasi->progres) }}" readonly>
                         {!! $errors->first('progres', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="col-md-6 {{ $errors->has('realisasi') ? 'has-error' : '' }}">
@@ -43,13 +43,15 @@
                     <div class="col-md-6 {{ $errors->has('tanggal_kontrak') ? 'has-error' : '' }}">
                         <label for="tanggal_kontrak" class="control-label">{{ 'Tanggal Kontrak' }}</label>
                         <input class="form-control" name="tanggal_kontrak" type="date" id="tanggal_kontrak"
-                            value="{{ old('tanggal_kontrak', $realisasi->tanggal_kontrak) }}" required>
+                            value="{{ old('tanggal_kontrak', $realisasi->tanggal_kontrak) }}"
+                            onchange="setProgres('Kontrak')">
                         {!! $errors->first('tanggal_kontrak', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="col-md-6 {{ $errors->has('tanggal_pembayaran') ? 'has-error' : '' }}">
                         <label for="tanggal_pembayaran" class="control-label">{{ 'Tanggal Pembayaran' }}</label>
                         <input class="form-control" name="tanggal_pembayaran" type="date" id="tanggal_pembayaran"
-                            value="{{ old('tanggal_pembayaran', $realisasi->tanggal_pembayaran) }}" required>
+                            value="{{ old('tanggal_pembayaran', $realisasi->tanggal_pembayaran) }}"
+                            onchange="setProgres('Pembayaran')">
                         {!! $errors->first('tanggal_pembayaran', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
@@ -61,3 +63,20 @@
             value="{{ $formMode === 'edit' ? 'Memperbarui' : 'Tambah' }}">
     </div>
 </div>
+
+<script>
+    function setProgres(progresType) {
+        var progresInput = document.getElementById('progres');
+        if (progresType === 'Kontrak') {
+            progresInput.value = 'Kontrak';
+        } else if (progresType === 'Pembayaran') {
+            progresInput.parentNode.innerHTML = `
+                <label for="laporan_keuangan" class="control-label">{{ 'Laporan Keuangan' }}</label>
+                <select class="form-control" name="progres" required>
+                    <option value="Pembayaran">Pembayaran</option>
+                    <option value="Selesai">Selesai</option>
+                </select>
+            `;
+        }
+    }
+</script>

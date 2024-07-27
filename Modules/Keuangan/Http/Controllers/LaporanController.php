@@ -20,6 +20,26 @@ class LaporanController extends Controller
     {
         $subPerencanaans = json_decode($request->input('sub_perencanaans'), true);
 
+        $totalPagu = 0;
+        $totalRealisasi = 0;
+        $totalSisa = 0;
+
+        foreach ($subPerencanaans as $item) {
+            $totalPagu += $item['pagu'];
+            $totalRealisasi += $item['realisasi'];
+            $totalSisa += $item['sisa'];
+        }
+
+        $totalPersentase = ($totalPagu > 0) ? ($totalRealisasi / $totalPagu) * 100 : 0;
+
+        // Siapkan data untuk dikirim ke view
+        $totals = [
+            'totalPagu' => $totalPagu,
+            'totalRealisasi' => $totalRealisasi,
+            'totalSisa' => $totalSisa,
+            'totalPersentase' => $totalPersentase,
+        ];
+
         // Pastikan direktori ada
         $pdfDirectory = 'laporan-realisasi/pdf';
         $excelDirectory = 'laporan-realisasi/excel';
@@ -33,7 +53,7 @@ class LaporanController extends Controller
         }
 
         // Generate PDF
-        $pdf = PDF::loadView('keuangan::laporan.cetak_laporan', compact('subPerencanaans'));
+        $pdf = PDF::loadView('keuangan::laporan.cetak_laporan', compact('subPerencanaans', 'totals'));
         $pdfFileName = 'laporan_realisasi_TA_' . now()->format('Ymd_His') . '.pdf';
         $pdfPath = $pdfDirectory . '/' . $pdfFileName;
         Storage::put('public/' . $pdfPath, $pdf->output());
@@ -69,25 +89,24 @@ class LaporanController extends Controller
     public function reset()
     {
         $laporan = session('laporan', []);
-    
+
         // Delete files from storage
         foreach ($laporan as $item) {
             $pdfPath = 'public/' . str_replace(url('storage/'), '', $item['pdf_path']);
             $excelPath = 'public/' . str_replace(url('storage/'), '', $item['excel_path']);
-    
+
             if (Storage::exists($pdfPath)) {
                 Storage::delete($pdfPath);
             }
-    
+
             if (Storage::exists($excelPath)) {
                 Storage::delete($excelPath);
             }
         }
-    
+
         // Clear the session
         session()->forget('laporan');
-    
+
         return back()->with('success', 'Semua laporan telah direset.');
     }
-    
 }

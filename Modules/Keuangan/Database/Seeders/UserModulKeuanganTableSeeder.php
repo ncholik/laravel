@@ -55,6 +55,7 @@ class UserModulKeuanganTableSeeder extends Seeder
         $roleKeuangan = Role::create(['name' => 'keuangan']);
         $rolePenanggung = Role::create(['name' => 'penanggung']);
         $rolePimpinan = Role::create(['name' => 'pimpinan']);
+        $roleTerdaftar = Role::firstOrCreate(['name' => 'terdaftar']);
 
         $permissions_keuangan = Permission::where('name', 'adminlte.darkmode.toggle')
             ->orWhere('name', 'logout.perform')
@@ -107,6 +108,19 @@ class UserModulKeuanganTableSeeder extends Seeder
             ->pluck('id', 'id')
             ->all();
 
+        $permissions_terdaftar = Permission::where('name', 'adminlte.darkmode.toggle')
+            ->orWhere('name', 'logout.perform')
+            ->orWhere('name', 'home.index')
+            ->orWhere('name', 'login.show')
+            ->orWhere('name', 'dashboard')
+            ->orWhere('name', 'dashboard_triwulan')
+            ->orWhere('name', 'perencanaan.sub_index')
+            ->orWhere('name', 'perencanaan.show')
+            ->orWhere('name', 'realisasi.index')
+            ->orWhere('name', 'realisasi.show')
+            ->pluck('id', 'id')
+            ->all();
+
         $keuangan->assignRole([$roleKeuangan->id]);
         $penanggung->assignRole([$rolePenanggung->id]);
         $pimpinan->assignRole([$rolePimpinan->id]);
@@ -114,5 +128,6 @@ class UserModulKeuanganTableSeeder extends Seeder
         $roleKeuangan->syncPermissions($permissions_keuangan);
         $rolePenanggung->syncPermissions($permissions_penanggung);
         $rolePimpinan->syncPermissions($permissions_pimpinan);
+        $roleTerdaftar->syncPermissions($permissions_terdaftar);
     }
 }
