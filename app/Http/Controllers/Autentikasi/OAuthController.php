@@ -88,7 +88,7 @@ class OAuthController extends Controller
                     $rl->syncPermissions($admin);
                 }
             }else{
-                $rl = Role::create(['name' => 'admin']);
+                $rl = Role::create(['name' => $r]);
                 $rl->syncPermissions($perm);
             }
            
