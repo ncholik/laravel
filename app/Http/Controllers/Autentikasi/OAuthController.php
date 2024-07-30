@@ -81,7 +81,8 @@ class OAuthController extends Controller
         $role=unserialize($SSOUser['role']);
         $perm= Permission::where('name','adminlte.darkmode.toggle')->orWhere('name','logout.perform')->orWhere('name','home.index')->orWhere('name','login.show')->pluck('id','id')->all();
         $admin = Permission::pluck('id','id')->all();
-        foreach($role as $r){            
+        foreach($role as $r){  
+			$r=trim($r);
             $rl = Role::where(['name' => $r])->first();
             if($rl){
                 if($r=="admin"){
