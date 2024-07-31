@@ -53,7 +53,6 @@
 
 <body>
     <h4>LAPORAN REALISASI TA 2024</h4>
-    <h6>Per Program; Kegiatan: Output; SubOutput; Komponen; SubKomponen; Akun; Item;</h6>
     <h6>Periode Juni 2024</h6>
     <br>
 
@@ -70,27 +69,21 @@
     <table class="table">
         <thead style="background-color: #007bff">
             <tr>
-                <th rowspan="2">Uraian</th>
-                <th rowspan="2">Anggaran Keuangan</th>
-                <th colspan="3">Realisasi TA 2024</th>
-                <th rowspan="2">%</th>
-                <th rowspan="2">SISA ANGGARAN</th>
-            </tr>
-            <tr>
-                <th>Periode Lalu</th>
-                <th>Periode Ini</th>
-                <th>s.d. Periode</th>
+                <th>PIC</th>
+                <th>Uraian</th>
+                <th>Anggaran Keuangan</th>
+                <th>Realisasi TA 2024</th>
+                <th>%</th>
+                <th>SISA ANGGARAN</th>
             </tr>
         </thead>
         <tbody>
             <tr style="background-color: #00f7ff;">
-                <th class="text-center">Jumlah Seluruhnya</th>
-                <th>cek</th>
-                <th>cek</th>
-                <th>cek</th>
-                <th>cek</th>
-                <th>cek</th>
-                <th>cek</th>
+                <th colspan="2" class="text-center">Jumlah Seluruhnya</th>
+                <th style="text-align: right">{{ str_replace(',', '.', number_format($totals['totalPagu'])) }}</th>
+                <th style="text-align: right">{{ str_replace(',', '.', number_format($totals['totalRealisasi'])) }}</th>
+                <th style="text-align: right">{{ number_format($totals['totalPersentase'], 2) }} %</th>
+                <th style="text-align: right">{{ str_replace(',', '.', number_format($totals['totalSisa'])) }}</th>
             </tr>
             @foreach ($subPerencanaans as $item)
                 <tr>
@@ -98,8 +91,8 @@
                     <td>{{ $item['kode'] }}. {{ $item['kegiatan'] }}</td>
                     <td>{{ str_replace(',', '.', number_format($item['pagu'])) }}</td>
                     <td>{{ str_replace(',', '.', number_format($item['realisasi'])) }}</td>
+                    <td>{{ number_format($item['persentase'], 2) }}%</td>
                     <td>{{ str_replace(',', '.', number_format($item['sisa'])) }}</td>
-                    <td>{{ number_format($item['persentase'], 2) }} %</td>
                 </tr>
             @endforeach
         </tbody>

@@ -19,7 +19,7 @@ class CreateMenusTable extends Migration
             $table->string('url', 500)->nullable();
             $table->string('icon', 50);
             $table->string('active', 100);
-            $table->string('can', 100);            
+            $table->string('can', 255);            
             $table->bigInteger('parent_id')->unsigned();
             $table->integer('urut');
             $table->timestamps();
