@@ -21,7 +21,7 @@ class CreatePegawaisTable extends Migration
             $table->bigInteger('id_staff')->unsigned()->nullable();
             $table->bigInteger('id_jurusan')->unsigned()->nullable();
             $table->bigInteger('id_prodi')->unsigned()->nullable();
-            $table->string('jenis_kelamin', 1)->nullable();
+            $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('agama', 100)->nullable();
             $table->string('no_tlp', 30)->nullable();
             $table->string('tmp_lahir', 20)->nullable();
@@ -29,12 +29,21 @@ class CreatePegawaisTable extends Migration
             $table->string('gol_darah', 5)->nullable();
             $table->string('gelar_dpn', 10)->nullable();
             $table->string('gelar_blk', 20)->nullable();
-            $table->string('status_kawin', 2)->nullable();
+            $table->enum('status_kawin', ['K', 'BK']);
             $table->string('kelurahan', 50)->nullable();
             $table->string('kecamatan', 50)->nullable();
             $table->string('kota', 50)->nullable();
             $table->string('provinsi', 50)->nullable();
 
+            $table->enum('status', [
+                'PNS',
+                'PPPK',
+                'Kontrak',
+                'LB',
+                'Non Aktif',
+                'CPNS',
+            ]);
+            $table->enum('jenis_pegawai', ['Dosen', 'Tendik']);
             $table->string('askes', 30)->nullable();
             $table->string('kode_dosen', 10)->nullable();
             $table->string('npwp', 30)->nullable();

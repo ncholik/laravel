@@ -15,6 +15,7 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
         Route::get('/', 'KepegawaianController@index');
 
         Route::resource('pegawai', 'PegawaisController');
+        Route::resource('pejabat', 'PejabatController');
 
     });
 });

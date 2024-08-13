@@ -2,6 +2,7 @@
 
 namespace Modules\Kepegawaian\Entities;
 
+use App\Models\Core\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -11,8 +12,8 @@ class Pegawai extends Model
     protected $connection = 'mysql';
     protected $guarded = ['id'];
     
-    protected static function newFactory()
+    public function user()
     {
-        return \Modules\Kepegawaian\Database\factories\PegawaiFactory::new();
+        return $this->belongsTo(User::class);
     }
 }

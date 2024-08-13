@@ -30,14 +30,17 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>NIP/NIPPPK/NIK</th><th>Nama</th><th>Actions</th>
+                                        <th>#</th>
+                                        <th>NIP/NIPPPK/NIK</th>
+                                        <th>Nama</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($pegawai as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nip }}</td><td>{{ $item->nama }}</td>
+                                        <td>{{ $item->nip }}</td>
+                                        <td>{{ $item->nama }}</td>
                                         <td>
                                             <a href="{{ url('/kepegawaian/pegawai/' . $item->id) }}" title="View JenisLuaran"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/kepegawaian/pegawai/' . $item->id . '/edit') }}" title="Edit JenisLuaran"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

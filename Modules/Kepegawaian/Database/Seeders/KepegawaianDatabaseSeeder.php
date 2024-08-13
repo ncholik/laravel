@@ -16,6 +16,7 @@ class KepegawaianDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(MenuModulKepegawaianTableSeeder::class);
+        $this->call(PejabatModulKepegawaianTableSeeder::class);
     }
 }

@@ -38,6 +38,17 @@ class MenuModulKepegawaianTableSeeder extends Seeder
                 'parent_id' => $menu->id,
                 'active' => serialize(['kepegawaian/pegawai','kepegawaian/pegawai*']),
             ]);
+
+            Menu::create([
+                'modul' => 'Kepegawaian',
+                'label' => 'Master Jabatan',
+                'url' => 'kepegawaian/pejabat',
+                'can' => serialize(['admin']),
+                'icon' => 'far fa-circle',
+                'urut' => 2,
+                'parent_id' => $menu->id,
+                'active' => serialize(['kepegawaian/pejabat','kepegawaian/pejabat*']),
+            ]);
         }
     }
 }

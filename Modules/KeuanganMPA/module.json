@@ -1,0 +1,13 @@
+{
+    "name": "KeuanganMPA",
+    "alias": "keuanganmpa",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\KeuanganMPA\\Providers\\KeuanganMPAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
